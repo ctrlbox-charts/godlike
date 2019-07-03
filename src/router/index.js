@@ -93,7 +93,67 @@ export const constantRouterMap = [
             path: 'pubu',
             component: () => import('@/views/echarts/pubu'),
             name: 'pubu',
-            meta: { title: '瀑布柱状图' }
+            meta: { title: '组成瀑布图' }
+          },
+          {
+            path: 'pubuChange',
+            component: () => import('@/views/echarts/pubuChange'),
+            name: 'pubuChange',
+            meta: { title: '阶梯瀑布图' }
+          },
+          {
+            path: 'zhengfuBar',
+            component: () => import('@/views/echarts/zhengfuBar'),
+            name: 'zhengfuBar',
+            meta: { title: '正负柱状图' }
+          },
+          {
+            path: 'mixBar',
+            component: () => import('@/views/echarts/mixBar'),
+            name: 'mixBar',
+            meta: { title: '混合柱状图' }
+          }
+        ]
+      },
+      {
+        path: 'pieIndex',
+        name: 'pieIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '饼状图', icon: 'chart' },
+        children: [
+          {
+            path: 'pie',
+            component: () => import('@/views/echarts/pie/pie'),
+            name: 'pie',
+            meta: { title: '标准饼状图' }
+          }
+        ]
+      },
+      {
+        path: 'line',
+        name: 'line',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '折线图', icon: 'chart' },
+        children: [
+          {
+            path: 'line',
+            component: () => import('@/views/echarts/line'),
+            name: 'line',
+            meta: { title: '标准折线图' }
+          }
+        ]
+      },
+      {
+        path: 'radar',
+        name: 'radar',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '雷达图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/radar'),
+            name: 'radar',
+            meta: { title: '雷达图' }
           }
         ]
       },

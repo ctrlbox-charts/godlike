@@ -7,16 +7,16 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <bar 
+    
+    <e-line 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></bar>
+    ></e-line>
   </div> 
 </template>
 <script>
-import bar from '@/components/Charts/bar'
 import eLine from '@/components/Charts/line'
 import EchartsFilter from './echarts-filter'
 // 全屏
@@ -31,70 +31,87 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = (function() {
-  const data = []
-  for (let i = 1; i < 13; i++) {
-    data.push(i + 'month')
-  }
-  return data
-}())
+const xData = ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55']
 const series = [
   {
-    name: '蒸发量',
-    type: 'bar',
-    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-    markPoint: {
-      data: [
-        { type: 'max', name: '最大值' },
-        { type: 'min', name: '最小值' }
-      ]
-    },
-    markLine: {
-      data: [
-        { type: 'average', name: '平均值' }
-      ]
-    }
+    name: '邮件营销',
+    type: 'line',
+    smooth: false,
+    // stack: '总量',
+    // areaStyle: {},
+    data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
   },
   {
-    name: '降水量',
-    type: 'bar',
-    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-    markPoint: {
-      data: [
-        { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183, symbolSize: 18 },
-        { name: '年最低', value: 2.3, xAxis: 11, yAxis: 3 }
-      ]
-    },
-    markLine: {
-      data: [
-        { type: 'average', name: '平均值' }
-      ]
+    name: '联盟广告',
+    type: 'line',
+    smooth: false,
+    // stack: '总量',
+    // areaStyle: {},
+    data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
+  },
+  {
+    name: '视频广告',
+    type: 'line',
+    smooth: false,
+    // stack: '总量',
+    // areaStyle: {},
+    data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
+  }]
+const legend = [{
+  top: 10,
+  // icon: 'rect',
+  // itemWidth: 14,
+  // itemHeight: 5,
+  // itemGap: 13,
+  data: ['邮件营销', '联盟广告', '视频广告']
+  // right: '4%',
+  // textStyle: {
+  //   fontSize: 12,
+  //   color: '#F1F1F3'
+  // }
+}]
+const xAxis = [{
+  type: 'category',
+  boundaryGap: false,
+  axisLine: {
+    lineStyle: {
+      color: '#57617B'
+    }
+  },
+  data: xData
+}]
+const yAxis = [{
+  type: 'value',
+  name: '(%)',
+  axisTick: {
+    show: false
+  },
+  axisLine: {
+    lineStyle: {
+      color: '#57617B'
+    }
+  },
+  axisLabel: {
+    margin: 10,
+    textStyle: {
+      fontSize: 14
+    }
+  },
+  splitLine: {
+    lineStyle: {
+      // color: '#57617B'
     }
   }
-]
-const legend = {
-  data: ['蒸发量', '降水量']
-}
-const xAxis = [
-  {
-    type: 'category',
-    data: xData
-  }
-]
-const yAxis = [
-  {
-    type: 'value'
-  }
-]
+}]
 export default {
-  name: 'barCharts',
-  components: { bar, EchartsFilter, eLine },
+  name: 'lineCharts',
+  components: { EchartsFilter, eLine },
   data() {
     return {
       themeType: null,
       chartsData: null,
       reload: false,
-      id: 'bar'
+      id: 'line'
     }
   },
   mounted() {
@@ -124,6 +141,7 @@ export default {
           yAxis: yAxis,
           xData: xData
         }
+        this.reload = !this.reload
       }, 10)
     },
     // 坐标切换
@@ -159,21 +177,6 @@ export default {
           this.$set(el, 'areaStyle', {})
         }
       })
-    },
-    handleChange(val) {
-      switch (val) {
-        case 'smooth':
-          this.changeSmooth()
-          break
-        case 'coordinate':
-          this.xyChange()
-          break
-        case 'stack':
-          this.changeStack()
-          break
-        default:
-          break
-      }
     }
   }
 }

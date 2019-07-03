@@ -31,70 +31,58 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = (function() {
-  const data = []
-  for (let i = 1; i < 13; i++) {
-    data.push(i + 'month')
-  }
-  return data
-}())
+const xData = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
 const series = [
   {
-    name: '蒸发量',
+    name: '利润',
     type: 'bar',
-    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-    markPoint: {
-      data: [
-        { type: 'max', name: '最大值' },
-        { type: 'min', name: '最小值' }
-      ]
-    },
-    markLine: {
-      data: [
-        { type: 'average', name: '平均值' }
-      ]
-    }
+    itemStyle: { normal: { label: { show: true, position: 'inside' }}},
+    data: [200, 170, 240, 244, 200, 220, 210]
   },
   {
-    name: '降水量',
+    name: '收入',
     type: 'bar',
-    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-    markPoint: {
-      data: [
-        { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183, symbolSize: 18 },
-        { name: '年最低', value: 2.3, xAxis: 11, yAxis: 3 }
-      ]
-    },
-    markLine: {
-      data: [
-        { type: 'average', name: '平均值' }
-      ]
-    }
+    stack: '总量',
+    barWidth: 5,
+    itemStyle: { normal: {
+      label: { show: true }
+    }},
+    data: [320, 302, 341, 374, 390, 450, 420]
+  },
+  {
+    name: '支出',
+    type: 'bar',
+    stack: '总量',
+    itemStyle: { normal: {
+      label: { show: true, position: 'left' }
+    }},
+    data: [-120, -132, -101, -134, -190, -230, -210]
   }
 ]
 const legend = {
-  data: ['蒸发量', '降水量']
+  data: ['利润', '支出', '收入']
 }
 const xAxis = [
-  {
-    type: 'category',
-    data: xData
-  }
-]
-const yAxis = [
   {
     type: 'value'
   }
 ]
+const yAxis = [
+  {
+    type: 'category',
+    axisTick: { show: false },
+    data: xData
+  }
+]
 export default {
-  name: 'barCharts',
+  name: 'pubuCharts',
   components: { bar, EchartsFilter, eLine },
   data() {
     return {
       themeType: null,
       chartsData: null,
       reload: false,
-      id: 'bar'
+      id: 'pubu'
     }
   },
   mounted() {
@@ -142,9 +130,6 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
     },
     // 堆叠
     changeStack() {

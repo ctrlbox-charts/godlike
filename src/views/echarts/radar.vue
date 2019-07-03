@@ -7,17 +7,16 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <bar 
+    <e-radar 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></bar>
+    ></e-radar>
   </div> 
 </template>
 <script>
-import bar from '@/components/Charts/bar'
-import eLine from '@/components/Charts/line'
+import ERadar from '@/components/Charts/radar'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -31,70 +30,49 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = (function() {
-  const data = []
-  for (let i = 1; i < 13; i++) {
-    data.push(i + 'month')
-  }
-  return data
-}())
 const series = [
   {
-    name: '蒸发量',
-    type: 'bar',
-    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-    markPoint: {
-      data: [
-        { type: 'max', name: '最大值' },
-        { type: 'min', name: '最小值' }
-      ]
-    },
-    markLine: {
-      data: [
-        { type: 'average', name: '平均值' }
-      ]
-    }
-  },
-  {
-    name: '降水量',
-    type: 'bar',
-    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-    markPoint: {
-      data: [
-        { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183, symbolSize: 18 },
-        { name: '年最低', value: 2.3, xAxis: 11, yAxis: 3 }
-      ]
-    },
-    markLine: {
-      data: [
-        { type: 'average', name: '平均值' }
-      ]
-    }
+    name: '预算 vs 开销（Budget vs spending）',
+    type: 'radar',
+    data: [
+      {
+        value: [4300, 10000, 28000, 35000, 50000, 19000],
+        name: '预算分配（Allocated Budget）'
+      },
+      {
+        value: [5000, 14000, 28000, 31000, 42000, 21000],
+        name: '实际开销（Actual Spending）'
+      }
+    ]
   }
 ]
-const legend = {
-  data: ['蒸发量', '降水量']
-}
-const xAxis = [
+const legend = [{
+  // orient: 'vertical',
+  // x: 'right',
+  // y: 'bottom',
+  data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+}]
+const polar = [
   {
-    type: 'category',
-    data: xData
-  }
-]
-const yAxis = [
-  {
-    type: 'value'
+    indicator: [
+      { text: '销售（sales）', max: 6000 },
+      { text: '管理（Administration）', max: 16000 },
+      { text: '信息技术（Information Techology）', max: 30000 },
+      { text: '客服（Customer Support）', max: 38000 },
+      { text: '研发（Development）', max: 52000 },
+      { text: '市场（Marketing）', max: 25000 }
+    ]
   }
 ]
 export default {
-  name: 'barCharts',
-  components: { bar, EchartsFilter, eLine },
+  name: 'lineCharts',
+  components: { EchartsFilter, ERadar },
   data() {
     return {
       themeType: null,
       chartsData: null,
       reload: false,
-      id: 'bar'
+      id: 'line'
     }
   },
   mounted() {
@@ -120,18 +98,17 @@ export default {
         this.chartsData = {
           series: series,
           legend: legend,
-          xAxis: xAxis,
-          yAxis: yAxis,
-          xData: xData
+          polar
         }
+        this.reload = !this.reload
       }, 10)
     },
     // 坐标切换
     xyChange() {
-      const temp = this.chartsData.xAxis
-      this.chartsData.xAxis = this.chartsData.yAxis
-      this.chartsData.yAxis = temp
-      this.reload = !this.reload
+      // const temp = this.chartsData.xAxis
+      // this.chartsData.xAxis = this.chartsData.yAxis
+      // this.chartsData.yAxis = temp
+      // this.reload = !this.reload
     },
     // 图形切换
     chartsChange(type) {
@@ -159,21 +136,6 @@ export default {
           this.$set(el, 'areaStyle', {})
         }
       })
-    },
-    handleChange(val) {
-      switch (val) {
-        case 'smooth':
-          this.changeSmooth()
-          break
-        case 'coordinate':
-          this.xyChange()
-          break
-        case 'stack':
-          this.changeStack()
-          break
-        default:
-          break
-      }
     }
   }
 }
