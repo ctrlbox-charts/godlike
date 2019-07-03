@@ -52,11 +52,6 @@ export default {
     return {
       header: [], // 头部
       data_list: [], // 数据
-      series: [],
-      legend: [],
-      xAxis: [],
-      yAxis: [],
-      update: false, // 变化标识
       options: barOptions
     }
   },

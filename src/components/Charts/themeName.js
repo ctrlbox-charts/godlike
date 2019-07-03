@@ -45,9 +45,7 @@ const barOptions = {
   calculable: true,
   // 数据区域缩放
   dataZoom: [{
-    show: true,
-    start: 10,
-    end: 80
+    show: true
   },
   { // 鼠标滚轮缩放
     type: 'inside',
