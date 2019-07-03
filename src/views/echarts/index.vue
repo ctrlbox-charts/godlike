@@ -11,7 +11,7 @@
     :id="id"
     :themeType = 'themeType'
     ></bar>
-  </div>
+  </div> 
 </template>
 <script>
 import bar from '@/components/Charts/bar'
