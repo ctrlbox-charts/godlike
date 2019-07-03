@@ -20,18 +20,15 @@ import bar from '@/components/Charts/bar'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
-    if(element.requestFullscreen){
-        element.requestFullscreen();
-    }
-    else if(element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    }
-    else if(element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    }
-    else if(element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-    }
+  if (element.requestFullscreen) {
+    element.requestFullscreen()
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen()
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen()
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen()
+  }
 }
 const xData = (function() {
   const data = []
@@ -128,10 +125,10 @@ const options = {
 }
 export default {
   name: 'barCharts',
-  components: { bar,EchartsFilter },
+  components: { bar, EchartsFilter },
   data() {
     return {
-      themeType:null,
+      themeType: null,
       chartsData: null,
       reload: false,
       id: 'bar'
@@ -142,16 +139,16 @@ export default {
   },
   methods: {
     // 全屏 by wwh
-    clickScreen(){
-      var full=document.getElementById('bar');
-      launchIntoFullscreen(full);
+    clickScreen() {
+      var full = document.getElementById('bar')
+      launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
-    clickScreenAll () {
+    clickScreenAll() {
 
     },
-    //主题切换 by wwh
-    themeChange (val){
+    // 主题切换 by wwh
+    themeChange(val) {
       this.themeType = val
     },
     init() {
