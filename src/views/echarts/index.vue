@@ -1,10 +1,15 @@
 <template>
-  <div class="charts-box-root">
+  <div class="gw-charts-components">
+    <echarts-filter 
+    @themeChange = 'themeChange'  
+    @chartsChange="chartsChange" 
+    @xyChange = 'xyChange' 
+    @clickScreen = 'clickScreen'/>
     <bar 
     :chartsData="chartsData" 
     :reload="reload"
-    @xyChange="xyChange"
-    @chartsChange="chartsChange"
+    :id="id"
+    :themeType = 'themeType'
     ></bar>
     <e-line
     :chartsData="chartsData"
@@ -17,7 +22,19 @@
 </template>
 <script>
 import bar from '@/components/Charts/bar'
-import eLine from '@/components/Charts/line/index'
+import EchartsFilter from './echarts-filter'
+// 全屏
+function launchIntoFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen()
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen()
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen()
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen()
+  }
+}
 const xData = (function() {
   const data = []
   for (let i = 1; i < 13; i++) {
@@ -63,18 +80,6 @@ const options = {
   ],
   // 通用
   series: [
-    // {
-    //   name: '辅助',
-    //   type: 'bar',
-    //   stack: '总量',
-    //   itemStyle: {
-    //     normal: {
-    //       barBorderColor: 'rgba(0,0,0,0)',
-    //       color: 'rgba(0,0,0,0)'
-    //     }
-    //   },
-    //   data: [0, 10, 20, 30, 40, 50, 60, 80, 100, 200, 300]
-    // },
     {
       name: '蒸发量',
       type: 'bar', // 图表类型，折线图line、散点图scatter、柱状图bar、饼图pie、雷达图radar
@@ -125,34 +130,45 @@ const options = {
 }
 export default {
   name: 'barCharts',
-  components: { bar, eLine },
+  components: { bar, EchartsFilter },
   data() {
     return {
+      themeType: null,
       chartsData: null,
-      reload: false
+      reload: false,
+      id: 'bar'
     }
   },
   mounted() {
     this.init()
   },
   methods: {
+    // 全屏 by wwh
+    clickScreen() {
+      var full = document.getElementById('bar')
+      launchIntoFullscreen(full)
+    },
+    // 主题切换 by wwh
+    themeChange(val) {
+      this.themeType = val
+    },
     init() {
       setTimeout(() => {
         this.chartsData = options
       }, 10)
     },
+    // 坐标切换
     xyChange() {
       const temp = this.chartsData.xAxis
       this.chartsData.xAxis = this.chartsData.yAxis
       this.chartsData.yAxis = temp
       this.reload = !this.reload
     },
+    // 图形切换
     chartsChange(type) {
-      console.log(type)
       this.chartsData.series.forEach(item => {
         item.type = type
       })
-      console.log(this.chartsData.series)
       this.reload = !this.reload
     },
     // 光滑
