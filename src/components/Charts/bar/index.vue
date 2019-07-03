@@ -28,7 +28,7 @@
             </el-select>
           </div>
         </el-col>
-        <el-col :span="7">
+        <el-col :span="3">
           <div>
             <el-button type="primary" @click="xyChange">坐标切换</el-button>
           </div>
@@ -85,6 +85,22 @@ export default {
         {
           value: 'line',
           label: '折线图'
+        },
+        {
+          value: 'jieti',
+          label: '阶梯瀑布图'
+        },
+        {
+          value: 'zucheng',
+          label: '组成瀑布图'
+        },
+        {
+          value: 'zhengfu',
+          label: '正负柱状图'
+        },
+        {
+          value: 'mix',
+          label: '曲线柱状混合图'
         }
       ],
       header: [], // 头部

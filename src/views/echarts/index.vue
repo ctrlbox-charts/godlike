@@ -4,8 +4,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     @xyChange="xyChange"
-    @chartsChange="chartsChange"
-    ></bar>
+    @chartsChange="chartsChange"></bar>
   </div> 
 </template>
 <script>
@@ -140,11 +139,9 @@ export default {
       this.reload = !this.reload
     },
     chartsChange(type) {
-      console.log(type)
       this.chartsData.series.forEach(item => {
         item.type = type
       })
-      console.log(this.chartsData.series)
       this.reload = !this.reload
     }
   }
