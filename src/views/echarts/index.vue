@@ -6,7 +6,7 @@
     @xyChange="xyChange"
     @chartsChange="chartsChange"
     ></bar>
-  </div>
+  </div> 
 </template>
 <script>
 import bar from '@/components/Charts/bar'
