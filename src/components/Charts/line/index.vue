@@ -33,13 +33,9 @@
       <LineChart 
       title="折线图标题" 
       :id="id" 
-      :options='chartsData'
+      :options='chartsDataObj'
       :reload='reload'
       :themeName="themeName"
-      :series='series'
-      :yAxis='yAxis'
-      :xAxis='xAxis'
-      :legend='legend'
       class="echarts"
       >
       </LineChart>
@@ -61,6 +57,7 @@
 
 <script>
 import LineChart from './line'
+import options from './options'
 export default {
   props: {
     chartsData: {
@@ -79,77 +76,6 @@ export default {
       isStack: true, // 是否是堆积折线图
       header: [], // 头部
       data_list: [], // 数据
-      series: [
-        {
-          name: '邮件营销',
-          type: 'line',
-          smooth: true,
-          stack: '总量',
-          areaStyle: {},
-          data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
-        },
-        {
-          name: '联盟广告',
-          type: 'line',
-          smooth: true,
-          stack: '总量',
-          areaStyle: {},
-          data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
-        },
-        {
-          name: '视频广告',
-          type: 'line',
-          smooth: true,
-          stack: '总量',
-          areaStyle: {},
-          data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
-        }],
-      yAxis: [{
-        type: 'value',
-        name: '(%)',
-        axisTick: {
-          show: false
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#57617B'
-          }
-        },
-        axisLabel: {
-          margin: 10,
-          textStyle: {
-            fontSize: 14
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#57617B'
-          }
-        }
-      }],
-      xAxis: [{
-        type: 'category',
-        boundaryGap: false,
-        axisLine: {
-          lineStyle: {
-            color: '#57617B'
-          }
-        },
-        data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55']
-      }],
-      legend: {
-        top: 20,
-        // icon: 'rect',
-        // itemWidth: 14,
-        // itemHeight: 5,
-        // itemGap: 13,
-        data: ['邮件营销', '联盟广告', '视频广告']
-        // right: '4%',
-        // textStyle: {
-        //   fontSize: 12,
-        //   color: '#F1F1F3'
-        // }
-      },
       tableData: [
         {
           date: '2019.07.02',
@@ -216,7 +142,8 @@ export default {
           value: 'stack',
           label: '堆叠折线图'
         }
-      ]
+      ],
+      chartsDataObj: {}
     }
   },
   components: {
@@ -224,6 +151,7 @@ export default {
   },
   watch: {
     chartsData() {
+      this.chartsDataObj = options
       this.handleData()
     }
   },
@@ -263,10 +191,30 @@ export default {
     },
     // 坐标轴切换
     xyChange() {
-      var temp = this.xAxis
-      this.xAxis = this.yAxis
-      this.yAxis = temp
+      var temp = this.chartsDataObj.xAxis
+      this.chartsDataObj.xAxis = this.chartsDataObj.yAxis
+      this.chartsDataObj.yAxis = temp
       this.reload = !this.reload
+    },
+    // 折线是否平滑
+    changeSmooth() {
+      this.chartsDataObj.series.forEach(el => {
+        this.$set(el, 'smooth', !el.smooth)
+      })
+    },
+    // 堆叠
+    changeStack() {
+      this.chartsDataObj.series.forEach(el => {
+        if (el.stack) {
+          this.$set(el, 'stack', '')
+          if (el.hasOwnProperty('areaStyle')) {
+            this.$delete(el, 'areaStyle')
+          }
+        } else {
+          this.$set(el, 'stack', '总量')
+          this.$set(el, 'areaStyle', {})
+        }
+      })
     }
   }
 }

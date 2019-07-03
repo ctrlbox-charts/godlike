@@ -18,11 +18,17 @@
     :reload="reload"
     >
     </e-line>
+    <e-radar
+    :chartsData="chartsData"
+    :reload="reload"
+    >
+    </e-radar>
   </div> 
 </template>
 <script>
 import bar from '@/components/Charts/bar'
-import eLine from '@/components/Charts/line'
+import ELine from '@/components/Charts/line'
+import Eradar from '@/components/Charts/radar'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -131,7 +137,7 @@ const options = {
 }
 export default {
   name: 'barCharts',
-  components: { bar, EchartsFilter, eLine },
+  components: { bar, EchartsFilter, ELine, Eradar },
   data() {
     return {
       themeType: null,
@@ -175,41 +181,6 @@ export default {
         item.type = type
       })
       this.reload = !this.reload
-    },
-    // 光滑
-    changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
-    },
-    // 堆叠
-    changeStack() {
-      this.chartsData.series.forEach(el => {
-        if (el.stack) {
-          this.$set(el, 'stack', '')
-          if (el.hasOwnProperty('areaStyle')) {
-            this.$delete(el, 'areaStyle')
-          }
-        } else {
-          this.$set(el, 'stack', '总量')
-          this.$set(el, 'areaStyle', {})
-        }
-      })
-    },
-    handleChange(val) {
-      switch (val) {
-        case 'smooth':
-          this.changeSmooth()
-          break
-        case 'coordinate':
-          this.xyChange()
-          break
-        case 'stack':
-          this.changeStack()
-          break
-        default:
-          break
-      }
     }
   }
 }
