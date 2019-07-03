@@ -29,7 +29,7 @@ export default {
       default: '统计图标题'
     },
     // 折线图主题
-    themeName: {
+    themeType: {
       type: String,
       default: 'light'
     },
@@ -54,7 +54,15 @@ export default {
       }
       this.chart.dispose()
       this.chart = null
-      this.initChart(this.options, this.themeName)
+      this.initChart(this.options)
+    },
+    themeType(val) {
+      if (!this.chart) {
+        return
+      }
+      this.chart.dispose()
+      this.chart = null
+      this.initChart(this.options)
     },
     options: {
       handler(val) {
@@ -63,13 +71,13 @@ export default {
         }
         this.chart.dispose()
         this.chart = null
-        this.initChart(this.options, this.themeName)
+        this.initChart(this.options)
       },
       deep: true
     }
   },
   mounted() {
-    this.initChart(this.options, this.themeName)
+    this.initChart(this.options)
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -81,7 +89,7 @@ export default {
   methods: {
     initChart(options, theme) {
       if (!document.getElementById(this.id)) return
-      this.chart = this.$echarts.init(document.getElementById(this.id), theme)
+      this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(options)
     }
   }

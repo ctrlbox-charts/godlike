@@ -38,7 +38,7 @@ const options = {
       }
     }
   },
-  legend: {
+  legend: [{
     top: 20,
     // icon: 'rect',
     // itemWidth: 14,
@@ -50,7 +50,7 @@ const options = {
     //   fontSize: 12,
     //   color: '#F1F1F3'
     // }
-  },
+  }],
   grid: {
     top: 100,
     left: '2%',

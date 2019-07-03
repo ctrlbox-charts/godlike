@@ -13,11 +13,6 @@
     :id="id"
     :themeType = 'themeType'
     ></bar>
-    <e-line
-    :chartsData="chartsData"
-    :reload="reload"
-    >
-    </e-line>
   </div> 
 </template>
 <script>

@@ -96,6 +96,34 @@ export const constantRouterMap = [
             meta: { title: '瀑布柱状图' }
           }
         ]
+      },
+      {
+        path: 'line',
+        name: 'line',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '折线图', icon: 'chart' },
+        children: [
+          {
+            path: 'line',
+            component: () => import('@/views/echarts/line'),
+            name: 'line',
+            meta: { title: '标准折线图' }
+          }
+        ]
+      },
+      {
+        path: 'radar',
+        name: 'radar',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '雷达图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/radar'),
+            name: 'radar',
+            meta: { title: '雷达图' }
+          }
+        ]
       }
     ]
   },

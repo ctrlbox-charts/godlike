@@ -7,17 +7,16 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    
-    <e-line 
+    <e-radar 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></e-line>
+    ></e-radar>
   </div> 
 </template>
 <script>
-import eLine from '@/components/Charts/line'
+import ERadar from '@/components/Charts/radar'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -31,81 +30,43 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55']
 const series = [
   {
-    name: '邮件营销',
-    type: 'line',
-    smooth: false,
-    // stack: '总量',
-    // areaStyle: {},
-    data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
-  },
-  {
-    name: '联盟广告',
-    type: 'line',
-    smooth: false,
-    // stack: '总量',
-    // areaStyle: {},
-    data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
-  },
-  {
-    name: '视频广告',
-    type: 'line',
-    smooth: false,
-    // stack: '总量',
-    // areaStyle: {},
-    data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
-  }]
-const legend = [{
-  top: 10,
-  // icon: 'rect',
-  // itemWidth: 14,
-  // itemHeight: 5,
-  // itemGap: 13,
-  data: ['邮件营销', '联盟广告', '视频广告']
-  // right: '4%',
-  // textStyle: {
-  //   fontSize: 12,
-  //   color: '#F1F1F3'
-  // }
-}]
-const xAxis = [{
-  type: 'category',
-  boundaryGap: false,
-  axisLine: {
-    lineStyle: {
-      color: '#57617B'
-    }
-  },
-  data: xData
-}]
-const yAxis = [{
-  type: 'value',
-  name: '(%)',
-  axisTick: {
-    show: false
-  },
-  axisLine: {
-    lineStyle: {
-      color: '#57617B'
-    }
-  },
-  axisLabel: {
-    margin: 10,
-    textStyle: {
-      fontSize: 14
-    }
-  },
-  splitLine: {
-    lineStyle: {
-      // color: '#57617B'
-    }
+    name: '预算 vs 开销（Budget vs spending）',
+    type: 'radar',
+    data: [
+      {
+        value: [4300, 10000, 28000, 35000, 50000, 19000],
+        name: '预算分配（Allocated Budget）'
+      },
+      {
+        value: [5000, 14000, 28000, 31000, 42000, 21000],
+        name: '实际开销（Actual Spending）'
+      }
+    ]
   }
+]
+const legend = [{
+  // orient: 'vertical',
+  // x: 'right',
+  // y: 'bottom',
+  data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
 }]
+const polar = [
+  {
+    indicator: [
+      { text: '销售（sales）', max: 6000 },
+      { text: '管理（Administration）', max: 16000 },
+      { text: '信息技术（Information Techology）', max: 30000 },
+      { text: '客服（Customer Support）', max: 38000 },
+      { text: '研发（Development）', max: 52000 },
+      { text: '市场（Marketing）', max: 25000 }
+    ]
+  }
+]
 export default {
   name: 'lineCharts',
-  components: { EchartsFilter, eLine },
+  components: { EchartsFilter, ERadar },
   data() {
     return {
       themeType: null,
@@ -137,19 +98,17 @@ export default {
         this.chartsData = {
           series: series,
           legend: legend,
-          xAxis: xAxis,
-          yAxis: yAxis,
-          xData: xData
+          polar
         }
         this.reload = !this.reload
       }, 10)
     },
     // 坐标切换
     xyChange() {
-      const temp = this.chartsData.xAxis
-      this.chartsData.xAxis = this.chartsData.yAxis
-      this.chartsData.yAxis = temp
-      this.reload = !this.reload
+      // const temp = this.chartsData.xAxis
+      // this.chartsData.xAxis = this.chartsData.yAxis
+      // this.chartsData.yAxis = temp
+      // this.reload = !this.reload
     },
     // 图形切换
     chartsChange(type) {

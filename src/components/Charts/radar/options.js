@@ -1,17 +1,17 @@
 const options = {
-  title: {
-    text: '预算 vs 开销（Budget vs spending）',
-    subtext: '纯属虚构'
-  },
+  // title: {
+  //   text: '预算 vs 开销（Budget vs spending）',
+  //   subtext: '纯属虚构'
+  // },
   tooltip: {
     trigger: 'axis'
   },
-  legend: {
-    orient: 'vertical',
-    x: 'right',
-    y: 'bottom',
+  legend: [{
+    // orient: 'vertical',
+    // x: 'right',
+    // y: 'bottom',
     data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-  },
+  }],
   toolbox: {
     show: true,
     feature: {
@@ -38,6 +38,14 @@ const options = {
     {
       name: '预算 vs 开销（Budget vs spending）',
       type: 'radar',
+      // 填充雷达图
+      // itemStyle: {
+      //   normal: {
+      //     areaStyle: {
+      //       type: 'default'
+      //     }
+      //   }
+      // },
       data: [
         {
           value: [4300, 10000, 28000, 35000, 50000, 19000],

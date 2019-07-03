@@ -50,9 +50,10 @@ export default {
     radar
   },
   watch: {
-    chartsData() {
+    chartsData(val) {
       this.chartsDataObj = options
-      this.handleData()
+      // this.handleData()
+      this.updateCharts(val)
     }
   },
   beforeDestroy() {
@@ -63,6 +64,14 @@ export default {
     // this.chart = null
   },
   methods: {
+    // 更新数据
+    updateCharts() {
+      const { series, legend, polar } = this.chartsData
+      this.chartsDataObj.tooltip = series
+      this.chartsDataObj.legend = legend
+      this.chartsDataObj.polar = polar
+    },
+
     // 动态渲染数据
     handleData() {
       let arr = []
