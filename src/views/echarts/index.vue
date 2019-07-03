@@ -133,7 +133,7 @@ export default {
     },
     // 坐标切换
     xyChange() {
-      const temp = this.barXAxis
+      const temp = this.chartsData.xAxis
       this.chartsData.xAxis = this.chartsData.yAxis
       this.chartsData.yAxis = temp
       this.reload = !this.reload
