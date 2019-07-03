@@ -4,18 +4,25 @@
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
-    @clickScreen = 'clickScreen'/>
-
+    @clickScreen = 'clickScreen'
+    @clickScreenAll = 'clickScreenAll'
+    />
     <bar 
-      :id="id"
-      :reload="reload"
-      :chartsData="chartsData"
-      :themeType = 'themeType'>
-    </bar>
+    :chartsData="chartsData" 
+    :reload="reload"
+    :id="id"
+    :themeType = 'themeType'
+    ></bar>
+    <e-line
+    :chartsData="chartsData"
+    :reload="reload"
+    >
+    </e-line>
   </div> 
 </template>
 <script>
 import bar from '@/components/Charts/bar'
+import eLine from '@/components/Charts/line'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -86,7 +93,7 @@ const yAxis = [
 ]
 export default {
   name: 'barCharts',
-  components: { bar, EchartsFilter },
+  components: { bar, EchartsFilter, eLine },
   data() {
     return {
       themeType: null,
@@ -103,6 +110,10 @@ export default {
     clickScreen() {
       var full = document.getElementById('bar')
       launchIntoFullscreen(full)
+    },
+    // 一屏多图 by wwh
+    clickScreenAll() {
+
     },
     // 主题切换 by wwh
     themeChange(val) {
@@ -133,10 +144,48 @@ export default {
         item.type = type
       })
       this.reload = !this.reload
+    },
+    // 光滑
+    changeSmooth() {
+      // this.chartsData.series.forEach(el => {
+      //   this.$set(el, 'smooth', !el.smooth)
+      // })
+    },
+    // 堆叠
+    changeStack() {
+      this.chartsData.series.forEach(el => {
+        if (el.stack) {
+          this.$set(el, 'stack', '')
+          if (el.hasOwnProperty('areaStyle')) {
+            this.$delete(el, 'areaStyle')
+          }
+        } else {
+          this.$set(el, 'stack', '总量')
+          this.$set(el, 'areaStyle', {})
+        }
+      })
+    },
+    handleChange(val) {
+      switch (val) {
+        case 'smooth':
+          this.changeSmooth()
+          break
+        case 'coordinate':
+          this.xyChange()
+          break
+        case 'stack':
+          this.changeStack()
+          break
+        default:
+          break
+      }
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.charts-box-root{
+  padding-bottom: 100px;
+}
 </style>
 

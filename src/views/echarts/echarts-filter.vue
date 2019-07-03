@@ -66,7 +66,7 @@ export default {
       this.$emit('clickScreen')
     },
     clickScreenAll() {
-
+      this.$emit('clickScreenAll')
     }
   }
 }
