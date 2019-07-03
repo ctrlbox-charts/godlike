@@ -4,6 +4,7 @@
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
+    @dataView = 'dataView'
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
@@ -11,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :dataViewVisible = 'dataViewVisible'
     :themeType = 'themeType'
     ></bar>
     <e-line
@@ -137,7 +139,9 @@ export default {
       themeType: null,
       chartsData: null,
       reload: false,
-      id: 'bar'
+      id: 'bar',
+      // 数据视图
+      dataViewVisible: true
     }
   },
   mounted() {
@@ -152,6 +156,10 @@ export default {
     // 一屏多图 by wwh
     clickScreenAll() {
 
+    },
+    // 数据视图
+    dataView (val){
+      this.dataViewVisible = val
     },
     // 主题切换 by wwh
     themeChange(val) {

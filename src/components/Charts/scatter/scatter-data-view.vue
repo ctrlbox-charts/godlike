@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container" >
-    <chart height="100%" width="60%" 
+    <scatter height="100%" width="60%" 
     className="barCharts" :id="id"
     :themeType="themeType"
     :chartsData="chartsData"
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import Chart from './bar'
+import Scatter from './index'
 // import themeName from '../themeName'
 // function launchIntoFullscreen(element) {
 //   if (element.requestFullscreen) {
@@ -35,7 +35,7 @@ import Chart from './bar'
 // }
 export default {
   name: 'barCharts',
-  components: { Chart },
+  components: { Scatter },
   props: {
     // 插件数据
     chartsData: {
@@ -77,11 +77,13 @@ export default {
     // 动态渲染数据
     handleData() {
       let arr = []
-      this.header = this.chartsData.series.map(x => x.name)
-      this.header.unshift('#')
-      arr = this.chartsData.series.map(x => x.data)
-      arr.unshift(this.chartsData.xData)
-      this.data_list = this.merge(arr)
+      if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
+        this.header = this.chartsData.series.map(x => x.name)
+        this.header.unshift('#')
+        arr = this.chartsData.series.map(x => x.data)
+        arr.unshift(this.chartsData.xData)
+        this.data_list = this.merge(arr)
+      }
     },
     // 数组处理
     merge(arrs) {
