@@ -30,22 +30,40 @@ export default {
       type: String,
       default: 'macarons'
     },
-    chartsData: {
-      type: Object,
-      default: () => {}
+    // 通用参数
+    series: {
+      type: Array,
+      default: () => []
+    },
+    // 图例参数
+    legend: {
+      type: Array,
+      default: () => []
+    },
+    // 横轴参数
+    xAxis: {
+      type: Array,
+      default: () => []
+    },
+    // 纵轴参数
+    yAxis: {
+      type: Array,
+      default: () => []
     },
     reload: {
       type: Boolean,
       default: false
+    },
+    // 数据参数
+    chartsData: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
       chart: null
     }
-  },
-  mounted() {
-    // this.initChart() // 初始化
   },
   beforeDestroy() {
     if (!this.chart) {

@@ -31,12 +31,12 @@
 </div>
 </template>
 <script>
-import themeName from '@/components/Charts/themeName'
+import { themeName } from '@/components/Charts/themeName'
 export default {
   data() {
     return {
       options: themeName, // 主题名称
-      themeType: 'macarons',
+      themeType: 'default',
       magicType: 'bar',
       // 图形
       chartsOptions: [
@@ -75,7 +75,7 @@ export default {
 <style lang="scss">
   .gw-charts-filter {
     display: flex;
-    margin:20px 30px;
+    margin: 10px 30px;
     font-size: 14px;
     .el-select {
       max-width: 140px;
