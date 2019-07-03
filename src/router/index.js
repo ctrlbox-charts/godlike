@@ -96,6 +96,76 @@ export const constantRouterMap = [
             meta: { title: '瀑布柱状图' }
           }
         ]
+      },
+      {
+        path: 'index',
+        name: 'echarts',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '散点图', icon: 'chart' },
+        children: [
+          {
+            path: 'scatter',
+            component: () => import('@/views/echarts/scatter'),
+            name: 'scatter',
+            meta: { title: '标准散点图' }
+          }
+        ]
+      },
+      {
+        path: 'index',
+        name: 'echarts',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '合须图', icon: 'chart' },
+        children: [
+          {
+            path: 'synergy',
+            component: () => import('@/views/echarts/synergy'),
+            name: 'synergy',
+            meta: { title: '合须图' }
+          }
+        ]
+      },
+      {
+        path: 'index',
+        name: 'echarts',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '主题河流图', icon: 'chart' },
+        children: [
+          {
+            path: 'themeRiver',
+            component: () => import('@/views/echarts/themeRiver'),
+            name: 'themeRiver',
+            meta: { title: '主题河流图' }
+          }
+        ]
+      },
+      {
+        path: 'index',
+        name: 'echarts',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '事件河流图', icon: 'chart' },
+        children: [
+          {
+            path: 'eventRiver',
+            component: () => import('@/views/echarts/eventRiver'),
+            name: 'eventRiver',
+            meta: { title: '事件河流图' }
+          }
+        ]
+      },
+      {
+        path: 'index',
+        name: 'echarts',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '仪表盘', icon: 'gauge' },
+        children: [
+          {
+            path: 'gauge',
+            component: () => import('@/views/echarts/gauge'),
+            name: 'gauge',
+            meta: { title: '仪表盘' }
+          }
+        ]
       }
     ]
   },

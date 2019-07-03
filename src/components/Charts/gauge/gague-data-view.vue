@@ -1,7 +1,7 @@
 <template>
-  <div class="chart-container-scatter" >
-    <scatter height="100%" :width="dataViewVisible?width:'100%'" 
-    className="scatterCharts"
+  <div class="chart-container-gague" >
+    <gague height="100%" :width="dataViewVisible?width:'100%'" 
+    className="gagueCharts"
     :themeType="themeType"
     :chartsData="chartsData"
     :id="id"
@@ -21,10 +21,10 @@
   </div>
 </template>
 <script>
-import Scatter from './index'
+import Gague from './index'
 export default {
-  name: 'scatterCharts',
-  components: { Scatter },
+  name: 'gagueCharts',
+  components: { Gague },
   props: {
     // 插件数据
     chartsData: {
@@ -39,7 +39,7 @@ export default {
     // 组件唯一id
     id: {
       type: String,
-      default: 'scatter'
+      default: 'gague'
     },
     // 主题
     themeType: {
@@ -90,7 +90,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.chart-container-scatter{
+.chart-container-gague{
   position: relative;
   width: 100%;
   height: calc(100vh - 120px);

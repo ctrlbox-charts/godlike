@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container-scatter" >
-    <scatter height="100%" :width="dataViewVisible?width:'100%'" 
-    className="scatterCharts"
+    <synergy height="100%" :width="dataViewVisible?width:'100%'" 
+    className="barCharts"
     :themeType="themeType"
     :chartsData="chartsData"
     :id="id"
@@ -21,10 +21,10 @@
   </div>
 </template>
 <script>
-import Scatter from './index'
+import Synergy from './index'
 export default {
-  name: 'scatterCharts',
-  components: { Scatter },
+  name: 'synergyCharts',
+  components: { Synergy },
   props: {
     // 插件数据
     chartsData: {

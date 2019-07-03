@@ -48,7 +48,7 @@ const options = {
         trigger: 'axis',
         showDelay : 0,
         formatter : function (params) {
-            if (params.value.length > 1) {
+            if (params.value && params.value.length > 1) {
                 return params.seriesName + ' :<br/>'
                    + params.value[0] + 'cm ' 
                    + params.value[1] + 'kg ';
