@@ -1,43 +1,7 @@
 <template>
   <div class="chart-container" >
-    <div style="margin:20px 10px;" >
-      <el-row :gutter="20">
-        <el-col :span="7">
-          <div>
-            <span>主题切换: </span>
-            <el-select v-model="value" placeholder="请选择" @change="themeChange">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :span="7">
-          <div>
-            <span>图表切换: </span>
-            <el-select v-model="cvalue" placeholder="请选择" @change="chartsChange">
-              <el-option
-                v-for="item in chartsOptions"
-                :key="item.value"
-                :label="item.label" 
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :span="7">
-          <div>
-            <el-button type="primary" @click="xyChange">坐标切换</el-button>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-
     <chart height="100%" width="60%" 
-    className="barCharts" id="bar"
+    className="barCharts" :id="id"
     :themeType="themeType"
     :chartsData="chartsData"
     :reload="reload"/>
@@ -58,35 +22,47 @@
 <script>
 import Chart from './bar'
 import themeName from '../themeName'
+function launchIntoFullscreen(element) {
+    if(element.requestFullscreen){
+        element.requestFullscreen();
+    }
+    else if(element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    }
+    else if(element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    }
+    else if(element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
 export default {
   name: 'barCharts',
   components: { Chart },
   props: {
+    // 插件数据
     chartsData: {
       type: Object,
       default: () => {}
     },
+    // 是否重新加载
     reload: {
       type: Boolean,
       default: false
+    },
+    // 组件唯一id
+    id: {
+      type: String,
+      default: 'bar'
+    },
+    // 主题
+    themeType: {
+      type: String,
+      default: 'macarons'
     }
   },
   data() {
     return {
-      themeType: 'macarons',
-      options: themeName, // 主题名称
-      value: 'macarons',
-      cvalue: 'bar',
-      chartsOptions: [
-        {
-          value: 'bar',
-          label: '柱状图'
-        },
-        {
-          value: 'line',
-          label: '折线图'
-        }
-      ],
       header: [], // 头部
       data_list: [] // 数据
     }
@@ -97,15 +73,6 @@ export default {
     }
   },
   methods: {
-    themeChange(val) {
-      this.themeType = val
-    },
-    xyChange() {
-      this.$emit('xyChange')
-    },
-    chartsChange(val) {
-      this.$emit('chartsChange', val)
-    },
     // 动态渲染数据
     handleData() {
       let arr = []
@@ -132,7 +99,12 @@ export default {
 .chart-container{
   position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 120px);
+  .gw-title-icon {
+    color: #73dadb;
+    cursor: pointer;
+    min-width: 30px;
+  }
 }
 .dataTable {
     position: absolute;
@@ -144,4 +116,71 @@ export default {
     overflow-y: scroll;
 }
 </style>
+<style lang="scss">
+  .gw-charts-filter {
+    display: flex;
+    margin:20px 30px;
+    font-size: 14px;
+    .el-select {
+      max-width: 140px;
+    }
+    .el-input--suffix .el-input__inner {
+      border:none;
+    }
+    .gw-filter-theme,.gw-filter-img {
+      margin-right: 20px;
+    }
+    .gw-filter-ope {
+      display: flex;
+      align-items: center;
+      i {
+        min-width: 20px;
+      }
+    }
+  }
+.gw-statics {
+  width:100%;
+  height: 100%;
+  margin-top: 0px !important;
+  .el-dialog__header {
+    text-align: center;
+    .gw-title-icon {
+      color: #73dadb;
+      cursor: pointer;
+    }
+  }
+  .el-dialog__body {
+    // width:100%;
+    // height: 100%;
+    position: absolute;
+    left: 0;
+    top: 54px;
+    bottom: 0;
+    right: 0px;
+    padding: 0;
+    z-index: 1;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+   @media only screen and (min-width: 1000px) {
+    .gw-chart {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.gw-download-dialog {
+  width: 30%;
+  .el-dialog__header {
+    text-align: center;
+  }
+  .el-dialog__body {
+    text-align: center;
+  }
+  .dialog-foot {
+    margin-top: 30px;
+  }
+}
+</style>
+
 
