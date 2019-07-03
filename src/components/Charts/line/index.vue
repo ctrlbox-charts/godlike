@@ -1,7 +1,7 @@
 <template>
   <div class="root">
-    <div class="page-title">{{title}}</div>
-    <div class="page-tool">
+    <!-- <div class="page-title">{{title}}</div> -->
+    <!-- <div class="page-tool">
       切换主题：
       <el-select 
       v-model="value" 
@@ -28,7 +28,7 @@
           >{{item.label}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-    </div>
+    </div> -->
     <div class="page-echarts-box">
       <LineChart 
       title="折线图标题" 
@@ -75,7 +75,6 @@ export default {
       themeName: 'light',
       isSmooth: true,
       value: '',
-      typeValue: '',
       reload: false, // 重新加载图形
       isStack: true, // 是否是堆积折线图
       header: [], // 头部
@@ -236,14 +235,14 @@ export default {
     // this.chart = null
   },
   methods: {
-    changeTheme(val) {
-      this.themeName = val
-      this.reload = !this.reload
-    },
-    change(val) {
-      this.typeValue = val.label
-      this.$emit('handleChange', val.value)
-    },
+    // changeTheme(val) {
+    //   this.themeName = val
+    //   this.reload = !this.reload
+    // },
+    // change(val) {
+    //   this.typeValue = val.label
+    //   this.$emit('handleChange', val.value)
+    // },
     // 动态渲染数据
     handleData() {
       let arr = []
@@ -261,6 +260,13 @@ export default {
         result.push(arrs.filter(x => x.length > i).map(x => x[i]))
       }
       return result
+    },
+    // 坐标轴切换
+    xyChange() {
+      var temp = this.xAxis
+      this.xAxis = this.yAxis
+      this.yAxis = temp
+      this.reload = !this.reload
     }
   }
 }

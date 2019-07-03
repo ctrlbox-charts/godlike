@@ -33,7 +33,7 @@
 <script>
 import themeName from '@/components/Charts/themeName'
 export default {
-  data () {
+  data() {
     return {
       options: themeName, // 主题名称
       themeType: 'macarons',
@@ -48,7 +48,7 @@ export default {
           value: 'line',
           label: '折线图'
         }
-      ],
+      ]
     }
   },
   methods: {
@@ -59,13 +59,13 @@ export default {
     chartsChange(val) {
       this.$emit('chartsChange', val)
     },
-     xyChange() {
+    xyChange() {
       this.$emit('xyChange')
     },
-    clickScreen (){
+    clickScreen() {
       this.$emit('clickScreen')
     },
-    clickScreenAll (){
+    clickScreenAll() {
 
     }
   }

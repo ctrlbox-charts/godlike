@@ -14,14 +14,13 @@
     <e-line
     :chartsData="chartsData"
     :reload="reload"
-    @xyChange="xyChange"
-    @handleChange = 'handleChange'
     >
     </e-line>
   </div> 
 </template>
 <script>
 import bar from '@/components/Charts/bar'
+import eLine from '@/components/Charts/line'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -130,7 +129,7 @@ const options = {
 }
 export default {
   name: 'barCharts',
-  components: { bar, EchartsFilter },
+  components: { bar, EchartsFilter, eLine },
   data() {
     return {
       themeType: null,
@@ -173,9 +172,9 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      this.chartsData.series.forEach(el => {
-        this.$set(el, 'smooth', !el.smooth)
-      })
+      // this.chartsData.series.forEach(el => {
+      //   this.$set(el, 'smooth', !el.smooth)
+      // })
     },
     // 堆叠
     changeStack() {
