@@ -24,6 +24,7 @@
     </div>
     <div class="gw-filter-ope">
       <span>操作：</span>
+      <div title="数据视图" class="gw-title-icon"> <i class="el-icon-document" @click="dataView" style="cursor: pointer;"/></div>
       <div title="全屏模式" class="gw-title-icon"><i class="el-icon-full-screen" @click="clickScreen" style="cursor: pointer;"/></div>
       <div title="多图形查看" class="gw-title-icon"> <i class="el-icon-copy-document" @click="clickScreenAll" style="cursor: pointer;"/></div>
       <div title="坐标切换" class="gw-title-icon"> <i class="el-icon-location-outline" @click="xyChange" style="cursor: pointer;"/></div>
@@ -38,6 +39,7 @@ export default {
       options: themeName, // 主题名称
       themeType: 'default',
       magicType: 'bar',
+      dataViewVisible: false,
       // 图形
       chartsOptions: [
         {
@@ -67,6 +69,11 @@ export default {
     },
     clickScreenAll() {
       this.$emit('clickScreenAll')
+    },
+    // 数据视图
+    dataView() {
+      this.dataViewVisible = true
+      this.$emit('dataView',this.dataViewVisible)
     }
   }
 }
