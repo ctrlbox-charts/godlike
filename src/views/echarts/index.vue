@@ -1,15 +1,23 @@
 <template>
-  <div>
+  <div class="charts-box-root">
     <bar 
     :chartsData="chartsData" 
     :reload="reload"
     @xyChange="xyChange"
     @chartsChange="chartsChange"
     ></bar>
+    <e-line
+    :chartsData="chartsData"
+    :reload="reload"
+    @xyChange="xyChange"
+    @handleChange = 'handleChange'
+    >
+    </e-line>
   </div> 
 </template>
 <script>
 import bar from '@/components/Charts/bar'
+import eLine from '@/components/Charts/line/index'
 const xData = (function() {
   const data = []
   for (let i = 1; i < 13; i++) {
@@ -117,7 +125,7 @@ const options = {
 }
 export default {
   name: 'barCharts',
-  components: { bar },
+  components: { bar, eLine },
   data() {
     return {
       chartsData: null,
@@ -146,10 +154,48 @@ export default {
       })
       console.log(this.chartsData.series)
       this.reload = !this.reload
+    },
+    // 光滑
+    changeSmooth() {
+      this.chartsData.series.forEach(el => {
+        this.$set(el, 'smooth', !el.smooth)
+      })
+    },
+    // 堆叠
+    changeStack() {
+      this.chartsData.series.forEach(el => {
+        if (el.stack) {
+          this.$set(el, 'stack', '')
+          if (el.hasOwnProperty('areaStyle')) {
+            this.$delete(el, 'areaStyle')
+          }
+        } else {
+          this.$set(el, 'stack', '总量')
+          this.$set(el, 'areaStyle', {})
+        }
+      })
+    },
+    handleChange(val) {
+      switch (val) {
+        case 'smooth':
+          this.changeSmooth()
+          break
+        case 'coordinate':
+          this.xyChange()
+          break
+        case 'stack':
+          this.changeStack()
+          break
+        default:
+          break
+      }
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.charts-box-root{
+  padding-bottom: 100px;
+}
 </style>
 

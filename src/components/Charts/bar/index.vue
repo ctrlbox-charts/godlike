@@ -35,7 +35,6 @@
         </el-col>
       </el-row>
     </div>
-
     <chart height="100%" width="60%" 
     className="barCharts" id="bar"
     :themeType="themeType"
