@@ -75,12 +75,27 @@ export const constantRouterMap = [
   {
     path: '/echarts',
     component: Layout,
+    meta: { title: 'Charts', icon: 'chart' },
     children: [
       {
         path: 'index',
         name: 'echarts',
-        component: () => import('@/views/echarts/index'),
-        meta: { title: 'Charts', icon: 'chart' }
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '柱状图', icon: 'chart' },
+        children: [
+          {
+            path: 'bar',
+            component: () => import('@/views/echarts/bar'),
+            name: 'bar',
+            meta: { title: '标准柱状图' }
+          },
+          {
+            path: 'pubu',
+            component: () => import('@/views/echarts/pubu'),
+            name: 'pubu',
+            meta: { title: '瀑布柱状图' }
+          }
+        ]
       }
     ]
   },

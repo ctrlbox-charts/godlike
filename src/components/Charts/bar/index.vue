@@ -4,8 +4,9 @@
     className="barCharts" :id="id"
     :themeType="themeType"
     :chartsData="chartsData"
-    :reload="reload"/>
-    <div class="dataTable" v-if="dataViewVisible">
+    :reload="reload"
+    />
+    <div class="dataTable">
       <h2>数据视图</h2>
       <div>
         <el-table :data="data_list">
@@ -21,23 +22,12 @@
 </template>
 <script>
 import Chart from './bar'
-// import themeName from '../themeName'
-// function launchIntoFullscreen(element) {
-//   if (element.requestFullscreen) {
-//     element.requestFullscreen()
-//   } else if (element.mozRequestFullScreen) {
-//     element.mozRequestFullScreen()
-//   } else if (element.webkitRequestFullscreen) {
-//     element.webkitRequestFullscreen()
-//   } else if (element.msRequestFullscreen) {
-//     element.msRequestFullscreen()
-//   }
-// }
+import { barOptions } from '../themeName'
 export default {
   name: 'barCharts',
   components: { Chart },
   props: {
-    // 插件数据
+    // 通用参数
     chartsData: {
       type: Object,
       default: () => {}
@@ -55,22 +45,22 @@ export default {
     // 主题
     themeType: {
       type: String,
-      default: 'macarons'
-    },
-    dataViewVisible:{
-      type: Boolean,
-      default: 'true'
+      default: 'default'
     }
   },
   data() {
     return {
       header: [], // 头部
-      data_list: [] // 数据
+      data_list: [], // 数据
+      options: barOptions
     }
   },
   watch: {
     chartsData() {
-      this.handleData()
+      if (this.chartsData) {
+        this.handleData()
+        this.updateCharts()
+      }
     }
   },
   methods: {
@@ -91,6 +81,14 @@ export default {
         result.push(arrs.filter(x => x.length > i).map(x => x[i]))
       }
       return result
+    },
+    // 更新数据
+    updateCharts() {
+      const { tooltip, toolbox, calculable, dataZoom } = this.options
+      this.chartsData.tooltip = tooltip
+      this.chartsData.toolbox = toolbox
+      this.chartsData.calculable = calculable
+      this.chartsData.dataZoom = dataZoom
     }
 
   }
@@ -113,14 +111,29 @@ export default {
     top: 60px;
     border: 1px solid #ccc;
     width: 39%;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 185px);
     overflow-y: scroll;
 }
+  /*滚动条样式*/
+  .dataTable::-webkit-scrollbar {
+      width: 7px;    
+  }
+  .dataTable::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
+      background: rgba(11, 123, 228, 0.6);
+  }
+  .dataTable::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 0;
+      background: rgba(0,0,0,0.1);
+
+  }
 </style>
 <style lang="scss">
   .gw-charts-filter {
     display: flex;
-    margin:20px 30px;
+    margin:10px 30px;
     font-size: 14px;
     .el-select {
       max-width: 140px;
