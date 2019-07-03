@@ -4,7 +4,9 @@
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
-    @clickScreen = 'clickScreen'/>
+    @clickScreen = 'clickScreen'
+    @clickScreenAll = 'clickScreenAll'
+    />
     <bar 
     :chartsData="chartsData" 
     :reload="reload"
@@ -143,6 +145,10 @@ export default {
     clickScreen(){
       var full=document.getElementById('bar');
       launchIntoFullscreen(full);
+    },
+    // 一屏多图 by wwh
+    clickScreenAll () {
+
     },
     //主题切换 by wwh
     themeChange (val){
