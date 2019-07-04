@@ -7,17 +7,16 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <e-radar 
+    <e-map 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
-    :routerName='routerName'
     :themeType = 'themeType'
-    ></e-radar>
+    ></e-map>
   </div> 
 </template>
 <script>
-import ERadar from '@/components/Charts/radar'
+import EMap from '@/components/Charts/map'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -31,60 +30,41 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const series = [
-  {
-    name: '预算 vs 开销（Budget vs spending）',
-    type: 'radar',
-    data: [
-      {
-        value: [4300, 10000, 28000, 35000, 50000, 19000],
-        name: '预算分配（Allocated Budget）'
-      },
-      {
-        value: [5000, 14000, 28000, 31000, 42000, 21000],
-        name: '实际开销（Actual Spending）'
-      }
-    ]
-  }
-]
-const legend = [{
-  // orient: 'vertical',
-  // x: 'right',
-  // y: 'bottom',
-  data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-}]
-const polar = [
-  {
-    indicator: [
-      { text: '销售（sales）', max: 6000 },
-      { text: '管理（Administration）', max: 16000 },
-      { text: '信息技术（Information Techology）', max: 30000 },
-      { text: '客服（Customer Support）', max: 38000 },
-      { text: '研发（Development）', max: 52000 },
-      { text: '市场（Marketing）', max: 25000 }
-    ]
-  }
+function randomData() {
+  return Math.round(Math.random() * 500)
+}
+var dataList = [
+  { name: '北京', value: '100' }, { name: '天津', value: randomData() },
+  { name: '上海', value: randomData() }, { name: '重庆', value: randomData() },
+  { name: '河北', value: randomData() }, { name: '河南', value: randomData() },
+  { name: '云南', value: randomData() }, { name: '辽宁', value: randomData() },
+  { name: '黑龙江', value: randomData() }, { name: '湖南', value: randomData() },
+  { name: '安徽', value: randomData() }, { name: '山东', value: randomData() },
+  { name: '新疆', value: randomData() }, { name: '江苏', value: randomData() },
+  { name: '浙江', value: randomData() }, { name: '江西', value: randomData() },
+  { name: '湖北', value: randomData() }, { name: '广西', value: randomData() },
+  { name: '甘肃', value: randomData() }, { name: '山西', value: randomData() },
+  { name: '内蒙古', value: randomData() }, { name: '陕西', value: randomData() },
+  { name: '吉林', value: randomData() }, { name: '福建', value: randomData() },
+  { name: '贵州', value: randomData() }, { name: '广东', value: randomData() },
+  { name: '青海', value: randomData() }, { name: '西藏', value: randomData() },
+  { name: '四川', value: randomData() }, { name: '宁夏', value: randomData() },
+  { name: '海南', value: randomData() }, { name: '台湾', value: randomData() },
+  { name: '香港', value: randomData() }, { name: '澳门', value: randomData() }
 ]
 export default {
   name: 'lineCharts',
-  components: { EchartsFilter, ERadar },
+  components: { EchartsFilter, EMap },
   data() {
     return {
       themeType: null,
       chartsData: null,
       reload: false,
-      id: 'line',
-      routerName: 'radar' // 区别显示不同的雷达图
+      id: 'map'
     }
   },
   mounted() {
     this.init()
-  },
-  watch: {
-    '$route'(val) {
-      this.routerName = val.name
-      this.reload = !this.reload
-    }
   },
   methods: {
     // 全屏 by wwh
@@ -105,9 +85,7 @@ export default {
       // 模拟请求数据
       setTimeout(() => {
         this.chartsData = {
-          series: series,
-          legend: legend,
-          polar
+          dataList
         }
         this.reload = !this.reload
       }, 10)

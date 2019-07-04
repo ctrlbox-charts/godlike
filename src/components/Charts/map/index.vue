@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="page-echarts-box">
-      <radar 
+      <e-map 
       title="折线图标题" 
       :id="id" 
       :options='chartsDataObj'
@@ -9,16 +9,23 @@
       :themeType="themeType"
       class="echarts"
       >
-      </radar>
+      </e-map>
       <div class="dataTable">
         <h2>数据视图</h2>
         <div>
           <el-table :data="data_list">
-            <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                  <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
-                  </template>
-              </el-table-column>
+            <el-table-column
+            label='省份'
+            align='center'
+            prop='name'
+            >
+            </el-table-column>
+            <el-table-column
+            label='数量'
+            align='center'
+            prop='value'
+            >
+            </el-table-column>
           </el-table>
         </div>
       </div>
@@ -27,8 +34,9 @@
 </template>
 
 <script>
-import radar from './radar'
-import { options, wormOptions } from './options'
+import '../../../../node_modules/echarts/map/js/china.js' // 引入中国地图数据
+import EMap from './map'
+import options from './options'
 export default {
   props: {
     chartsData: {
@@ -48,16 +56,11 @@ export default {
     // 组件唯一id
     id: {
       type: String,
-      default: 'radar'
-    },
-    routerName: {
-      type: String,
-      default: 'radar'
+      default: 'map'
     }
   },
   data() {
     return {
-      header: [], // 头部
       data_list: [], // 数据
       itemStyle: {
         normal: {
@@ -70,24 +73,12 @@ export default {
     }
   },
   components: {
-    radar
+    EMap
   },
   watch: {
     chartsData(val) {
-      if (val === 'wormhole') {
-        this.chartsDataObj = wormOptions
-      } else {
-        this.chartsDataObj = options
-      }
-      // this.handleData()
-      this.updateCharts()
-    },
-    routerName(val) {
-      if (val === 'wormhole') {
-        this.chartsDataObj = wormOptions
-      } else {
-        this.chartsDataObj = options
-      }
+      this.chartsDataObj = options
+      this.handleData()
       this.updateCharts()
     }
   },
@@ -101,40 +92,15 @@ export default {
   methods: {
     // 更新数据
     updateCharts() {
-      const { series, legend, polar } = this.chartsData
-      if (this.routerName === 'radar' || this.routerName === 'fill') {
-        this.chartsDataObj.series = series
-        this.chartsDataObj.legend = legend
-        this.chartsDataObj.polar = polar
-      }
-      if (this.routerName === 'fill') {
-        this.chartsDataObj.series.forEach(el => {
-          this.$set(el, 'itemStyle', this.itemStyle)
-        })
-      } else {
-        this.chartsDataObj.series.forEach(el => {
-          this.$set(el, 'itemStyle', {})
-        })
-      }
+      const { dataList } = this.chartsData
+      this.chartsDataObj.series.forEach(el => {
+        this.$set(el, 'data', dataList)
+      })
     },
 
     // 动态渲染数据
     handleData() {
-      let arr = []
-      this.header = this.chartsData.series.map(x => x.name)
-      this.header.unshift('#')
-      arr = this.chartsData.series.map(x => x.data)
-      arr.unshift(this.chartsData.xData)
-      this.data_list = this.merge(arr)
-    },
-    // 数组处理
-    merge(arrs) {
-      var maxLen = Math.max(...arrs.map(x => x.length))
-      var result = []
-      for (let i = 0; i < maxLen; i++) {
-        result.push(arrs.filter(x => x.length > i).map(x => x[i]))
-      }
-      return result
+      this.data_list = this.chartsData.dataList || []
     }
   }
 }
