@@ -75,13 +75,13 @@ export default {
   },
   methods: {
     initChart() {
+      const self = this
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(this.chartsData)
-      // if (this.chartsData && this.chartsData.scatterData) {
-      //   setTimeout(() => {
-      //     this.getPieSeries(this.chartsData.scatterData, this.chart)
-      //   }, 100)
-      // }
+      setTimeout(function() {
+        self.chartsData.series = self.getPieSeries(self.chartsData.scatterData, self.chart)
+        self.chart.setOption(self.chartsData)
+      }, 10)
     },
     getPieSeries(scatterData, chart) {
       return echarts.util.map(scatterData, function(item, index) {

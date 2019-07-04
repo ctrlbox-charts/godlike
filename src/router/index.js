@@ -179,12 +179,12 @@ export const constantRouterMap = [
             name: 'dateCalendar',
             meta: { title: '热力日历图' }
           },
-          // {
-          //   path: 'pieCalendar',
-          //   component: () => import('@/views/echarts/calendar/pieCalendar'),
-          //   name: 'pieCalendar',
-          //   meta: { title: '饼状日历图' }
-          // },
+          {
+            path: 'pieCalendar',
+            component: () => import('@/views/echarts/calendar/pieCalendar'),
+            name: 'pieCalendar',
+            meta: { title: '饼状日历图' }
+          },
           {
             path: 'year',
             component: () => import('@/views/echarts/calendar/year'),
