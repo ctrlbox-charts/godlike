@@ -3,7 +3,7 @@
     <div class="page-charts-sankey">
       <sankey 
       height="100%" 
-      width="60%" 
+      width="100%" 
       className="sankeyCharts" 
       :id="id"
       :themeType="themeType"
