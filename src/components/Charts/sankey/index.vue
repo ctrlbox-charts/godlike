@@ -13,6 +13,14 @@ export default {
       type: String,
       default: 'chart'
     },
+    chartsData: {
+      type: Object,
+      default: () => {}
+    },
+    themeType: {
+      type: String,
+      default: 'macarons'
+    },
     id: {
       type: String,
       default: 'chart'
@@ -54,39 +62,50 @@ export default {
   data() {
     return {
       chart: null,
-      options: {
-        title: {
-          text: this.title,
-          textStyle: {
-            fontWeight: 'normal',
-            fontSize: 16,
-            color: '#000'
-          },
-          left: '1%'
-        },
-        toolbox: {
-          show: true,
-          feature: {
-            dataView: { // 数据视图
-              show: true
-            },
-            restore: { // 重置
-              show: true
-            },
-            saveAsImage: {// 保存图片
-              show: true
-            }
-          }
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            lineStyle: {
-              color: '#57617B'
-            }
-          }
-        },
-        series: this.series
+      options:{
+      series: {
+          type: 'sankey',
+          layout:'none',
+          focusNodeAdjacency: 'allEdges',
+          data: [{
+              name: 'a'
+          }, {
+              name: 'b'
+          }, {
+              name: 'a1'
+          }, {
+              name: 'a2'
+          }, {
+              name: 'b1'
+          }, {
+              name: 'c'
+          }],
+          links: [{
+              source: 'a',
+              target: 'a1',
+              value: 5
+          }, {
+              source: 'a',
+              target: 'a2',
+              value: 3
+          }, {
+              source: 'b',
+              target: 'b1',
+              value: 8
+          }, {
+              source: 'a',
+              target: 'b1',
+              value: 3
+          }, {
+              source: 'b1',
+              target: 'a1',
+              value: 1
+          }, {
+              source: 'b1',
+              target: 'c',
+              value: 2
+          }]
+        }
       }
     }
   },
@@ -99,17 +118,6 @@ export default {
       this.chart = null
       this.initChart(this.options, this.themeName)
     },
-    options: {
-      handler(val) {
-        if (!this.chart) {
-          return
-        }
-        this.chart.dispose()
-        this.chart = null
-        this.initChart(this.options, this.themeName)
-      },
-      deep: true
-    }
   },
   mounted() {
     this.initChart(this.options, this.themeName)
@@ -122,10 +130,10 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart(options, theme) {
+    initChart() {
       if (!document.getElementById(this.id)) return
-      this.chart = this.$echarts.init(document.getElementById(this.id), theme)
-      this.chart.setOption(options)
+      this.chart = this.$echarts.init(document.getElementById(this.id),this.themeType)
+      this.chart.setOption(this.options)
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="page-echarts-box">
-      <event-river 
+      <river 
       title="主题河流图标题" 
       :id="id" 
       :options='chartsData'
@@ -13,7 +13,7 @@
       :legend='legend'
       class="echarts"
       >
-      </event-river>
+      </river>
       <!-- <div class="echarts-table">
         <h2>数据视图</h2>
         <div>
@@ -31,8 +31,9 @@
 </template>
 
 <script>
-import eventRiver from './index'
+import River from './index'
 export default {
+  name: 'event',
   props: {
     chartsData: {
       type: Object,
@@ -169,7 +170,7 @@ export default {
     }
   },
   components: {
-    eventRiver
+    River
   },
   watch: {
     chartsData() {

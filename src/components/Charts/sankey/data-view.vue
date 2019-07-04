@@ -3,7 +3,7 @@
     <div class="page-charts-sankey">
       <sankey 
       height="100%" 
-      width="60%" 
+      width="100%" 
       className="sankeyCharts" 
       :id="id"
       :themeType="themeType"
@@ -12,7 +12,6 @@
       :options='chartsData'
       :reload='reload'
       :themeName="themeName"
-      :series='series'
       class="echarts"
       >
       </sankey>
@@ -44,59 +43,19 @@ export default {
     themeType:{
       type: String,
       default: () => ''
+    },
+    id: {
+      type: String,
+      default: () => 'sankey'
     }
   },
   data() {
     return {
-      id: new Date().toString(),
       themeName: 'light',
       value: '',
       reload: false, // 重新加载图形
       header: [], // 头部
       data_list: [], // 数据
-      series: {
-        type: 'sankey',
-        layout:'none',
-        focusNodeAdjacency: 'allEdges',
-        data: [{
-            name: 'a'
-        }, {
-            name: 'b'
-        }, {
-            name: 'a1'
-        }, {
-            name: 'a2'
-        }, {
-            name: 'b1'
-        }, {
-            name: 'c'
-        }],
-        links: [{
-            source: 'a',
-            target: 'a1',
-            value: 5
-        }, {
-            source: 'a',
-            target: 'a2',
-            value: 3
-        }, {
-            source: 'b',
-            target: 'b1',
-            value: 8
-        }, {
-            source: 'a',
-            target: 'b1',
-            value: 3
-        }, {
-            source: 'b1',
-            target: 'a1',
-            value: 1
-        }, {
-            source: 'b1',
-            target: 'c',
-            value: 2
-        }]
-      },
     }
   },
   components: {
@@ -108,11 +67,6 @@ export default {
     }
   },
   beforeDestroy() {
-    // if (!this.chart) {
-    //   return
-    // }
-    // this.chart.dispose()
-    // this.chart = null
   },
   methods: {
     handleData() {

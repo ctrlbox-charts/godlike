@@ -39,7 +39,7 @@
       class="echarts"
       >
       </LineChart>
-      <div class="echarts-table">
+      <div class="dataTable">
         <h2>数据视图</h2>
         <div>
           <el-table :data="data_list">
@@ -272,16 +272,30 @@ export default {
       .echarts{
         flex-basis: 60%;
       }
-     .echarts-table{
+     .dataTable{
         position: absolute;
         right: 0;
         top: 0px;
         border: 1px solid #ccc;
         width: 39%;
         height: calc(100vh - 150px);
-        overflow-y: scroll;
+        overflow-y: auto;
      }
    }
+     /*滚动条样式*/
+  .dataTable::-webkit-scrollbar {
+      width: 7px;    
+  }
+  .dataTable::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
+      background: rgba(11, 123, 228, 0.6);
+  }
+  .dataTable::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 0;
+      background: rgba(0,0,0,0.1);
+  }
 }
 
 </style>
@@ -298,7 +312,7 @@ export default {
     .echarts{
        flex-basis: 100%!important;
      }
-    .echarts-table{
+    .dataTable{
       display: none!important;
     }
   }
