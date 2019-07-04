@@ -6,6 +6,7 @@
 
 <script>
 import resize from '../mixins/resize'
+import echarts from 'echarts'
 
 export default {
   mixins: [resize],
@@ -76,6 +77,31 @@ export default {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(this.chartsData)
+      if (this.chartsData && this.chartsData.scatterData) {
+        this.getPieSeries(this.chartsData.scatterData, this.chart)
+      }
+    },
+    getPieSeries(scatterData, chart) {
+      return echarts.util.map(scatterData, function(item, index) {
+        var center = chart.convertToPixel('calendar', item)
+        return {
+          id: index + 'pie',
+          type: 'pie',
+          center: center,
+          label: {
+            normal: {
+              formatter: '{c}',
+              position: 'inside'
+            }
+          },
+          radius: 30,
+          data: [
+            { name: '工作', value: Math.round(Math.random() * 24) },
+            { name: '娱乐', value: Math.round(Math.random() * 24) },
+            { name: '睡觉', value: Math.round(Math.random() * 24) }
+          ]
+        }
+      })
     }
   }
 }
