@@ -235,6 +235,26 @@ export const constantRouterMap = [
         ]
       },
       {
+        path: 'gaugeIndex',
+        name: 'gaugeIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '仪表盘', icon: 'chart' },
+        children: [
+          {
+            path: 'single-gauge',
+            component: () => import('@/views/echarts/gauge/single-gauge'),
+            name: 'single-gauge',
+            meta: { title: '仪表盘' }
+          },
+          {
+            path: 'multiple-gauge',
+            component: () => import('@/views/echarts/gauge/multiple-gauge'),
+            name: 'multiple-gauge',
+            meta: { title: '多仪表盘' }
+          }
+        ]
+      },
+      {
         path: 'line',
         name: 'line',
         component: () => import('@/views/echarts/index'), // Parent
