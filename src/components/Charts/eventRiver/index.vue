@@ -6,6 +6,7 @@
 <script>
 import resize from '../mixins/resize'
 export default {
+  name: echarts2,
   mixins: [resize],
   props: {
     className: {
@@ -428,7 +429,7 @@ export default {
   methods: {
     initChart(options) {
       if (!document.getElementById(this.id)) return
-      this.chart = this.$echarts.init(document.getElementById(this.id))
+      this.chart = echarts2.init(document.getElementById(this.id))
       this.chart.setOption(this.options)
     }
   }

@@ -12,7 +12,7 @@
         <el-table :data="data_list">
           <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
                 <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
+                    {{data_list[scope.$index][index].name + ":"+data_list[scope.$index][index].value}}
                 </template>
             </el-table-column>
         </el-table>

@@ -3,7 +3,6 @@
   <div :class="className" :id="id"  :style="{height:height,width:width}"/>
 </div>
 </template>
-
 <script>
 import resize from '../mixins/resize'
 

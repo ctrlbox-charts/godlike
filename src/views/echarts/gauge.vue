@@ -48,6 +48,7 @@ const options = {
         feature : {
             mark : {show: true},
             restore : {show: true},
+            dataView: { show: true, readOnly: false },
             saveAsImage : {show: true}
         }
     },
