@@ -77,9 +77,11 @@ export default {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(this.chartsData)
-      if (this.chartsData && this.chartsData.scatterData) {
-        this.getPieSeries(this.chartsData.scatterData, this.chart)
-      }
+      // if (this.chartsData && this.chartsData.scatterData) {
+      //   setTimeout(() => {
+      //     this.getPieSeries(this.chartsData.scatterData, this.chart)
+      //   }, 100)
+      // }
     },
     getPieSeries(scatterData, chart) {
       return echarts.util.map(scatterData, function(item, index) {
