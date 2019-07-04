@@ -57,8 +57,6 @@ const options = {
     },
     toolbox: {
         show: true,
-        x:'center',
-        y:'top',
         feature : {
             mark : {show: true},
             dataView : {show: true, readOnly: false},

@@ -13,7 +13,7 @@
         <el-table :data="data_list">
           <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
                 <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
+                    {{data_list[scope.$index][0][index]}}
                 </template>
             </el-table-column>
         </el-table>
@@ -72,7 +72,7 @@ export default {
     handleData() {
       let arr = []
       if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
-        this.header = this.chartsData.series.map(x => x.name)
+        this.header = ["时间","数据1", "数据2"]
         arr = this.chartsData.series.map(x => x.data)
         this.data_list = this.merge(arr)
       }

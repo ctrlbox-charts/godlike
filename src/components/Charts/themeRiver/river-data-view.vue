@@ -20,7 +20,7 @@
           <el-table :data="data_list">
             <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
                   <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
+                    {{data_list[scope.$index][0][index]}}
                   </template>
               </el-table-column>
           </el-table>
@@ -187,7 +187,6 @@ export default {
       this.header = ["日期","数量","类型"]
       console.log(this.header)
       arr = this.chartsData.series.map(x => x.data)
-      // arr.unshift(this.chartsData.xData)
       this.data_list = this.merge(arr)
       console.log(this.data_list,6789 )
     },
@@ -237,35 +236,31 @@ export default {
       .echarts{
         flex-basis: 60%;
       }
-     .echarts-table{
-        position: absolute;
-        right: 0;
-        top: 0px;
-        border: 1px solid #ccc;
-        width: 39%;
-        height: calc(100vh - 150px);
-        overflow-y: scroll;
-     }
+     .echarts-table {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    border: 1px solid #ccc;
+    width: 39%;
+    height: calc(100vh - 185px);
+    overflow-y: scroll;
+}
+  /*滚动条样式*/
+  .echarts-table::-webkit-scrollbar {
+      width: 7px;    
+  }
+  .echarts-table::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
+      background: rgba(11, 123, 228, 0.6);
+  }
+  .echarts-table::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 0;
+      background: rgba(0,0,0,0.1);
+
+  }
    }
 }
+</style>
 
-</style>
-<style lang='scss'>
-.root{
-  .el-input--suffix .el-input__inner{
-    width: 100px;
-    border: none;
-    padding: 0px;
-  }
-}
-@media screen and (max-width: 960px){
-  .page-echarts-box{
-    .echarts{
-       flex-basis: 100%!important;
-     }
-    .echarts-table{
-      display: none!important;
-    }
-  }
-}
-</style>

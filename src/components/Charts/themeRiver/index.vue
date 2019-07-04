@@ -55,6 +55,17 @@ export default {
       chart: null,
       
     options: {
+      toolbox: {
+        show : true,
+        feature : {
+          dataView: { // 数据视图
+            show: true
+          },
+          mark : {show: true},
+          restore : {show: true},
+          saveAsImage : {show: true}
+        }
+      },
     tooltip: {
         trigger: 'axis',
         axisPointer: {
