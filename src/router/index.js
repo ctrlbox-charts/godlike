@@ -331,20 +331,6 @@ export const constantRouterMap = [
             meta: { title: '事件河流图' }
           }
         ]
-      },
-      {
-        path: 'gaugeIndex',
-        name: 'gaugeIndex',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '仪表盘', icon: 'gauge' },
-        children: [
-          {
-            path: 'gauge',
-            component: () => import('@/views/echarts/gauge'),
-            name: 'gauge',
-            meta: { title: '仪表盘' }
-          }
-        ]
       }
     ]
   },

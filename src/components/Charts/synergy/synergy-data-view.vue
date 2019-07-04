@@ -3,8 +3,8 @@
     <synergy height="100%" :width="dataViewVisible?width:'100%'" 
     className="barCharts"
     :themeType="themeType"
-    :chartsData="chartsData"
     :id="id"
+    @dataViewOptions = 'dataViewOptions'
     :reload="reload"/>
     <div class="dataTable" v-if="dataViewVisible">
       <h2>数据视图</h2>
@@ -27,10 +27,10 @@ export default {
   components: { Synergy },
   props: {
     // 插件数据
-    chartsData: {
-      type: Object,
-      default: () => {}
-    },
+    // chartsData: {
+    //   type: Object,
+    //   default: () => {}
+    // },
     // 是否重新加载
     reload: {
       type: Boolean,
@@ -57,17 +57,19 @@ export default {
   },
   data() {
     return {
+      chartsData: {},
       header: [], // 头部
       data_list: [] // 数据
     }
   },
   watch: {
-    chartsData() {
-      this.handleData()
-    }
   },
   methods: {
-    // 动态渲染数据
+    dataViewOptions (data) {
+      this.chartsData = data
+      this.handleData()
+    },
+    // // 动态渲染数据
     handleData() {
       let arr = []
       if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
