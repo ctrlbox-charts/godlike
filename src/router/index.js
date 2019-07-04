@@ -296,9 +296,15 @@ export const constantRouterMap = [
         children: [
           {
             path: 'scatter',
-            component: () => import('@/views/echarts/scatter'),
+            component: () => import('@/views/echarts/scatter/scatter'),
             name: 'scatter',
             meta: { title: '标准散点图' }
+          },
+          {
+            path: 'scatter-process',
+            component: () => import('@/views/echarts/scatter/scatter-process'),
+            name: 'scatter-process',
+            meta: { title: '标坐标散点图' }
           }
         ]
       },
