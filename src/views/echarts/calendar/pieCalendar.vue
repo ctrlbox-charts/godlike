@@ -34,7 +34,6 @@ function launchIntoFullscreen(element) {
 }
 
 var cellSize = [80, 80]
-var pieRadius = 30
 
 function getVirtulData(year) {
   year = year || '2019'
@@ -49,39 +48,6 @@ function getVirtulData(year) {
     ])
   }
   return data
-}
-
-function getPieSeries(scatterData, chart) {
-  return echarts.util.map(scatterData, function(item, index) {
-    var center = chart.convertToPixel('calendar', item)
-    return {
-      id: index + 'pie',
-      type: 'pie',
-      center: center,
-      label: {
-        normal: {
-          formatter: '{c}',
-          position: 'inside'
-        }
-      },
-      radius: pieRadius,
-      data: [
-        { name: '工作', value: Math.round(Math.random() * 24) },
-        { name: '娱乐', value: Math.round(Math.random() * 24) },
-        { name: '睡觉', value: Math.round(Math.random() * 24) }
-      ]
-    }
-  })
-}
-
-function getPieSeriesUpdate(scatterData, chart) {
-  return echarts.util.map(scatterData, function(item, index) {
-    var center = chart.convertToPixel('calendar', item)
-    return {
-      id: index + 'pie',
-      center: center
-    }
-  })
 }
 
 var scatterData = getVirtulData()
