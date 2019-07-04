@@ -183,12 +183,9 @@ export default {
     // 动态渲染数据
     handleData() {
       let arr = []
-      console.log(this.chartsData,456789)
       this.header = ["日期","数量","类型"]
-      console.log(this.header)
       arr = this.chartsData.series.map(x => x.data)
       this.data_list = this.merge(arr)
-      console.log(this.data_list,6789 )
     },
     // 数组处理
     merge(arrs) {
