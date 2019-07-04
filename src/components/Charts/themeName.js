@@ -35,7 +35,7 @@ const barOptions = {
     show: true,
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      // dataView: { show: true, readOnly: false },
       magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
       restore: { show: true },
       saveAsImage: { show: true }
@@ -66,7 +66,7 @@ const pieOptions = {
     show: true,
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      // dataView: { show: true, readOnly: false },
       magicType: {
         show: true,
         type: ['pie', 'funnel'],
@@ -90,4 +90,22 @@ const pieOptions = {
     show: true
   }
 }
-export { themeName, barOptions, pieOptions }
+const treeOptions = {
+  // 工具栏
+  toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  // 是否显示拖拽用的手柄（手柄能拖拽调整选中范围）
+  calculable: false
+}
+const calendarOptions = {
+  tooltip: {
+    position: 'top'
+  }
+}
+export { themeName, barOptions, pieOptions, treeOptions, calendarOptions }

@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       options: themeName, // 主题名称
-      themeType: 'default',
+      themeType: 'macarons',
       magicType: 'bar',
       dataViewVisible: false,
       // 图形
@@ -73,7 +73,7 @@ export default {
     // 数据视图
     dataView() {
       this.dataViewVisible = true
-      this.$emit('dataView',this.dataViewVisible)
+      this.$emit('dataView', this.dataViewVisible)
     }
   }
 }
