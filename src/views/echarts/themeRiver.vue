@@ -51,11 +51,9 @@ const options = {
             }
         }
     },
-
     legend: {
         data: ['DQ', 'TY', 'SS', 'QG', 'SY', 'DD']
     },
-
     singleAxis: {
         top: 50,
         bottom: 50,

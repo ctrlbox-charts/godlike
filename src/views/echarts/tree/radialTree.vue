@@ -7,18 +7,18 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <pie 
+    <tree 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></pie>
+    ></tree>
   </div> 
 </template>
 <script>
-import pie from '@/components/Charts/pie'
-import eLine from '@/components/Charts/line'
+import tree from '@/components/Charts/tree'
 import EchartsFilter from '../echarts-filter'
+import treeData from './treeData'
 // 全屏
 function launchIntoFullscreen(element) {
   if (element.requestFullscreen) {
@@ -31,40 +31,35 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-// const xData = (function() {
-//   const data = []
-//   for (let i = 1; i < 13; i++) {
-//     data.push(i + 'month')
-//   }
-//   return data
-// }())
 const series = [
   {
-    name: '访问来源',
-    type: 'pie',
-    radius: '55%',
-    center: ['50%', '60%'],
-    data: [
-      { value: 335, name: '直接访问' },
-      { value: 310, name: '邮件营销' },
-      { value: 234, name: '联盟广告' },
-      { value: 135, name: '视频广告' },
-      { value: 1548, name: '搜索引擎' }
-    ]
+    name: '树图',
+    type: 'tree',
+    orient: 'horizontal', // vertical horizontal
+    rootLocation: { x: 'center', y: 50 }, // 根节点位置  {x: 100, y: 'center'}
+    nodePadding: 1,
+    top: '18%',
+    bottom: '14%',
+    layout: 'radial',
+    symbol: 'emptyCircle',
+    symbolSize: 7,
+    initialTreeDepth: 3,
+    animationDurationUpdate: 750,
+    data: treeData
   }
 ]
 const legend = {
-  data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+  data: []
 }
 export default {
-  name: 'pieCharts',
-  components: { pie, EchartsFilter, eLine },
+  name: 'treeCharts',
+  components: { tree, EchartsFilter },
   data() {
     return {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'pie'
+      id: 'tree'
     }
   },
   mounted() {
@@ -73,7 +68,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById('tree')
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
@@ -90,9 +85,6 @@ export default {
         this.chartsData = {
           series: series,
           legend: legend
-          // xAxis: xAxis,
-          // yAxis: yAxis,
-          // xData: xData
         }
       }, 10)
     },
@@ -112,9 +104,6 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
     },
     // 堆叠
     changeStack() {

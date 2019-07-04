@@ -3,6 +3,7 @@
   <div :class="className" :id="id"  :style="{height:height,width:width}"/>
 </div>
 </template>
+
 <script>
 import resize from '../mixins/resize'
 
@@ -29,22 +30,20 @@ export default {
       type: String,
       default: 'macarons'
     },
-    chartsData: {
-      type: Object,
-      default: () => {}
-    },
     reload: {
       type: Boolean,
       default: false
+    },
+    // 数据参数
+    chartsData: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
       chart: null
     }
-  },
-  mounted() {
-    // this.initChart() // 初始化
   },
   beforeDestroy() {
     if (!this.chart) {

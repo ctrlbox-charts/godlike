@@ -1,26 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-// in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
-// detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
-
 Vue.use(Router)
-
 /* Layout */
 import Layout from '../views/layout/Layout'
-
-/**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
-* meta : {
-    title: 'title'               the name show in submenu and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon show in the sidebar,
-  }
-**/
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
@@ -51,10 +33,10 @@ export const constantRouterMap = [
         meta: { title: 'Table', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
+        path: 'treeDemo',
+        name: 'TreeDemo',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: 'TtreeDemo', icon: 'tree' }
       }
     ]
   },
@@ -126,6 +108,82 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/pie/pie'),
             name: 'pie',
             meta: { title: '标准饼状图' }
+          },
+          {
+            path: 'cycPie',
+            component: () => import('@/views/echarts/pie/cycPie'),
+            name: 'cycPie',
+            meta: { title: '环形饼状图' }
+          },
+          {
+            path: 'outInPie',
+            component: () => import('@/views/echarts/pie/outInPie'),
+            name: 'outInPie',
+            meta: { title: '环嵌套饼状图' }
+          },
+          {
+            path: 'ndglPie',
+            component: () => import('@/views/echarts/pie/ndglPie'),
+            name: 'ndglPie',
+            meta: { title: '玫瑰饼状图' }
+          },
+          {
+            path: 'qianPie',
+            component: () => import('@/views/echarts/pie/qianPie'),
+            name: 'qianPie',
+            meta: { title: '千层饼状图' }
+          }
+        ]
+      },
+      {
+        path: 'treeChartsIndex',
+        name: 'treeChartsIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '树状图', icon: 'chart' },
+        children: [
+          {
+            path: 'defaultTree',
+            component: () => import('@/views/echarts/tree/tree'),
+            name: 'defaultTree',
+            meta: { title: '标准树状图' }
+          },
+          {
+            path: 'radialTree',
+            component: () => import('@/views/echarts/tree/radialTree'),
+            name: 'radialTree',
+            meta: { title: '环形树状图' }
+          }
+        ]
+      },
+      {
+        path: 'calendarIndex',
+        name: 'calendarIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '日历图', icon: 'chart' },
+        children: [
+          {
+            path: 'simple',
+            component: () => import('@/views/echarts/calendar/simple'),
+            name: 'simple',
+            meta: { title: '简单日历图' }
+          },
+          {
+            path: 'graph',
+            component: () => import('@/views/echarts/calendar/graph'),
+            name: 'graph',
+            meta: { title: '曲线日历图' }
+          },
+          {
+            path: 'dateCalendar',
+            component: () => import('@/views/echarts/calendar/dateCalendar'),
+            name: 'dateCalendar',
+            meta: { title: '热力日历图' }
+          },
+          {
+            path: 'year',
+            component: () => import('@/views/echarts/calendar/year'),
+            name: 'year',
+            meta: { title: '年份日历图' }
           }
         ]
       },
@@ -204,8 +262,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'scatterIndex',
+        name: 'scatterIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '散点图', icon: 'chart' },
         children: [
@@ -214,6 +272,20 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/scatter'),
             name: 'scatter',
             meta: { title: '标准散点图' }
+          }
+        ]
+      },
+      {
+        path: 'synergyIndex',
+        name: 'synergyIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '桑基图', icon: 'chart' },
+        children: [
+          {
+            path: 'sankey',
+            component: () => import('@/views/echarts/sankey'),
+            name: 'sankey',
+            meta: { title: '桑基图' }
           }
         ]
       },
@@ -232,8 +304,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'themeRiverIndex',
+        name: 'themeRiverIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '主题河流图', icon: 'chart' },
         children: [
@@ -246,8 +318,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'eventRiverIndex',
+        name: 'eventRiverIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '事件河流图', icon: 'chart' },
         children: [
@@ -260,8 +332,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'gaugeIndex',
+        name: 'gaugeIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '仪表盘', icon: 'gauge' },
         children: [

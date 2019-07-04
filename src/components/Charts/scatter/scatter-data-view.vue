@@ -2,6 +2,7 @@
   <div class="chart-container-scatter" >
     <scatter height="100%" :width="dataViewVisible?width:'100%'" 
     className="scatterCharts"
+    title="标准散点图"
     :themeType="themeType"
     :chartsData="chartsData"
     :id="id"

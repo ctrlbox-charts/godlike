@@ -17,7 +17,6 @@
 </template>
 <script>
 import pie from '@/components/Charts/pie'
-import eLine from '@/components/Charts/line'
 import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -31,34 +30,42 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-// const xData = (function() {
-//   const data = []
-//   for (let i = 1; i < 13; i++) {
-//     data.push(i + 'month')
-//   }
-//   return data
-// }())
-const series = [
-  {
-    name: '访问来源',
-    type: 'pie',
-    radius: '55%',
-    center: ['50%', '60%'],
-    data: [
-      { value: 335, name: '直接访问' },
-      { value: 310, name: '邮件营销' },
-      { value: 234, name: '联盟广告' },
-      { value: 135, name: '视频广告' },
-      { value: 1548, name: '搜索引擎' }
-    ]
+const series = (function() {
+  var series = []
+  for (var i = 0; i < 30; i++) {
+    series.push({
+      name: '浏览器（数据纯属虚构）',
+      type: 'pie',
+      itemStyle: { normal: {
+        label: { show: i > 28 },
+        labelLine: { show: i > 28, length: 20 }
+      }},
+      radius: [i * 4 + 40, i * 4 + 43],
+      data: [
+        { value: i * 128 + 80, name: 'Chrome' },
+        { value: i * 64 + 160, name: 'Firefox' },
+        { value: i * 32 + 320, name: 'Safari' },
+        { value: i * 16 + 640, name: 'IE9+' },
+        { value: i * 8 + 1280, name: 'IE8-' }
+      ]
+    })
   }
-]
+  series[0].markPoint = {
+    symbol: 'emptyCircle',
+    symbolSize: series[0].radius[0],
+    effect: { show: true, scaleSize: 12, color: 'rgba(250,225,50,0.8)', shadowBlur: 10, period: 30 },
+    data: [{ x: '50%', y: '50%' }]
+  }
+  return series
+})()
 const legend = {
-  data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+  orient: 'vertical',
+  x: 'left',
+  data: ['Chrome', 'Firefox', 'Safari', 'IE9+', 'IE8-']
 }
 export default {
   name: 'pieCharts',
-  components: { pie, EchartsFilter, eLine },
+  components: { pie, EchartsFilter },
   data() {
     return {
       themeType: 'macarons',
@@ -90,9 +97,6 @@ export default {
         this.chartsData = {
           series: series,
           legend: legend
-          // xAxis: xAxis,
-          // yAxis: yAxis,
-          // xData: xData
         }
       }, 10)
     },
@@ -112,9 +116,6 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
     },
     // 堆叠
     changeStack() {
