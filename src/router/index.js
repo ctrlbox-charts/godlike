@@ -33,10 +33,10 @@ export const constantRouterMap = [
         meta: { title: 'Table', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
+        path: 'treeDemo',
+        name: 'TreeDemo',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: 'TtreeDemo', icon: 'tree' }
       }
     ]
   },
@@ -108,6 +108,82 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/pie/pie'),
             name: 'pie',
             meta: { title: '标准饼状图' }
+          },
+          {
+            path: 'cycPie',
+            component: () => import('@/views/echarts/pie/cycPie'),
+            name: 'cycPie',
+            meta: { title: '环形饼状图' }
+          },
+          {
+            path: 'outInPie',
+            component: () => import('@/views/echarts/pie/outInPie'),
+            name: 'outInPie',
+            meta: { title: '环嵌套饼状图' }
+          },
+          {
+            path: 'ndglPie',
+            component: () => import('@/views/echarts/pie/ndglPie'),
+            name: 'ndglPie',
+            meta: { title: '玫瑰饼状图' }
+          },
+          {
+            path: 'qianPie',
+            component: () => import('@/views/echarts/pie/qianPie'),
+            name: 'qianPie',
+            meta: { title: '千层饼状图' }
+          }
+        ]
+      },
+      {
+        path: 'treeChartsIndex',
+        name: 'treeChartsIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '树状图', icon: 'chart' },
+        children: [
+          {
+            path: 'defaultTree',
+            component: () => import('@/views/echarts/tree/tree'),
+            name: 'defaultTree',
+            meta: { title: '标准树状图' }
+          },
+          {
+            path: 'radialTree',
+            component: () => import('@/views/echarts/tree/radialTree'),
+            name: 'radialTree',
+            meta: { title: '环形树状图' }
+          }
+        ]
+      },
+      {
+        path: 'calendarIndex',
+        name: 'calendarIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '日历图', icon: 'chart' },
+        children: [
+          {
+            path: 'simple',
+            component: () => import('@/views/echarts/calendar/simple'),
+            name: 'simple',
+            meta: { title: '简单日历图' }
+          },
+          {
+            path: 'graph',
+            component: () => import('@/views/echarts/calendar/graph'),
+            name: 'graph',
+            meta: { title: '曲线日历图' }
+          },
+          {
+            path: 'dateCalendar',
+            component: () => import('@/views/echarts/calendar/dateCalendar'),
+            name: 'dateCalendar',
+            meta: { title: '热力日历图' }
+          },
+          {
+            path: 'year',
+            component: () => import('@/views/echarts/calendar/year'),
+            name: 'year',
+            meta: { title: '年份日历图' }
           }
         ]
       },
@@ -140,8 +216,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'scatterIndex',
+        name: 'scatterIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '散点图', icon: 'chart' },
         children: [
@@ -154,8 +230,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'synergyIndex',
+        name: 'synergyIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '桑基图', icon: 'chart' },
         children: [
@@ -182,8 +258,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'themeRiverIndex',
+        name: 'themeRiverIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '主题河流图', icon: 'chart' },
         children: [
@@ -196,8 +272,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'eventRiverIndex',
+        name: 'eventRiverIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '事件河流图', icon: 'chart' },
         children: [
@@ -210,8 +286,8 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'index',
-        name: 'echarts',
+        path: 'gaugeIndex',
+        name: 'gaugeIndex',
         component: () => import('@/views/echarts/index'), // Parent
         meta: { title: '仪表盘', icon: 'gauge' },
         children: [

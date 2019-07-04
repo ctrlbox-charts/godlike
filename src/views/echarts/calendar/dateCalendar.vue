@@ -7,18 +7,19 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <pie 
+    <calendar 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></pie>
+    ></calendar>
   </div> 
 </template>
 <script>
-import pie from '@/components/Charts/pie'
-import eLine from '@/components/Charts/line'
+import calendar from '@/components/Charts/calendar'
 import EchartsFilter from '../echarts-filter'
+import echarts from 'echarts'
+
 // 全屏
 function launchIntoFullscreen(element) {
   if (element.requestFullscreen) {
@@ -31,40 +32,57 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-// const xData = (function() {
-//   const data = []
-//   for (let i = 1; i < 13; i++) {
-//     data.push(i + 'month')
-//   }
-//   return data
-// }())
-const series = [
-  {
-    name: '访问来源',
-    type: 'pie',
-    radius: '55%',
-    center: ['50%', '60%'],
-    data: [
-      { value: 335, name: '直接访问' },
-      { value: 310, name: '邮件营销' },
-      { value: 234, name: '联盟广告' },
-      { value: 135, name: '视频广告' },
-      { value: 1548, name: '搜索引擎' }
-    ]
+
+function getVirtulData(year) {
+  year = year || '2019'
+  var date = +echarts.number.parseDate(year + '-01-01')
+  var end = +echarts.number.parseDate(year + '-12-31')
+  var dayTime = 3600 * 24 * 1000
+  var data = []
+  for (var time = date; time <= end; time += dayTime) {
+    data.push([
+      echarts.format.formatTime('yyyy-MM-dd', time),
+      Math.floor(Math.random() * 10000)
+    ])
   }
-]
-const legend = {
-  data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+  return data
+}
+const series = {
+  type: 'heatmap',
+  coordinateSystem: 'calendar',
+  calendarIndex: 0,
+  data: getVirtulData(2019)
+}
+const calendarData = {
+  top: 100,
+  cellSize: ['auto', 20],
+  range: '2019'
+}
+const visualMap = {
+  min: 0,
+  max: 10000,
+  calculable: true,
+  align: 'bottom',
+  orient: 'horizontal',
+  left: 'center',
+  top: '10',
+  inRange: {
+    // 红蓝相间
+    // color: ['#5A8BC7', '#7E9FB9', '#A3B5A9', '#C9CB9D', '#ECE191', '#FEDC88', '#FCC080', '#FBA279', '#F98673', '#F7676C']
+
+    // 红色色系
+    color: ['white', '#FFE9BB', '#FFD1A7', '#FFBB95', '#FFA383', '#FF8D70', '#FF745C', '#FF5C4A', '#FF4638', '#FF2E26', '#FF1812']
+  }
 }
 export default {
-  name: 'pieCharts',
-  components: { pie, EchartsFilter, eLine },
+  name: 'calendarCharts',
+  components: { calendar, EchartsFilter },
   data() {
     return {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'pie'
+      id: 'calendar'
     }
   },
   mounted() {
@@ -73,7 +91,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById('calendar')
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
@@ -89,18 +107,14 @@ export default {
       setTimeout(() => {
         this.chartsData = {
           series: series,
-          legend: legend
-          // xAxis: xAxis,
-          // yAxis: yAxis,
-          // xData: xData
+          visualMap: visualMap,
+          calendar: calendarData
         }
       }, 10)
     },
     // 坐标切换
     xyChange() {
-      const temp = this.chartsData.xAxis
-      this.chartsData.xAxis = this.chartsData.yAxis
-      this.chartsData.yAxis = temp
+      this.reload ? this.chartsData.calendar.orient = 'horizontal' : this.chartsData.calendar.orient = 'vertical'
       this.reload = !this.reload
     },
     // 图形切换
@@ -112,9 +126,6 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
     },
     // 堆叠
     changeStack() {

@@ -17,7 +17,6 @@
 </template>
 <script>
 import pie from '@/components/Charts/pie'
-import eLine from '@/components/Charts/line'
 import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -31,19 +30,31 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-// const xData = (function() {
-//   const data = []
-//   for (let i = 1; i < 13; i++) {
-//     data.push(i + 'month')
-//   }
-//   return data
-// }())
 const series = [
   {
     name: '访问来源',
     type: 'pie',
-    radius: '55%',
-    center: ['50%', '60%'],
+    radius: ['50%', '70%'],
+    itemStyle: {
+      normal: {
+        label: {
+          show: false,
+          position: 'center'
+        },
+        labelLine: {
+          show: false
+        }
+      },
+      emphasis: {
+        label: {
+          show: true,
+          textStyle: {
+            fontSize: '30',
+            fontWeight: 'bold'
+          }
+        }
+      }
+    },
     data: [
       { value: 335, name: '直接访问' },
       { value: 310, name: '邮件营销' },
@@ -54,11 +65,13 @@ const series = [
   }
 ]
 const legend = {
+  orient: 'vertical',
+  x: 'left',
   data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
 }
 export default {
   name: 'pieCharts',
-  components: { pie, EchartsFilter, eLine },
+  components: { pie, EchartsFilter },
   data() {
     return {
       themeType: 'macarons',
@@ -90,9 +103,6 @@ export default {
         this.chartsData = {
           series: series,
           legend: legend
-          // xAxis: xAxis,
-          // yAxis: yAxis,
-          // xData: xData
         }
       }, 10)
     },
@@ -112,9 +122,6 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
     },
     // 堆叠
     changeStack() {
