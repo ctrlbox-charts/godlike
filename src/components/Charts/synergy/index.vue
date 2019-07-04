@@ -103,7 +103,24 @@ var options = {
             top: '90%'
           }
         ],
-        tooltip: {
+        toolbox: {
+    show: true,
+    feature: {
+      dataView: { // 数据视图
+        show: true
+        },
+        restore: { // 重置
+          show: true
+        },
+        // dataZoom: { //数据缩放视图
+        //   show: true
+        // },
+        saveAsImage: {// 保存图片
+          show: true
+        }
+      }
+    },
+          tooltip: {
           trigger: 'item',
           axisPointer: {
             type: 'shadow'
@@ -163,6 +180,7 @@ var options = {
 }
     this.chart = this.$echarts.init(document.getElementById(this.id))
     this.chart.setOption(options)
+    this.$emit('dataViewOptions',options)
     }
   }
 }

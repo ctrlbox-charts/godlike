@@ -216,6 +216,26 @@ export const constantRouterMap = [
         ]
       },
       {
+        path: 'gaugeIndex',
+        name: 'gaugeIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '仪表盘', icon: 'single-gauge' },
+        children: [
+          {
+            path: 'single-gauge',
+            component: () => import('@/views/echarts/gauge/single-gauge'),
+            name: 'single-gauge',
+            meta: { title: '仪表盘' }
+          },
+          {
+            path: 'multiple-gauge',
+            component: () => import('@/views/echarts/gauge/multiple-gauge'),
+            name: 'multiple-gauge',
+            meta: { title: '多仪表盘' }
+          }
+        ]
+      },
+      {
         path: 'scatterIndex',
         name: 'scatterIndex',
         component: () => import('@/views/echarts/index'), // Parent
@@ -282,20 +302,6 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/eventRiver'),
             name: 'eventRiver',
             meta: { title: '事件河流图' }
-          }
-        ]
-      },
-      {
-        path: 'gaugeIndex',
-        name: 'gaugeIndex',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '仪表盘', icon: 'gauge' },
-        children: [
-          {
-            path: 'gauge',
-            component: () => import('@/views/echarts/gauge'),
-            name: 'gauge',
-            meta: { title: '仪表盘' }
           }
         ]
       }
