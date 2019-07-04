@@ -202,6 +202,40 @@ export const constantRouterMap = [
         ]
       },
       {
+        path: 'map',
+        name: 'map',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '中国地图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/map'),
+            name: 'map',
+            meta: { title: '中国地图' }
+          }
+        ]
+      },
+      {
+        path: 'funnel',
+        name: 'funnel',
+        component: () => import('@/views/echarts/funnel'), // Parent
+        meta: { title: '漏斗图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/funnel'),
+            name: 'funnel',
+            meta: { title: '标准漏斗图' }
+          },
+          {
+            path: 'more',
+            component: () => import('@/views/echarts/funnel'),
+            name: 'more',
+            meta: { title: '多漏斗图' }
+          }
+        ]
+      },
+      {
         path: 'radar',
         name: 'radar',
         component: () => import('@/views/echarts/index'), // Parent
@@ -211,7 +245,19 @@ export const constantRouterMap = [
             path: 'index',
             component: () => import('@/views/echarts/radar'),
             name: 'radar',
-            meta: { title: '雷达图' }
+            meta: { title: '标准雷达图' }
+          },
+          {
+            path: 'fill',
+            component: () => import('@/views/echarts/radar'),
+            name: 'fill',
+            meta: { title: '填充雷达图' }
+          },
+          {
+            path: 'wormhole',
+            component: () => import('@/views/echarts/radar'),
+            name: 'wormhole',
+            meta: { title: '虫洞雷达图' }
           }
         ]
       },

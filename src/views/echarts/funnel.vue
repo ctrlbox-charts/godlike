@@ -7,17 +7,17 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <e-radar 
+    <funnel 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :routerName='routerName'
     :themeType = 'themeType'
-    ></e-radar>
+    ></funnel>
   </div> 
 </template>
 <script>
-import ERadar from '@/components/Charts/radar'
+import funnel from '@/components/Charts/funnel'
 import EchartsFilter from './echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -67,7 +67,7 @@ const polar = [
 ]
 export default {
   name: 'lineCharts',
-  components: { EchartsFilter, ERadar },
+  components: { EchartsFilter, funnel },
   data() {
     return {
       themeType: null,

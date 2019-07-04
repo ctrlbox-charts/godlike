@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="page-echarts-box">
-      <radar 
+      <funnel 
       title="折线图标题" 
       :id="id" 
       :options='chartsDataObj'
@@ -9,17 +9,26 @@
       :themeType="themeType"
       class="echarts"
       >
-      </radar>
+      </funnel>
       <div class="dataTable">
-        <h2>数据视图</h2>
-        <div>
-          <el-table :data="data_list">
-            <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                  <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
-                  </template>
+        <div v-for='(item, index) in data_list' :key='index' class='table-item'>
+          <h4>{{item.name}}</h4>
+          <div>
+            <el-table :data="item.dataList">
+              <el-table-column  
+              align='center'
+              prop="name"
+              label='#'
+              >
               </el-table-column>
-          </el-table>
+              <el-table-column 
+              align='center' 
+              prop="value"
+              label='数量'
+              >
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
       </div>
     </div>
@@ -27,8 +36,8 @@
 </template>
 
 <script>
-import radar from './radar'
-import { options, wormOptions } from './options'
+import funnel from './funnel'
+import { options, moreOptions } from './options'
 export default {
   props: {
     chartsData: {
@@ -70,24 +79,25 @@ export default {
     }
   },
   components: {
-    radar
+    funnel
   },
   watch: {
     chartsData(val) {
-      if (val === 'wormhole') {
-        this.chartsDataObj = wormOptions
+      if (val === 'more') {
+        this.chartsDataObj = moreOptions
       } else {
         this.chartsDataObj = options
       }
-      // this.handleData()
+      this.handleData()
       this.updateCharts()
     },
     routerName(val) {
-      if (val === 'wormhole') {
-        this.chartsDataObj = wormOptions
+      if (val === 'more') {
+        this.chartsDataObj = moreOptions
       } else {
         this.chartsDataObj = options
       }
+      this.handleData()
       this.updateCharts()
     }
   },
@@ -101,40 +111,25 @@ export default {
   methods: {
     // 更新数据
     updateCharts() {
-      const { series, legend, polar } = this.chartsData
-      if (this.routerName === 'radar' || this.routerName === 'fill') {
-        this.chartsDataObj.series = series
-        this.chartsDataObj.legend = legend
-        this.chartsDataObj.polar = polar
-      }
-      if (this.routerName === 'fill') {
-        this.chartsDataObj.series.forEach(el => {
-          this.$set(el, 'itemStyle', this.itemStyle)
-        })
-      } else {
-        this.chartsDataObj.series.forEach(el => {
-          this.$set(el, 'itemStyle', {})
-        })
-      }
+      // const { series, legend, polar } = this.chartsData
+      // if (this.routerName === 'radar' || this.routerName === 'fill') {
+      //   this.chartsDataObj.series = series
+      //   this.chartsDataObj.legend = legend
+      //   this.chartsDataObj.polar = polar
+      // }
     },
 
     // 动态渲染数据
     handleData() {
-      let arr = []
-      this.header = this.chartsData.series.map(x => x.name)
-      this.header.unshift('#')
-      arr = this.chartsData.series.map(x => x.data)
-      arr.unshift(this.chartsData.xData)
-      this.data_list = this.merge(arr)
-    },
-    // 数组处理
-    merge(arrs) {
-      var maxLen = Math.max(...arrs.map(x => x.length))
-      var result = []
-      for (let i = 0; i < maxLen; i++) {
-        result.push(arrs.filter(x => x.length > i).map(x => x[i]))
+      this.data_list = []
+      if (Array.isArray(this.chartsDataObj.series) && this.chartsDataObj.series.length) {
+        this.chartsDataObj.series.forEach(el => {
+          const obj = {}
+          obj.name = el.name
+          obj.dataList = el.data
+          this.data_list.push(obj)
+        })
       }
-      return result
     }
   }
 }
