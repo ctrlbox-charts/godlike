@@ -187,34 +187,7 @@ export const constantRouterMap = [
           }
         ]
       },
-      {
-        path: 'line',
-        name: 'line',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '折线图', icon: 'chart' },
-        children: [
-          {
-            path: 'line',
-            component: () => import('@/views/echarts/line'),
-            name: 'line',
-            meta: { title: '标准折线图' }
-          }
-        ]
-      },
-      {
-        path: 'map',
-        name: 'map',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '中国地图', icon: 'chart' },
-        children: [
-          {
-            path: 'index',
-            component: () => import('@/views/echarts/map'),
-            name: 'map',
-            meta: { title: '中国地图' }
-          }
-        ]
-      },
+
       {
         path: 'funnel',
         name: 'funnel',
@@ -258,6 +231,34 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/radar'),
             name: 'wormhole',
             meta: { title: '虫洞雷达图' }
+          }
+        ]
+      },
+      {
+        path: 'line',
+        name: 'line',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '折线图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/line'),
+            name: 'line',
+            meta: { title: '折线图' }
+          }
+        ]
+      },
+      {
+        path: 'map',
+        name: 'map',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '中国地图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/map'),
+            name: 'map',
+            meta: { title: '中国地图' }
           }
         ]
       },
