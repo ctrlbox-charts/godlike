@@ -12,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :routerName='routerName'
     :dataViewVisible = 'dataViewVisible'
     :themeType = 'themeType'
     ></scatter-data-view >
@@ -57,8 +58,6 @@ const options = {
     },
     toolbox: {
         show: true,
-        x:'center',
-        y:'top',
         feature : {
             mark : {show: true},
             dataView : {show: true, readOnly: false},
@@ -155,6 +154,7 @@ export default {
       chartsData: null,
       reload: false,
       id: 'scatter',
+      routerName: 'scatter', // 区别显示不同的sandian
       // 数据视图
       dataViewVisible: true
     }

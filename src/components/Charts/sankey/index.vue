@@ -62,48 +62,59 @@ export default {
   data() {
     return {
       chart: null,
-      options:{
-      series: {
+      options: {
+        toolbox: {
+          show: true,
+          feature: {
+            dataView: { // 数据视图
+              show: true
+            },
+            mark: { show: true },
+            restore: { show: true },
+            saveAsImage: { show: true }
+          }
+        },
+        series: {
           type: 'sankey',
-          layout:'none',
+          layout: 'none',
           focusNodeAdjacency: 'allEdges',
           data: [{
-              name: 'a'
+            name: 'a'
           }, {
-              name: 'b'
+            name: 'b'
           }, {
-              name: 'a1'
+            name: 'a1'
           }, {
-              name: 'a2'
+            name: 'a2'
           }, {
-              name: 'b1'
+            name: 'b1'
           }, {
-              name: 'c'
+            name: 'c'
           }],
           links: [{
-              source: 'a',
-              target: 'a1',
-              value: 5
+            source: 'a',
+            target: 'a1',
+            value: 5
           }, {
-              source: 'a',
-              target: 'a2',
-              value: 3
+            source: 'a',
+            target: 'a2',
+            value: 3
           }, {
-              source: 'b',
-              target: 'b1',
-              value: 8
+            source: 'b',
+            target: 'b1',
+            value: 8
           }, {
-              source: 'a',
-              target: 'b1',
-              value: 3
+            source: 'a',
+            target: 'b1',
+            value: 3
           }, {
-              source: 'b1',
-              target: 'a1',
-              value: 1
+            source: 'b1',
+            target: 'a1',
+            value: 1
           }, {
-              source: 'b1',
-              target: 'c',
-              value: 2
+            source: 'b1',
+            target: 'c',
+            value: 2
           }]
         }
       }
@@ -117,7 +128,7 @@ export default {
       this.chart.dispose()
       this.chart = null
       this.initChart(this.options, this.themeName)
-    },
+    }
   },
   mounted() {
     this.initChart(this.options, this.themeName)
@@ -132,7 +143,7 @@ export default {
   methods: {
     initChart() {
       if (!document.getElementById(this.id)) return
-      this.chart = this.$echarts.init(document.getElementById(this.id),this.themeType)
+      this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(this.options)
     }
   }

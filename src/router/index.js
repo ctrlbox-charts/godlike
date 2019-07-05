@@ -180,6 +180,12 @@ export const constantRouterMap = [
             meta: { title: '热力日历图' }
           },
           {
+            path: 'pieCalendar',
+            component: () => import('@/views/echarts/calendar/pieCalendar'),
+            name: 'pieCalendar',
+            meta: { title: '饼状日历图' }
+          },
+          {
             path: 'year',
             component: () => import('@/views/echarts/calendar/year'),
             name: 'year',
@@ -310,9 +316,15 @@ export const constantRouterMap = [
         children: [
           {
             path: 'scatter',
-            component: () => import('@/views/echarts/scatter'),
+            component: () => import('@/views/echarts/scatter/scatter'),
             name: 'scatter',
             meta: { title: '标准散点图' }
+          },
+          {
+            path: 'scatter-process',
+            component: () => import('@/views/echarts/scatter/scatter-process'),
+            name: 'scatter-process',
+            meta: { title: '坐标散点图' }
           }
         ]
       },

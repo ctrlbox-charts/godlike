@@ -2,7 +2,7 @@
   <div class="root">
     <div class="page-charts-sankey">
       <sankey 
-      height="100%" 
+      height="calc(100vh - 150px)" 
       width="100%" 
       className="sankeyCharts" 
       :id="id"
@@ -40,7 +40,7 @@ export default {
       default: () => {}
     },
     // 视图主题
-    themeType:{
+    themeType: {
       type: String,
       default: () => ''
     },
@@ -55,7 +55,7 @@ export default {
       value: '',
       reload: false, // 重新加载图形
       header: [], // 头部
-      data_list: [], // 数据
+      data_list: [] // 数据
     }
   },
   components: {
@@ -85,7 +85,7 @@ export default {
         result.push(arrs.filter(x => x.length > i).map(x => x[i]))
       }
       return result
-    },
+    }
   }
 }
 </script>
@@ -109,5 +109,18 @@ export default {
     width: 39%;
     height: calc(100vh - 150px);
     overflow-y: scroll;
+}
+</style>
+
+<style lang='scss'>
+@media screen and (max-width: 960px){
+  .page-charts-sankey{
+    .echarts{
+       flex-basis: 100%!important;
+     }
+    .dataTable{
+      display: none!important;
+    }
+  }
 }
 </style>
