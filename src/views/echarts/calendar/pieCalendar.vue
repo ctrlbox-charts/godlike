@@ -73,7 +73,7 @@ const series = [{
 }]
 const legend = {
   data: ['工作', '娱乐', '睡觉'],
-  bottom: 20
+  top: 20
 }
 const calendarData = {
   top: 'middle',

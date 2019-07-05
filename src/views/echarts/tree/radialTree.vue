@@ -49,7 +49,8 @@ const series = [
   }
 ]
 const legend = {
-  data: []
+  x: 25,
+  data: ['树图']
 }
 export default {
   name: 'treeCharts',
@@ -68,7 +69,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('tree')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

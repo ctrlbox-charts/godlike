@@ -108,7 +108,7 @@ export default {
   components: { EchartsFilter, eLine },
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
       id: 'line'

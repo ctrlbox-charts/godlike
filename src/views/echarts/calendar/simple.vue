@@ -185,7 +185,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('calendar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

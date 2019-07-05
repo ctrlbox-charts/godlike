@@ -212,7 +212,7 @@ export default {
   components: {ScatterDataView,EchartsFilter},
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
       id: 'scatter',
