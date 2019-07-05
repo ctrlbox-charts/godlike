@@ -1,12 +1,14 @@
 <template>
   <div class="chart-container" >
-    <chart height="100%" width="60%" 
+    <chart
     className="treeCharts" :id="id"
     :themeType="themeType"
     :chartsData="chartsData"
     :reload="reload"
+    class="treeCharts"
+    :class="{'width-100':!isShowDataView}"
     />
-    <div class="dataTable">
+    <div class="dataTable" :class="{'none':!isShowDataView}">
       <h2 style="margin-left:10px;color:#666;">数据视图</h2>
       <div>
         <el-tree :data="data_list" 
@@ -39,6 +41,11 @@ export default {
       type: String,
       default: 'bar'
     },
+    // 重新加载数据视图
+    reloadDataView: {
+      type: Boolean,
+      default: false
+    },
     // 主题
     themeType: {
       type: String,
@@ -50,6 +57,7 @@ export default {
       header: [], // 头部
       data_list: [], // 数据
       options: treeOptions,
+      isShowDataView: true, // 是否显示数据视图
       defaultProps: {
         children: 'children',
         label: 'name'
@@ -62,6 +70,10 @@ export default {
         this.updateCharts()
         this.handleData()
       }
+    },
+    // 监听数据视图
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
     }
   },
   methods: {
@@ -79,10 +91,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.none{
+  display: none;
+}
 .chart-container{
   position: relative;
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 180px);
   .gw-title-icon {
     color: #73dadb;
     cursor: pointer;
@@ -92,11 +107,18 @@ export default {
 .dataTable {
     position: absolute;
     right: 0;
-    top: 60px;
+    top: 0;
     border: 1px solid #ccc;
     width: 39%;
-    height: calc(100vh - 185px);
+    height: 100%;
     overflow-y: scroll;
+}
+.treeCharts {
+  width: 60%;
+  height: 100%;
+}
+.width-100 {
+  width: 100%;
 }
 </style>
 <style lang="scss">

@@ -5,12 +5,14 @@
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
     @clickScreen = 'clickScreen'
+    @dataView = 'dataView'
     @clickScreenAll = 'clickScreenAll'
     />
     <tree 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :reloadDataView='reloadDataView'
     :themeType = 'themeType'
     ></tree>
   </div> 
@@ -76,6 +78,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
+      reloadDataView: true,
       id: 'tree'
     }
   },
@@ -83,6 +86,11 @@ export default {
     this.init()
   },
   methods: {
+    // 数据视图
+    dataView() {
+      this.reloadDataView = !this.reloadDataView
+      this.reload = !this.reload
+    },
     // 全屏 by wwh
     clickScreen() {
       var full = document.getElementById(this.id)

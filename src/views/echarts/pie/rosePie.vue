@@ -4,6 +4,7 @@
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
+    @dataView = 'dataView'
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
@@ -11,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :reloadDataView='reloadDataView'
     :themeType = 'themeType'
     ></pie>
   </div> 
@@ -62,6 +64,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
+      reloadDataView: true,
       id: 'rosePie'
     }
   },
@@ -69,6 +72,11 @@ export default {
     this.init()
   },
   methods: {
+    // 数据视图
+    dataView() {
+      this.reloadDataView = !this.reloadDataView
+      this.reload = !this.reload
+    },
     // 全屏 by wwh
     clickScreen() {
       var full = document.getElementById(this.id)

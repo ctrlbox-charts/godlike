@@ -4,6 +4,7 @@
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
+    @dataView = 'dataView'
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
@@ -11,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :reloadDataView='reloadDataView'
     :themeType = 'themeType'
     ></pie>
   </div> 
@@ -34,7 +36,7 @@ const series = (function() {
   var series = []
   for (var i = 0; i < 30; i++) {
     series.push({
-      name: '浏览器（数据纯属虚构）',
+      name: '浏览器',
       type: 'pie',
       itemStyle: { normal: {
         label: { show: i > 28 },
@@ -71,6 +73,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
+      reloadDataView: true,
       id: 'qianPie'
     }
   },
@@ -78,6 +81,11 @@ export default {
     this.init()
   },
   methods: {
+    // 数据视图
+    dataView() {
+      this.reloadDataView = !this.reloadDataView
+      this.reload = !this.reload
+    },
     // 全屏 by wwh
     clickScreen() {
       var full = document.getElementById(this.id)
