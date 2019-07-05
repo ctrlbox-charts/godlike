@@ -1,24 +1,25 @@
 <template>
   <div class="chart-container-scatter" >
-    <scatter height="100%" :width="dataViewVisible?width:'100%'" 
-    className="scatterCharts"
-    title="标准散点图"
-    :themeType="themeType"
-    :chartsData="chartsData"
-    :id="id"
-    :reload="reload"/>
-    <div class="dataTable" v-if="dataViewVisible">
-      <h2>数据视图</h2>
-      <div>
-        <el-table :data="data_list">
-          <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                <template slot-scope="scope">
-                    {{data_list[scope.$index][0][index]}}
-                </template>
-            </el-table-column>
-        </el-table>
+      <scatter height="100%" :width="dataViewVisible?width:'100%'" 
+      className="scatterCharts"
+      title="标准散点图"
+      :themeType="themeType"
+      :chartsData="chartsData"
+      :id="id"
+      class="echarts"
+      :reload="reload"/>
+      <div class="dataTable" v-if="dataViewVisible">
+        <h2>数据视图</h2>
+        <div>
+          <el-table :data="data_list">
+            <el-table-column show-overflow-tooltip :label="date" v-for="(date, index) in header" :key="index">
+                  <template slot-scope="scope">
+                      {{data_list[scope.$index][0][index]}}
+                  </template>
+              </el-table-column>
+          </el-table>
+        </div>
       </div>
-    </div>
   </div>
 </template>
 <script>
@@ -70,6 +71,7 @@ export default {
   methods: {
     // 动态渲染数据
     handleData() {
+      // console.log(this.chartsData)
       let arr = []
       if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
         this.header = ["时间","数据1", "数据2"]
@@ -125,6 +127,19 @@ export default {
       background: rgba(0,0,0,0.1);
 
   }
+</style>
+
+<style lang='scss'>
+@media screen and (max-width: 960px){
+  .chart-container-scatter{
+    .echarts{
+       flex-basis: 100%!important;
+     }
+    .dataTable{
+      display: none!important;
+    }
+  }
+}
 </style>
 
 

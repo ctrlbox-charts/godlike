@@ -217,7 +217,7 @@ export default {
       reload: false,
       id: 'scatter',
       // 数据视图
-      dataViewVisible: true
+      dataViewVisible: false
     }
   },
   mounted() {

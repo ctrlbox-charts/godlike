@@ -12,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :routerName='routerName'
     :dataViewVisible = 'dataViewVisible'
     :themeType = 'themeType'
     ></scatter-data-view >
@@ -153,6 +154,7 @@ export default {
       chartsData: null,
       reload: false,
       id: 'scatter',
+      routerName: 'scatter', // 区别显示不同的sandian
       // 数据视图
       dataViewVisible: true
     }

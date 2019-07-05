@@ -111,3 +111,16 @@ export default {
     overflow-y: scroll;
 }
 </style>
+
+<style lang='scss'>
+@media screen and (max-width: 960px){
+  .page-charts-sankey{
+    .echarts{
+       flex-basis: 100%!important;
+     }
+    .dataTable{
+      display: none!important;
+    }
+  }
+}
+</style>
