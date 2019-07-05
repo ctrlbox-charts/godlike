@@ -19,17 +19,17 @@ export default {
     },
     width: {
       type: String,
-      default: '200px'
+      default: '100%'
     },
     height: {
       type: String,
-      default: '200px'
+      default: '100%'
     },
     themeType: {
       type: String,
       default: 'macarons'
     },
-    chartsData: {
+    options: {
       type: Object,
       default: () => {}
     },
@@ -42,9 +42,6 @@ export default {
     return {
       chart: null
     }
-  },
-  mounted() {
-    // this.initChart() // 初始化
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -60,23 +57,33 @@ export default {
       this.chart = null
       this.initChart() // 重新初始化
     },
-    // 获取数据
-    chartsData() {
+    reload(val) {
+      if (!this.chart) {
+        return
+      }
+      this.chart.dispose()
+      this.chart = null
       this.initChart()
     },
-    // 改变数据
-    reload() {
-      if (Object.keys(this.chartsData).length) {
-        this.chart.dispose() // 实例销毁
+    options: {
+      handler(val) {
+        if (!this.chart) {
+          return
+        }
+        this.chart.dispose()
         this.chart = null
-        this.initChart() // 重新初始化
-      } else { this.initChart() } // 重新初始化
+        this.initChart()
+      },
+      deep: true
     }
+  },
+  mounted() {
+    this.initChart()
   },
   methods: {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
-      this.chart.setOption(this.chartsData)
+      this.chart.setOption(this.options)
     }
   }
 }
