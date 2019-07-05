@@ -1,13 +1,15 @@
 <template>
   <div class="chart-container" >
-    <chart height="100%" width="60%" 
+    <chart
     className="barCharts" :id="id"
     :themeType="themeType"
     :chartsData="chartsData"
     :reload="reload"
+    class="barCharts"
+    :class="{'width-100':!isShowDataView}"
     />
-    <div class="dataTable">
-      <h2>数据视图</h2>
+    <div class="dataTable" :class="{'none':!isShowDataView}">
+      <h2 style="padding-left:10px">数据视图</h2>
       <div>
         <el-table :data="data_list">
           <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
@@ -37,6 +39,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 重新加载数据视图
+    reloadDataView: {
+      type: Boolean,
+      default: false
+    },
     // 组件唯一id
     id: {
       type: String,
@@ -52,7 +59,8 @@ export default {
     return {
       header: [], // 头部
       data_list: [], // 数据
-      options: barOptions
+      options: barOptions,
+      isShowDataView: true // 是否显示数据视图
     }
   },
   watch: {
@@ -61,6 +69,10 @@ export default {
         this.handleData()
         this.updateCharts()
       }
+    },
+    // 监听数据视图
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
     }
   },
   methods: {
@@ -95,23 +107,33 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.none{
+  display: none;
+}
 .chart-container{
   position: relative;
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 180px);
   .gw-title-icon {
     color: #73dadb;
     cursor: pointer;
     min-width: 30px;
   }
 }
+.barCharts {
+  width: 60%;
+  height: 100%;
+}
+.width-100 {
+  width: 100%;
+}
 .dataTable {
     position: absolute;
     right: 0;
-    top: 60px;
+    top: 0;
     border: 1px solid #ccc;
     width: 39%;
-    height: calc(100vh - 185px);
+    height: 100%;
     overflow-y: scroll;
 }
 </style>
@@ -161,7 +183,7 @@ export default {
     overflow: hidden;
     overflow-y: auto;
   }
-   @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 1000px) {
     .gw-chart {
       display: flex;
       align-items: center;

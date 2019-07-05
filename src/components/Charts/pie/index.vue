@@ -1,12 +1,14 @@
 <template>
   <div class="chart-container" >
-    <chart height="100%" width="60%" 
+    <chart
     className="barCharts" :id="id"
     :themeType="themeType"
     :chartsData="chartsData"
     :reload="reload"
+    class="pieCharts"
+    :class="{'width-100':!isShowDataView}"
     />
-    <div class="dataTable">
+    <div class="dataTable" :class="{'none':!isShowDataView}">
       <h2>数据视图</h2>
       <div>
         <el-table :data="data_list">
@@ -42,6 +44,11 @@ export default {
       type: String,
       default: 'bar'
     },
+    // 重新加载数据视图
+    reloadDataView: {
+      type: Boolean,
+      default: false
+    },
     // 主题
     themeType: {
       type: String,
@@ -52,6 +59,7 @@ export default {
     return {
       header: [], // 头部
       data_list: [], // 数据
+      isShowDataView: true, // 是否显示数据视图
       options: pieOptions
     }
   },
@@ -61,6 +69,10 @@ export default {
         this.handleData()
         this.updateCharts()
       }
+    },
+    // 监听数据视图
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
     }
   },
   methods: {
@@ -94,23 +106,33 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.none{
+  display: none;
+}
 .chart-container{
   position: relative;
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 180px);
   .gw-title-icon {
     color: #73dadb;
     cursor: pointer;
     min-width: 30px;
   }
 }
+.pieCharts {
+  width: 60%;
+  height: 100%;
+}
+.width-100 {
+  width: 100%;
+}
 .dataTable {
     position: absolute;
     right: 0;
-    top: 60px;
+    top: 0;
     border: 1px solid #ccc;
     width: 39%;
-    height: calc(100vh - 185px);
+    height: 100%;
     overflow-y: scroll;
 }
   /*滚动条样式*/

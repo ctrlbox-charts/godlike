@@ -3,6 +3,7 @@
     <echarts-filter 
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
+    @dataView = 'dataView'
     @xyChange = 'xyChange' 
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
@@ -11,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :reloadDataView='reloadDataView'
     :themeType = 'themeType'
     ></bar>
   </div> 
@@ -95,6 +97,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
+      reloadDataView: true,
       id: 'bar'
     }
   },
@@ -102,6 +105,11 @@ export default {
     this.init()
   },
   methods: {
+    // 数据视图
+    dataView() {
+      this.reloadDataView = !this.reloadDataView
+      this.reload = !this.reload
+    },
     // 全屏 by wwh
     clickScreen() {
       var full = document.getElementById(this.id)
