@@ -14,7 +14,7 @@ const options = {
     show: true,
     feature: {
       dataView: { // 数据视图
-        show: true
+        show: false
       },
       restore: { // 重置
         show: true
@@ -24,10 +24,10 @@ const options = {
       // },
       saveAsImage: {// 保存图片
         show: true
-      },
-      magicType: {// 动态类型切换
-        type: ['bar', 'line', 'pie']
       }
+      // magicType: {// 动态类型切换
+      //   type: ['bar', 'line', 'pie']
+      // }
     }
   },
   tooltip: {

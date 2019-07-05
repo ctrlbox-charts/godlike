@@ -11,7 +11,7 @@ const options = {
     show: true,
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
     }
@@ -99,7 +99,7 @@ const moreOptions = {
     // y: 'center',
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
     }

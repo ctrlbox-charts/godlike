@@ -4,6 +4,7 @@
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
     @xyChange = 'xyChange' 
+    @dataView = 'dataView'
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
@@ -11,6 +12,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :reloadDataView='reloadDataView'
     :routerName='routerName'
     :themeType = 'themeType'
     ></e-radar>
@@ -74,6 +76,7 @@ export default {
       chartsData: null,
       reload: false,
       id: 'line',
+      reloadDataView: true,
       routerName: 'radar' // 区别显示不同的雷达图
     }
   },
@@ -87,9 +90,14 @@ export default {
     }
   },
   methods: {
+    // 数据视图
+    dataView() {
+      this.reloadDataView = !this.reloadDataView
+      this.reload = !this.reload
+    },
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

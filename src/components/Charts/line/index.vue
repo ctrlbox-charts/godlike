@@ -37,9 +37,10 @@
       :reload='reload'
       :themeType="themeType"
       class="echarts"
+      :class="{'flex-100':!isShowDataView}"
       >
       </LineChart>
-      <div class="dataTable">
+      <div class="dataTable" :class="{'none':!isShowDataView}">
         <h2>数据视图</h2>
         <div>
           <el-table :data="data_list">
@@ -74,6 +75,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 重新加载数据视图
+    reloadDataView: {
+      type: Boolean,
+      default: false
+    },
     // 组件唯一id
     id: {
       type: String,
@@ -84,6 +90,7 @@ export default {
     return {
       title: '折线统计图',
       isSmooth: true,
+      isShowDataView: true, // 是否显示数据视图
       value: '',
       typeValue: '',
       isStack: true, // 是否是堆积折线图
@@ -148,6 +155,9 @@ export default {
         this.handleData()
       },
       deep: true
+    },
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
     }
   },
   beforeDestroy() {
@@ -232,25 +242,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-//   .root{
-//     position: relative;
-//     width: 100%;
-//     height: calc(100vh - 150px);
-//   }
-//  .echarts-table{
-//     position: absolute;
-//     right: 0;
-//     top: 60px;
-//     border: 1px solid #ccc;
-//     width: 39%;
-//     height: calc(100vh - 150px);
-//     overflow-y: scroll;
-//   }
+.none{
+  display: none;
+}
+.flex-100{
+  flex-basis: 100%!important;
+}
 .root{
   margin-top: 100px;
   position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 300px);
   .page-title{
      border-left: solid 5px #55A4D8;
      padding-left: 8px;
@@ -267,7 +269,7 @@ export default {
    .page-echarts-box{
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px);
+      height: 100%;
       display: flex;
       .echarts{
         flex-basis: 60%;
@@ -278,7 +280,7 @@ export default {
         top: 0px;
         border: 1px solid #ccc;
         width: 39%;
-        height: calc(100vh - 150px);
+        height: 100%;
         overflow-y: auto;
      }
    }
