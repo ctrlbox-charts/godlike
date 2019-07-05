@@ -35,12 +35,12 @@ function launchIntoFullscreen(element) {
 }
 export default {
   name: 'scatterCharts',
-  components: {ScatterDataView,EchartsFilter},
+  components: { ScatterDataView, EchartsFilter },
   data() {
     return {
       themeType: null,
       chartsData: null,
-      width:'60%',
+      width: '60%',
       reload: false,
       id: 'scatter',
       routerName: '', // 区别显示不同的散点图
@@ -52,14 +52,14 @@ export default {
     this.routerName = this.$route.name
     this.reload = !this.reload
   },
-   watch: {
-    '$route':{
+  watch: {
+    '$route': {
       // 深度监听 属性的变化
-      deep:true,
+      deep: true,
       // 立即处理 进入页面就触发
-      immediate: true,  
-      // 数据发生变化就会调用这个函数  
-      handler( val ) {
+      immediate: true,
+      // 数据发生变化就会调用这个函数
+      handler(val) {
         this.routerName = val.name
         // this.id = this.routerName
         this.reload = !this.reload
@@ -79,8 +79,9 @@ export default {
 
     },
     // 数据视图
-    dataView (val){
+    dataView(val) {
       this.dataViewVisible = !this.dataViewVisible
+      this.reload = !this.reload
     },
     // 主题切换 by wwh
     themeChange(val) {

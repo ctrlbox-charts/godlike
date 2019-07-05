@@ -61,18 +61,18 @@ const options = {
       type: 'scatter',
       tooltip: {
         trigger: 'axis',
-        formatter: function (params) {
-          var date = new Date(params.value[0]);
-          return params.seriesName
-            + ' （'
-            + date.getFullYear() + '-'
-            + (date.getMonth() + 1) + '-'
-            + date.getDate() + ' '
-            + date.getHours() + ':'
-            + date.getMinutes()
-            + '）<br/>'
-            + params.value[1] + ', '
-            + params.value[2]
+        formatter: function(params) {
+          var date = new Date(params.value[0])
+          return params.seriesName +
+            ' （' +
+            date.getFullYear() + '-' +
+            (date.getMonth() + 1) + '-' +
+            date.getDate() + ' ' +
+            date.getHours() + ':' +
+            date.getMinutes() +
+            '）<br/>' +
+            params.value[1] + ', ' +
+            params.value[2]
         },
         axisPointer: {
           type: 'cross',
@@ -82,20 +82,20 @@ const options = {
           }
         }
       },
-      symbolSize: function (value) {
+      symbolSize: function(value) {
         return Math.round(value[2] / 10)
       },
-      data: (function () {
+      data: (function() {
         var d = []
         var len = 0
         var now = new Date()
-        var value;
-        while (len++ < 1500) {
+        var value
+        while (len++ < 500) {
           d.push([
             new Date(2014, 9, 1, 0, Math.round(Math.random() * 10000)),
             (Math.random() * 30).toFixed(2) - 0,
             (Math.random() * 100).toFixed(2) - 0
-          ]);
+          ])
         }
         return d
       })()
@@ -221,8 +221,8 @@ function getOption(result, k) {
   var clusterAssment = result.clusterAssment
   var centroids = result.centroids
   var ptsInCluster = result.pointsInCluster
-  var color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
-  var series = [];
+  var color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3']
+  var series = []
   for (i = 0; i < k; i++) {
     series.push({
       name: 'scatter' + i,
@@ -238,9 +238,9 @@ function getOption(result, k) {
           emphasis: {
             show: true,
             position: 'top',
-            formatter: function (params) {
+            formatter: function(params) {
               return Math.round(params.data.coord[0] * 100) / 100 + '  ' +
-                Math.round(params.data.coord[1] * 100) / 100 + ' ';
+                Math.round(params.data.coord[1] * 100) / 100 + ' '
             },
             textStyle: {
               color: '#000'

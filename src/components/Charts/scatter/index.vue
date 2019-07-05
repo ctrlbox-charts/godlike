@@ -19,11 +19,11 @@ export default {
     },
     width: {
       type: String,
-      default: '200px'
+      default: '100%'
     },
     height: {
       type: String,
-      default: '200px'
+      default: '100%'
     },
     themeType: {
       type: String,
@@ -42,9 +42,6 @@ export default {
     return {
       chart: null
     }
-  },
-  mounted() {
-    // this.initChart() // 初始化
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -81,12 +78,10 @@ export default {
     }
   },
   mounted() {
-    // this.initChart()
+    this.initChart()
   },
   methods: {
     initChart() {
-      debugger
-      console.log(this.options)
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(this.options)
     }

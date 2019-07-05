@@ -1,14 +1,15 @@
 <template>
   <div class="chart-container-scatter" >
-      <scatter height="100%" :width="dataViewVisible?width:'100%'" 
+      <scatter 
       className="scatterCharts"
       title="标准散点图"
       :themeType="themeType"
       :options ="chartsDataObj"
       :id="id"
       class="echarts"
+      :class="{'width-100':!isShowDataView || routerName == 'scatter-process'}"
       :reload="reload"/>
-      <div class="dataTable" v-if="dataViewVisible">
+      <div class="dataTable" :class="{'none':!isShowDataView ||routerName == 'scatter-process'}">
         <h2>数据视图</h2>
         <div>
           <el-table :data="data_list">
@@ -23,8 +24,8 @@
   </div>
 </template>
 <script>
-import Scatter from './index' 
-import {moreOptions, options} from './options'
+import Scatter from './index'
+import { moreOptions, options } from './options'
 export default {
   name: 'scatterCharts',
   components: { Scatter },
@@ -49,11 +50,11 @@ export default {
       type: String,
       default: 'macarons'
     },
-    dataViewVisible:{
+    dataViewVisible: {
       type: Boolean,
       default: 'true'
     },
-    width:{
+    width: {
       type: String,
       default: '60%'
     },
@@ -65,27 +66,31 @@ export default {
   data() {
     return {
       header: [], // 头部
-      chartsDataObj:{},
+      chartsDataObj: {},
+      isShowDataView: true,
       data_list: [] // 数据
     }
   },
   watch: {
-    '$route':{
+    '$route': {
       // 深度监听 属性的变化
-      deep:true,
+      deep: true,
       // 立即处理 进入页面就触发
-      immediate: true,  
-      // 数据发生变化就会调用这个函数  
-      handler( val ) {
+      immediate: true,
+      // 数据发生变化就会调用这个函数
+      handler(val) {
         this.routerName = val.name
         if (this.routerName == 'scatter-process') {
-        this.chartsDataObj = moreOptions
-      } else {
-        this.chartsDataObj = options
-      }
-      this.handleData()
+          this.chartsDataObj = moreOptions
+        } else {
+          this.chartsDataObj = options
+        }
+        this.handleData()
       }
     },
+    dataViewVisible() {
+      this.isShowDataView = !this.isShowDataView
+    }
   },
   methods: {
     // 动态渲染数据
@@ -93,7 +98,7 @@ export default {
       // console.log(this.chartsData)
       let arr = []
       if (this.chartsDataObj && this.chartsDataObj.series && this.chartsDataObj.series.length) {
-        this.header = ["时间","数据1", "数据2"]
+        this.header = ['时间', '数据1', '数据2']
         arr = this.chartsDataObj.series.map(x => x.data)
         this.data_list = this.merge(arr)
       } else {
@@ -114,15 +119,25 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.none{
+  display: none;
+}
+.width-100{
+  width: 100%!important;
+}
 .chart-container-scatter{
   position: relative;
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 180px);
   .gw-title-icon {
     color: #73dadb;
     cursor: pointer;
     min-width: 30px;
   }
+}
+.echarts{
+  width: 60%;
+  height: 100%;
 }
 .dataTable {
     position: absolute;
@@ -130,7 +145,7 @@ export default {
     top: 60px;
     border: 1px solid #ccc;
     width: 39%;
-    height: calc(100vh - 185px);
+    height: 100%;
     overflow-y: scroll;
 }
   /*滚动条样式*/
