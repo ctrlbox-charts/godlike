@@ -11,7 +11,7 @@
     <synergy-data-view 
     :reload="reload"
     :id="id"
-    :dataViewVisible = 'dataViewVisible'
+    :reloadDataView = 'reloadDataView'
     :themeType = 'themeType'
     ></synergy-data-view >
   </div> 
@@ -33,7 +33,7 @@ function launchIntoFullscreen(element) {
 }
 export default {
   name: 'synergyCharts',
-  components: {SynergyDataView,EchartsFilter},
+  components: { SynergyDataView, EchartsFilter },
   data() {
     return {
       themeType: 'macarons',
@@ -42,7 +42,7 @@ export default {
       data: [],
       id: 'scatter',
       // 数据视图
-      dataViewVisible: true
+      reloadDataView: true
     }
   },
   mounted() {
@@ -61,9 +61,10 @@ export default {
 
     },
     // 数据视图
-    dataView (val){
-      this.dataViewVisible = !this.dataViewVisible
+    dataView(val) {
+      this.reloadDataView = !this.reloadDataView
       this.init()
+      this.reload = !this.reload
     },
     // 主题切换 by wwh
     themeChange(val) {

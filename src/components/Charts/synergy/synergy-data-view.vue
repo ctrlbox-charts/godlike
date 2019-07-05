@@ -1,12 +1,14 @@
 <template>
   <div class="chart-container-scatter" >
-    <synergy height="100%" :width="dataViewVisible?width:'100%'" 
+    <synergy
     className="barCharts"
     :themeType="themeType"
     :id="id"
+    class="echarts"
     @dataViewOptions = 'dataViewOptions'
+    :class="{'width-100':!isShowDataView}"
     :reload="reload"/>
-    <div class="dataTable" v-if="dataViewVisible">
+    <div class="dataTable" :class="{'none':!isShowDataView}">
       <h2>数据视图</h2>
       <div>
         <el-table :data="data_list">
@@ -46,11 +48,11 @@ export default {
       type: String,
       default: 'macarons'
     },
-    dataViewVisible:{
+    reloadDataView: {
       type: Boolean,
       default: 'true'
     },
-    width:{
+    width: {
       type: String,
       default: '60%'
     }
@@ -59,13 +61,17 @@ export default {
     return {
       chartsData: {},
       header: [], // 头部
+      isShowDataView: true,
       data_list: [] // 数据
     }
   },
   watch: {
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
+    }
   },
   methods: {
-    dataViewOptions (data) {
+    dataViewOptions(data) {
       this.chartsData = data
       this.handleData()
     },
@@ -92,6 +98,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.none{
+  display: none;
+}
+.width-100{
+  width: 100%!important;
+}
 .chart-container-scatter{
   position: relative;
   width: 100%;
@@ -101,6 +113,9 @@ export default {
     cursor: pointer;
     min-width: 30px;
   }
+}
+.echarts{
+  width: 60%;
 }
 .dataTable {
     position: absolute;
