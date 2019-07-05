@@ -124,10 +124,10 @@ export default {
   flex-basis: 100%!important;
 }
 .root{
-  margin-top: 100px;
+  margin-top: 50px;
   position: relative;
   width: 100%;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 230px);
    .page-echarts-box{
       position: relative;
       width: 100%;
