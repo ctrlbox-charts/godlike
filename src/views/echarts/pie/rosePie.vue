@@ -7,18 +7,17 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <bar 
+    <pie 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></bar>
+    ></pie>
   </div> 
 </template>
 <script>
-import bar from '@/components/Charts/bar'
-import eLine from '@/components/Charts/line'
-import EchartsFilter from './echarts-filter'
+import pie from '@/components/Charts/pie'
+import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
   if (element.requestFullscreen) {
@@ -31,55 +30,39 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = ['总费用', '房租', '水电费', '交通费', '伙食费', '日用品数']
 const series = [
   {
-    name: '辅助',
-    type: 'bar',
-    stack: '总量',
-    itemStyle: {
-      normal: {
-        barBorderColor: 'rgba(0,0,0,0)',
-        color: 'rgba(0,0,0,0)'
-      },
-      emphasis: {
-        barBorderColor: 'rgba(0,0,0,0)',
-        color: 'rgba(0,0,0,0)'
-      }
-    },
-    data: [0, 1700, 1400, 1200, 300, 0]
-  },
-  {
-    name: '生活费',
-    type: 'bar',
-    stack: '总量',
-    itemStyle: { normal: { label: { show: true, position: 'inside' }}},
-    data: [2900, 1200, 300, 200, 900, 300]
+    name: '面积模式',
+    type: 'pie',
+    radius: [30, 110],
+    // center: ['75%', '50%'],
+    roseType: 'area',
+    data: [
+      { value: 10, name: 'rose1' },
+      { value: 5, name: 'rose2' },
+      { value: 15, name: 'rose3' },
+      { value: 25, name: 'rose4' },
+      { value: 20, name: 'rose5' },
+      { value: 35, name: 'rose6' },
+      { value: 30, name: 'rose7' },
+      { value: 40, name: 'rose8' }
+    ]
   }
 ]
 const legend = {
-  data: []
+  orient: 'vertical',
+  x: 'left',
+  data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8']
 }
-const xAxis = [
-  {
-    type: 'category',
-    data: xData
-  }
-]
-const yAxis = [
-  {
-    type: 'value'
-  }
-]
 export default {
-  name: 'pubuCharts',
-  components: { bar, EchartsFilter, eLine },
+  name: 'pieCharts',
+  components: { pie, EchartsFilter },
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'pubu'
+      id: 'rosePie'
     }
   },
   mounted() {
@@ -88,7 +71,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
@@ -104,10 +87,7 @@ export default {
       setTimeout(() => {
         this.chartsData = {
           series: series,
-          legend: legend,
-          xAxis: xAxis,
-          yAxis: yAxis,
-          xData: xData
+          legend: legend
         }
       }, 10)
     },
@@ -127,9 +107,6 @@ export default {
     },
     // 光滑
     changeSmooth() {
-      // this.chartsData.series.forEach(el => {
-      //   this.$set(el, 'smooth', !el.smooth)
-      // })
     },
     // 堆叠
     changeStack() {

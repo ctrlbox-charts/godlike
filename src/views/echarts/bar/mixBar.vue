@@ -7,16 +7,17 @@
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
     />
-    <pie 
+    <bar 
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
     :themeType = 'themeType'
-    ></pie>
+    ></bar>
   </div> 
 </template>
 <script>
-import pie from '@/components/Charts/pie'
+import bar from '@/components/Charts/bar'
+import eLine from '@/components/Charts/line'
 import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
@@ -30,39 +31,62 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
+const xData = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
 const series = [
   {
-    name: '面积模式',
-    type: 'pie',
-    radius: [30, 110],
-    // center: ['75%', '50%'],
-    roseType: 'area',
-    data: [
-      { value: 10, name: 'rose1' },
-      { value: 5, name: 'rose2' },
-      { value: 15, name: 'rose3' },
-      { value: 25, name: 'rose4' },
-      { value: 20, name: 'rose5' },
-      { value: 35, name: 'rose6' },
-      { value: 30, name: 'rose7' },
-      { value: 40, name: 'rose8' }
-    ]
+    name: '蒸发量',
+    type: 'bar',
+    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+  },
+  {
+    name: '降水量',
+    type: 'bar',
+    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+  },
+  {
+    name: '平均温度',
+    type: 'line',
+    yAxisIndex: 1,
+    data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
   }
 ]
 const legend = {
-  orient: 'vertical',
-  x: 'left',
-  data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8']
+  x: 15,
+  data: ['蒸发量', '降水量', '平均温度']
 }
+const xAxis = [
+  {
+    type: 'category',
+    data: xData
+  }
+]
+const yAxis = [
+  {
+    type: 'value',
+    // name: '水量',
+    // 单位
+    axisLabel: {
+      formatter: '{value} ml'
+    }
+  },
+  {
+    type: 'value',
+    // name: '温度',
+    // 单位
+    axisLabel: {
+      formatter: '{value} °C'
+    }
+  }
+]
 export default {
-  name: 'pieCharts',
-  components: { pie, EchartsFilter },
+  name: 'pubuCharts',
+  components: { bar, EchartsFilter, eLine },
   data() {
     return {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'pie'
+      id: 'mixBar'
     }
   },
   mounted() {
@@ -71,7 +95,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
@@ -87,16 +111,16 @@ export default {
       setTimeout(() => {
         this.chartsData = {
           series: series,
-          legend: legend
+          legend: legend,
+          xAxis: xAxis,
+          yAxis: yAxis,
+          xData: xData
         }
       }, 10)
     },
     // 坐标切换
     xyChange() {
-      const temp = this.chartsData.xAxis
-      this.chartsData.xAxis = this.chartsData.yAxis
-      this.chartsData.yAxis = temp
-      this.reload = !this.reload
+      alert('混合图表不支持切换')
     },
     // 图形切换
     chartsChange(type) {
@@ -107,6 +131,9 @@ export default {
     },
     // 光滑
     changeSmooth() {
+      // this.chartsData.series.forEach(el => {
+      //   this.$set(el, 'smooth', !el.smooth)
+      // })
     },
     // 堆叠
     changeStack() {

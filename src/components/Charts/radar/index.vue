@@ -138,7 +138,6 @@ export default {
       // arr = this.chartsData.series.map(x => x.data)
       // arr.unshift(this.chartsData.xData)
       // this.data_list = this.merge(arr)
-      console.log(this.chartsData)
       this.data_list = []
       this.chartsData.series.forEach(el => {
         const obj = {}

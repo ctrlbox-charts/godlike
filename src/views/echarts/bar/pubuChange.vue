@@ -18,7 +18,7 @@
 <script>
 import bar from '@/components/Charts/bar'
 import eLine from '@/components/Charts/line'
-import EchartsFilter from './echarts-filter'
+import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
   if (element.requestFullscreen) {
@@ -31,47 +31,58 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+const xData = (function() {
+  const list = []
+  for (var i = 1; i <= 11; i++) {
+    list.push('11月' + i + '日')
+  }
+  return list
+}())
 const series = [
   {
-    name: '利润',
+    name: '辅助',
     type: 'bar',
-    itemStyle: { normal: { label: { show: true, position: 'inside' }}},
-    data: [200, 170, 240, 244, 200, 220, 210]
+    stack: '总量',
+    itemStyle: {
+      normal: {
+        barBorderColor: 'rgba(0,0,0,0)',
+        color: 'rgba(0,0,0,0)'
+      },
+      emphasis: {
+        barBorderColor: 'rgba(0,0,0,0)',
+        color: 'rgba(0,0,0,0)'
+      }
+    },
+    data: [0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]
   },
   {
     name: '收入',
     type: 'bar',
     stack: '总量',
-    barWidth: 5,
-    itemStyle: { normal: {
-      label: { show: true }
-    }},
-    data: [320, 302, 341, 374, 390, 450, 420]
+    itemStyle: { normal: { label: { show: true, position: 'top' }}},
+    data: [900, 345, 393, '-', '-', 135, 178, 286, '-', '-', '-']
   },
   {
     name: '支出',
     type: 'bar',
     stack: '总量',
-    itemStyle: { normal: {
-      label: { show: true, position: 'left' }
-    }},
-    data: [-120, -132, -101, -134, -190, -230, -210]
+    itemStyle: { normal: { label: { show: true, position: 'bottom' }}},
+    data: ['-', '-', '-', 108, 154, '-', '-', '-', 119, 361, 203]
   }
 ]
 const legend = {
-  data: ['利润', '支出', '收入']
+  x: 25,
+  data: ['支出', '收入']
 }
 const xAxis = [
   {
-    type: 'value'
+    type: 'category',
+    data: xData
   }
 ]
 const yAxis = [
   {
-    type: 'category',
-    axisTick: { show: false },
-    data: xData
+    type: 'value'
   }
 ]
 export default {
@@ -79,10 +90,10 @@ export default {
   components: { bar, EchartsFilter, eLine },
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'pubu'
+      id: 'pubuChange'
     }
   },
   mounted() {
@@ -91,7 +102,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
@@ -130,6 +141,9 @@ export default {
     },
     // 光滑
     changeSmooth() {
+      // this.chartsData.series.forEach(el => {
+      //   this.$set(el, 'smooth', !el.smooth)
+      // })
     },
     // 堆叠
     changeStack() {

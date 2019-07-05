@@ -18,7 +18,7 @@
 <script>
 import bar from '@/components/Charts/bar'
 import eLine from '@/components/Charts/line'
-import EchartsFilter from './echarts-filter'
+import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
   if (element.requestFullscreen) {
@@ -73,6 +73,7 @@ const series = [
   }
 ]
 const legend = {
+  x: 25,
   data: ['蒸发量', '降水量']
 }
 const xAxis = [
@@ -91,7 +92,7 @@ export default {
   components: { bar, EchartsFilter, eLine },
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
       id: 'bar'
@@ -103,7 +104,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

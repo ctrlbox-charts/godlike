@@ -1,9 +1,5 @@
 const themeName = [
   {
-    value: 'default',
-    label: 'default'
-  },
-  {
     value: 'macarons',
     label: 'macarons'
   }, {
@@ -22,6 +18,10 @@ const themeName = [
   {
     value: 'vintage',
     label: 'vintage'
+  },
+  {
+    value: 'default',
+    label: 'default'
   }
 ]
 
@@ -33,10 +33,12 @@ const barOptions = {
   // 工具栏
   toolbox: {
     show: true,
+    x: 'right',
+    padding: [5, 25, 5, 5],
     feature: {
       mark: { show: true },
       // dataView: { show: true, readOnly: false },
-      magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+      magicType: { show: true, type: ['stack', 'tiled'] },
       restore: { show: true },
       saveAsImage: { show: true }
     }

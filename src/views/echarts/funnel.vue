@@ -70,7 +70,7 @@ export default {
   components: { EchartsFilter, funnel },
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
       id: 'line',

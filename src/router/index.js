@@ -20,28 +20,6 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'treeDemo',
-        name: 'TreeDemo',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'TtreeDemo', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
     path: '/form',
     component: Layout,
     children: [
@@ -49,7 +27,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: 'Demo', icon: 'form' }
       }
     ]
   },
@@ -67,31 +45,31 @@ export const constantRouterMap = [
         children: [
           {
             path: 'bar',
-            component: () => import('@/views/echarts/bar'),
+            component: () => import('@/views/echarts/bar/bar'),
             name: 'bar',
             meta: { title: '标准柱状图' }
           },
           {
             path: 'pubu',
-            component: () => import('@/views/echarts/pubu'),
+            component: () => import('@/views/echarts/bar/pubu'),
             name: 'pubu',
             meta: { title: '组成瀑布图' }
           },
           {
             path: 'pubuChange',
-            component: () => import('@/views/echarts/pubuChange'),
+            component: () => import('@/views/echarts/bar/pubuChange'),
             name: 'pubuChange',
             meta: { title: '阶梯瀑布图' }
           },
           {
             path: 'zhengfuBar',
-            component: () => import('@/views/echarts/zhengfuBar'),
+            component: () => import('@/views/echarts/bar/zhengfuBar'),
             name: 'zhengfuBar',
             meta: { title: '正负柱状图' }
           },
           {
             path: 'mixBar',
-            component: () => import('@/views/echarts/mixBar'),
+            component: () => import('@/views/echarts/bar/mixBar'),
             name: 'mixBar',
             meta: { title: '混合柱状图' }
           }
@@ -119,12 +97,12 @@ export const constantRouterMap = [
             path: 'outInPie',
             component: () => import('@/views/echarts/pie/outInPie'),
             name: 'outInPie',
-            meta: { title: '环嵌套饼状图' }
+            meta: { title: '嵌套饼状图' }
           },
           {
-            path: 'ndglPie',
-            component: () => import('@/views/echarts/pie/ndglPie'),
-            name: 'ndglPie',
+            path: 'rosePie',
+            component: () => import('@/views/echarts/pie/rosePie'),
+            name: 'rosePie',
             meta: { title: '玫瑰饼状图' }
           },
           {
@@ -284,8 +262,14 @@ export const constantRouterMap = [
         path: 'eventRiverIndex',
         name: 'eventRiverIndex',
         component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '事件河流图', icon: 'chart' },
+        meta: { title: '河流图', icon: 'chart' },
         children: [
+          {
+            path: 'themeRiver',
+            component: () => import('@/views/echarts/themeRiver'),
+            name: 'themeRiver',
+            meta: { title: '主题河流图' }
+          },
           {
             path: 'eventRiver1',
             component: () => import('@/views/echarts/eventRiver'),
@@ -297,6 +281,21 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/eventRiver'),
             name: 'eventRiver2',
             meta: { title: '事件河流图2' }
+          }
+
+        ]
+      },
+      {
+        path: 'map',
+        name: 'map',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '中国地图', icon: 'chart' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/echarts/map'),
+            name: 'map',
+            meta: { title: '中国地图' }
           }
         ]
       },
@@ -311,20 +310,6 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/line'),
             name: 'line',
             meta: { title: '折线图' }
-          }
-        ]
-      },
-      {
-        path: 'map',
-        name: 'map',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '中国地图', icon: 'chart' },
-        children: [
-          {
-            path: 'index',
-            component: () => import('@/views/echarts/map'),
-            name: 'map',
-            meta: { title: '中国地图' }
           }
         ]
       },
@@ -355,78 +340,6 @@ export const constantRouterMap = [
             meta: { title: '合须图' }
           }
         ]
-      },
-      {
-        path: 'themeRiverIndex',
-        name: 'themeRiverIndex',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '主题河流图', icon: 'chart' },
-        children: [
-          {
-            path: 'themeRiver',
-            component: () => import('@/views/echarts/themeRiver'),
-            name: 'themeRiver',
-            meta: { title: '主题河流图' }
-          }
-        ]
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'nested',
-    meta: {
-      title: 'nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'menu1',
-        meta: { title: 'menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'menu1-1',
-            meta: { title: 'menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'menu1-2',
-            meta: { title: 'menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'menu1-2-1',
-                meta: { title: 'menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'menu1-2-2',
-                meta: { title: 'menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'menu1-3',
-            meta: { title: 'menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
       }
     ]
   },

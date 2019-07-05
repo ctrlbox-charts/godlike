@@ -72,7 +72,7 @@ export default {
     // 改变数据
     reload() {
       if (this.options && Object.keys(this.options).length) {
-        this.chart.dispose() // 实例销毁
+        // this.chart.dispose() // 实例销毁
         this.chart = null
         this.initChart() // 重新初始化
       } else { this.initChart() } // 重新初始化

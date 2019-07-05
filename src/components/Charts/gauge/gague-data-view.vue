@@ -69,14 +69,30 @@ export default {
     }
   },
   watch: {
-    routerName(val) {
-      if (val == 'multiple-gauge') {
+    '$route':{
+      // 深度监听 属性的变化
+      deep:true,
+      // 立即处理 进入页面就触发
+      immediate: true,  
+      // 数据发生变化就会调用这个函数  
+      handler( val ) {
+        this.routerName = val.name
+        if (this.routerName == 'multiple-gauge') {
         this.chartsDataObj = moreOptions
       } else {
         this.chartsDataObj = options
       }
       this.handleData()
-    }
+      }
+    },
+    // routerName(val) {
+    //   if (val == 'multiple-gauge') {
+    //     this.chartsDataObj = moreOptions
+    //   } else {
+    //     this.chartsDataObj = options
+    //   }
+    //   this.handleData()
+    // }
   },
   methods: {
     // 动态渲染数据

@@ -36,7 +36,7 @@ export default {
   components: {SynergyDataView,EchartsFilter},
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
       data: [],

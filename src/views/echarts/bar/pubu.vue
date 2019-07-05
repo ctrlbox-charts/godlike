@@ -18,7 +18,7 @@
 <script>
 import bar from '@/components/Charts/bar'
 import eLine from '@/components/Charts/line'
-import EchartsFilter from './echarts-filter'
+import EchartsFilter from '../echarts-filter'
 // 全屏
 function launchIntoFullscreen(element) {
   if (element.requestFullscreen) {
@@ -31,27 +31,35 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-const xData = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+const xData = ['总费用', '房租', '水电费', '交通费', '伙食费', '日用品数']
 const series = [
   {
-    name: '蒸发量',
+    name: '辅助',
     type: 'bar',
-    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+    stack: '总量',
+    itemStyle: {
+      normal: {
+        barBorderColor: 'rgba(0,0,0,0)',
+        color: 'rgba(0,0,0,0)'
+      },
+      emphasis: {
+        barBorderColor: 'rgba(0,0,0,0)',
+        color: 'rgba(0,0,0,0)'
+      }
+    },
+    data: [0, 1700, 1400, 1200, 300, 0]
   },
   {
-    name: '降水量',
+    name: '生活费',
     type: 'bar',
-    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-  },
-  {
-    name: '平均温度',
-    type: 'line',
-    yAxisIndex: 1,
-    data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+    stack: '总量',
+    itemStyle: { normal: { label: { show: true, position: 'inside' }}},
+    data: [2900, 1200, 300, 200, 900, 300]
   }
 ]
 const legend = {
-  data: ['蒸发量', '降水量', '平均温度']
+  x: 25,
+  data: ['生活费']
 }
 const xAxis = [
   {
@@ -61,20 +69,7 @@ const xAxis = [
 ]
 const yAxis = [
   {
-    type: 'value',
-    name: '水量',
-    // 单位
-    axisLabel: {
-      formatter: '{value} ml'
-    }
-  },
-  {
-    type: 'value',
-    name: '温度',
-    // 单位
-    axisLabel: {
-      formatter: '{value} °C'
-    }
+    type: 'value'
   }
 ]
 export default {
@@ -82,7 +77,7 @@ export default {
   components: { bar, EchartsFilter, eLine },
   data() {
     return {
-      themeType: null,
+      themeType: 'macarons',
       chartsData: null,
       reload: false,
       id: 'pubu'
@@ -94,7 +89,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById('pubu')
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh
@@ -119,7 +114,10 @@ export default {
     },
     // 坐标切换
     xyChange() {
-      alert('混合图表不支持切换')
+      const temp = this.chartsData.xAxis
+      this.chartsData.xAxis = this.chartsData.yAxis
+      this.chartsData.yAxis = temp
+      this.reload = !this.reload
     },
     // 图形切换
     chartsChange(type) {

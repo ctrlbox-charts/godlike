@@ -66,7 +66,7 @@ const series = [
 ]
 const legend = {
   orient: 'vertical',
-  x: 'left',
+  x: 25,
   data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
 }
 export default {
@@ -86,7 +86,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

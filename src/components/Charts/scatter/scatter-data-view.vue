@@ -4,7 +4,7 @@
       className="scatterCharts"
       title="标准散点图"
       :themeType="themeType"
-      :options='chartsDataObj'
+      :options ="chartsDataObj"
       :id="id"
       class="echarts"
       :reload="reload"/>
@@ -23,8 +23,8 @@
   </div>
 </template>
 <script>
-import Scatter from './index'
-import { options,moreOptions} from './options'
+import Scatter from './index' 
+import {moreOptions, options} from './options'
 export default {
   name: 'scatterCharts',
   components: { Scatter },
@@ -49,42 +49,48 @@ export default {
       type: String,
       default: 'macarons'
     },
-    // 数据视图是否显示
     dataViewVisible:{
       type: Boolean,
       default: 'true'
     },
-    //路由名称
-    routerName: {
-      type: String,
-      default: 'scatter'
-    },
     width:{
       type: String,
       default: '60%'
+    },
+    routerName: {
+      type: String,
+      default: 'scatter'
     }
   },
   data() {
     return {
       header: [], // 头部
-      data_list: [], // 数据统计图配置项
-      // 统计图配置项数据
-      chartsDataObj: {}
+      chartsDataObj:{},
+      data_list: [] // 数据
     }
   },
   watch: {
-    routerName(val) {
-      if (val == 'scatter-process') {
+    '$route':{
+      // 深度监听 属性的变化
+      deep:true,
+      // 立即处理 进入页面就触发
+      immediate: true,  
+      // 数据发生变化就会调用这个函数  
+      handler( val ) {
+        this.routerName = val.name
+        if (this.routerName == 'scatter-process') {
         this.chartsDataObj = moreOptions
       } else {
         this.chartsDataObj = options
       }
       this.handleData()
-    }
+      }
+    },
   },
   methods: {
     // 动态渲染数据
     handleData() {
+      // console.log(this.chartsData)
       let arr = []
       if (this.chartsDataObj && this.chartsDataObj.series && this.chartsDataObj.series.length) {
         this.header = ["时间","数据1", "数据2"]

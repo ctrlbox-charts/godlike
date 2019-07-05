@@ -40,6 +40,7 @@ export default {
     return {
       themeType: null,
       chartsData: null,
+      width:'60%',
       reload: false,
       id: 'scatter',
       routerName: '', // 区别显示不同的散点图
@@ -60,6 +61,7 @@ export default {
       // 数据发生变化就会调用这个函数  
       handler( val ) {
         this.routerName = val.name
+        // this.id = this.routerName
         this.reload = !this.reload
       }
     }
