@@ -35,13 +35,12 @@ function launchIntoFullscreen(element) {
 
 var cellSize = [80, 80]
 
-function getVirtulData(year) {
-  year = year || '2019'
-  var date = +echarts.number.parseDate(year + '-01-01')
-  var end = +echarts.number.parseDate(year + '-12-31')
+function getVirtulData() {
+  var date = +echarts.number.parseDate('2017-02-01')
+  var end = +echarts.number.parseDate('2017-03-01')
   var dayTime = 3600 * 24 * 1000
   var data = []
-  for (var time = date; time <= end; time += dayTime) {
+  for (var time = date; time < end; time += dayTime) {
     data.push([
       echarts.format.formatTime('yyyy-MM-dd', time),
       Math.floor(Math.random() * 10000)
@@ -50,8 +49,8 @@ function getVirtulData(year) {
   return data
 }
 
+// 赋值日历数据
 var scatterData = getVirtulData()
-
 const series = [{
   id: 'label',
   type: 'scatter',
@@ -72,6 +71,10 @@ const series = [{
   },
   data: scatterData
 }]
+const legend = {
+  data: ['工作', '娱乐', '睡觉'],
+  bottom: 20
+}
 const calendarData = {
   top: 'middle',
   left: 'center',
@@ -93,10 +96,7 @@ const calendarData = {
   },
   range: ['2017-02']
 }
-const legend = {
-  data: ['工作', '娱乐', '睡觉'],
-  bottom: 20
-}
+
 export default {
   name: 'calendarCharts',
   components: { calendar, EchartsFilter },
