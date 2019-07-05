@@ -304,7 +304,7 @@ export const constantRouterMap = [
             path: 'scatter-process',
             component: () => import('@/views/echarts/scatter/scatter-process'),
             name: 'scatter-process',
-            meta: { title: '标坐标散点图' }
+            meta: { title: '坐标散点图' }
           }
         ]
       },
