@@ -241,6 +241,26 @@ export const constantRouterMap = [
         ]
       },
       {
+        path: 'scatterIndex',
+        name: 'scatterIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '散点图', icon: 'chart' },
+        children: [
+          {
+            path: 'scatter',
+            component: () => import('@/views/echarts/scatter'),
+            name: 'scatter',
+            meta: { title: '标准散点图' }
+          },
+          {
+            path: 'scatter-process',
+            component: () => import('@/views/echarts/scatter'),
+            name: 'scatter-process',
+            meta: { title: '坐标散点图' }
+          }
+        ]
+      },
+      {
         path: 'gaugeIndex',
         name: 'gaugeIndex',
         component: () => import('@/views/echarts/index'), // Parent
@@ -248,13 +268,13 @@ export const constantRouterMap = [
         children: [
           {
             path: 'single-gauge',
-            component: () => import('@/views/echarts/gauge/single-gauge'),
+            component: () => import('@/views/echarts/gauge'),
             name: 'single-gauge',
             meta: { title: '仪表盘' }
           },
           {
             path: 'multiple-gauge',
-            component: () => import('@/views/echarts/gauge/multiple-gauge'),
+            component: () => import('@/views/echarts/gauge'),
             name: 'multiple-gauge',
             meta: { title: '多仪表盘' }
           }
@@ -305,26 +325,6 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/map'),
             name: 'map',
             meta: { title: '中国地图' }
-          }
-        ]
-      },
-      {
-        path: 'scatterIndex',
-        name: 'scatterIndex',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '散点图', icon: 'chart' },
-        children: [
-          {
-            path: 'scatter',
-            component: () => import('@/views/echarts/scatter/scatter'),
-            name: 'scatter',
-            meta: { title: '标准散点图' }
-          },
-          {
-            path: 'scatter-process',
-            component: () => import('@/views/echarts/scatter/scatter-process'),
-            name: 'scatter-process',
-            meta: { title: '坐标散点图' }
           }
         ]
       },

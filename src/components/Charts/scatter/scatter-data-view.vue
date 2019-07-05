@@ -4,7 +4,7 @@
       className="scatterCharts"
       title="标准散点图"
       :themeType="themeType"
-      :chartsData="chartsData"
+      :options='chartsDataObj'
       :id="id"
       class="echarts"
       :reload="reload"/>
@@ -24,6 +24,7 @@
 </template>
 <script>
 import Scatter from './index'
+import { options,moreOptions} from './options'
 export default {
   name: 'scatterCharts',
   components: { Scatter },
@@ -48,9 +49,15 @@ export default {
       type: String,
       default: 'macarons'
     },
+    // 数据视图是否显示
     dataViewVisible:{
       type: Boolean,
       default: 'true'
+    },
+    //路由名称
+    routerName: {
+      type: String,
+      default: 'scatter'
     },
     width:{
       type: String,
@@ -60,23 +67,31 @@ export default {
   data() {
     return {
       header: [], // 头部
-      data_list: [] // 数据
+      data_list: [], // 数据统计图配置项
+      // 统计图配置项数据
+      chartsDataObj: {}
     }
   },
   watch: {
-    chartsData() {
+    routerName(val) {
+      if (val == 'scatter-process') {
+        this.chartsDataObj = moreOptions
+      } else {
+        this.chartsDataObj = options
+      }
       this.handleData()
     }
   },
   methods: {
     // 动态渲染数据
     handleData() {
-      // console.log(this.chartsData)
       let arr = []
-      if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
+      if (this.chartsDataObj && this.chartsDataObj.series && this.chartsDataObj.series.length) {
         this.header = ["时间","数据1", "数据2"]
-        arr = this.chartsData.series.map(x => x.data)
+        arr = this.chartsDataObj.series.map(x => x.data)
         this.data_list = this.merge(arr)
+      } else {
+        this.data_list = []
       }
     },
     // 数组处理merge

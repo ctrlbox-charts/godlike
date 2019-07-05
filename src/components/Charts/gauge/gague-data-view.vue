@@ -4,6 +4,7 @@
     className="gagueCharts"
     :themeType="themeType"
     :chartsData="chartsData"
+    :options = 'chartsDataObj'
     :id="id"
     :reload="reload"/>
     <div class="dataTable" v-if="dataViewVisible">
@@ -22,6 +23,7 @@
 </template>
 <script>
 import Gague from './index'
+import { options,moreOptions } from './option'
 export default {
   name: 'gagueCharts',
   components: { Gague },
@@ -53,16 +55,26 @@ export default {
     width:{
       type: String,
       default: '60%'
+    },
+    routerName:{
+      type: String,
+      default: 'single-gague'
     }
   },
   data() {
     return {
       header: [], // 头部
-      data_list: [] // 数据
+      data_list: [], // 数据
+      chartsDataObj: {} // 仪表盘配置项数据 
     }
   },
   watch: {
-    chartsData() {
+    routerName(val) {
+      if (val == 'multiple-gauge') {
+        this.chartsDataObj = moreOptions
+      } else {
+        this.chartsDataObj = options
+      }
       this.handleData()
     }
   },
@@ -70,10 +82,12 @@ export default {
     // 动态渲染数据
     handleData() {
       let arr = []
-      if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
-        this.header = this.chartsData.series.map(x => x.name)
-        arr = this.chartsData.series.map(x => x.data)
+      if (this.chartsDataObj && this.chartsDataObj.series && this.chartsDataObj.series.length) {
+        this.header = this.chartsDataObj.series.map(x => x.name)
+        arr = this.chartsDataObj.series.map(x => x.data)
         this.data_list = this.merge(arr)
+      } else {
+        this.data_list = []
       }
     },
     // 数组处理merge

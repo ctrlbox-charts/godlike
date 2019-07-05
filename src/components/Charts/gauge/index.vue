@@ -37,6 +37,10 @@ export default {
     reload: {
       type: Boolean,
       default: false
+    },
+    options:{
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -62,12 +66,12 @@ export default {
       this.initChart() // 重新初始化
     },
     // 获取数据
-    chartsData() {
+    options() {
       this.initChart()
     },
     // 改变数据
     reload() {
-      if (Object.keys(this.chartsData).length) {
+      if (this.options && Object.keys(this.options).length) {
         this.chart.dispose() // 实例销毁
         this.chart = null
         this.initChart() // 重新初始化
@@ -77,7 +81,7 @@ export default {
   methods: {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
-      this.chart.setOption(this.chartsData)
+      this.chart.setOption(this.options)
     }
   }
 }
