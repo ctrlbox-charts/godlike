@@ -31,21 +31,14 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen()
   }
 }
-// const xData = (function() {
-//   const data = []
-//   for (let i = 1; i < 13; i++) {
-//     data.push(i + 'month')
-//   }
-//   return data
-// }())
 const series = [
   {
     name: '访问来源',
     type: 'pie',
     radius: '55%',
-    center: ['50%', '60%'],
+    center: ['50%', '50%'],
     data: [
-      { value: 335, name: '直接访问' },
+      { value: 330, name: '直接访问' },
       { value: 310, name: '邮件营销' },
       { value: 234, name: '联盟广告' },
       { value: 135, name: '视频广告' },
@@ -54,6 +47,8 @@ const series = [
   }
 ]
 const legend = {
+  orient: 'vertical',
+  x: 25,
   data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
 }
 export default {
@@ -73,7 +68,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

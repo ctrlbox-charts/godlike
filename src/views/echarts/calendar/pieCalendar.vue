@@ -73,7 +73,7 @@ const series = [{
 }]
 const legend = {
   data: ['工作', '娱乐', '睡觉'],
-  bottom: 20
+  top: 20
 }
 const calendarData = {
   top: 'middle',
@@ -105,7 +105,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'calendar'
+      id: 'pieCalendar'
     }
   },
   mounted() {
@@ -114,7 +114,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('calendar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

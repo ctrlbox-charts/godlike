@@ -71,7 +71,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'pie'
+      id: 'qianPie'
     }
   },
   mounted() {
@@ -80,7 +80,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

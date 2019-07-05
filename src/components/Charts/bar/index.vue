@@ -45,7 +45,7 @@ export default {
     // 主题
     themeType: {
       type: String,
-      default: 'default'
+      default: 'macarons'
     }
   },
   data() {
@@ -114,21 +114,6 @@ export default {
     height: calc(100vh - 185px);
     overflow-y: scroll;
 }
-  /*滚动条样式*/
-  .dataTable::-webkit-scrollbar {
-      width: 7px;    
-  }
-  .dataTable::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
-      background: rgba(11, 123, 228, 0.6);
-  }
-  .dataTable::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      border-radius: 0;
-      background: rgba(0,0,0,0.1);
-
-  }
 </style>
 <style lang="scss">
   .gw-charts-filter {

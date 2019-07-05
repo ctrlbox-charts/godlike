@@ -143,16 +143,16 @@ const visualMap = {
   min: 0,
   max: 1000,
   type: 'piecewise',
-  left: 'center',
-  bottom: 20,
+  left: 'left',
+  top: 20,
   seriesIndex: [1],
-  orient: 'horizontal',
+  orient: 'vertical',
   inRange: {
     // 红蓝相间
-    // color: ['#5A8BC7', '#7E9FB9', '#A3B5A9', '#C9CB9D', '#ECE191', '#FEDC88', '#FCC080', '#FBA279', '#F98673', '#F7676C']
+    color: ['#5A8BC7', '#7E9FB9', '#A3B5A9', '#C9CB9D', '#ECE191', '#FEDC88', '#FCC080', '#FBA279', '#F98673', '#F7676C']
 
     // 红色色系
-    color: ['white', '#FFE9BB', '#FFD1A7', '#FFBB95', '#FFA383', '#FF8D70', '#FF745C', '#FF5C4A', '#FF4638', '#FF2E26', '#FF1812']
+    // color: ['white', '#FFE9BB', '#FFD1A7', '#FFBB95', '#FFA383', '#FF8D70', '#FF745C', '#FF5C4A', '#FF4638', '#FF2E26', '#FF1812']
   }
 }
 export default {
@@ -163,7 +163,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
-      id: 'calendar'
+      id: 'graph'
     }
   },
   mounted() {
@@ -172,7 +172,7 @@ export default {
   methods: {
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('calendar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

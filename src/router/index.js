@@ -67,31 +67,31 @@ export const constantRouterMap = [
         children: [
           {
             path: 'bar',
-            component: () => import('@/views/echarts/bar'),
+            component: () => import('@/views/echarts/bar/bar'),
             name: 'bar',
             meta: { title: '标准柱状图' }
           },
           {
             path: 'pubu',
-            component: () => import('@/views/echarts/pubu'),
+            component: () => import('@/views/echarts/bar/pubu'),
             name: 'pubu',
             meta: { title: '组成瀑布图' }
           },
           {
             path: 'pubuChange',
-            component: () => import('@/views/echarts/pubuChange'),
+            component: () => import('@/views/echarts/bar/pubuChange'),
             name: 'pubuChange',
             meta: { title: '阶梯瀑布图' }
           },
           {
             path: 'zhengfuBar',
-            component: () => import('@/views/echarts/zhengfuBar'),
+            component: () => import('@/views/echarts/bar/zhengfuBar'),
             name: 'zhengfuBar',
             meta: { title: '正负柱状图' }
           },
           {
             path: 'mixBar',
-            component: () => import('@/views/echarts/mixBar'),
+            component: () => import('@/views/echarts/bar/mixBar'),
             name: 'mixBar',
             meta: { title: '混合柱状图' }
           }
@@ -119,12 +119,12 @@ export const constantRouterMap = [
             path: 'outInPie',
             component: () => import('@/views/echarts/pie/outInPie'),
             name: 'outInPie',
-            meta: { title: '环嵌套饼状图' }
+            meta: { title: '嵌套饼状图' }
           },
           {
-            path: 'ndglPie',
-            component: () => import('@/views/echarts/pie/ndglPie'),
-            name: 'ndglPie',
+            path: 'rosePie',
+            component: () => import('@/views/echarts/pie/rosePie'),
+            name: 'rosePie',
             meta: { title: '玫瑰饼状图' }
           },
           {
