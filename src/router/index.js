@@ -20,28 +20,6 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'treeDemo',
-        name: 'TreeDemo',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'TtreeDemo', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
     path: '/form',
     component: Layout,
     children: [
@@ -49,7 +27,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: 'Demo', icon: 'form' }
       }
     ]
   },
@@ -241,6 +219,26 @@ export const constantRouterMap = [
         ]
       },
       {
+        path: 'scatterIndex',
+        name: 'scatterIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '散点图', icon: 'chart' },
+        children: [
+          {
+            path: 'scatter',
+            component: () => import('@/views/echarts/scatter/scatter'),
+            name: 'scatter',
+            meta: { title: '标准散点图' }
+          },
+          {
+            path: 'scatter-process',
+            component: () => import('@/views/echarts/scatter/scatter-process'),
+            name: 'scatter-process',
+            meta: { title: '坐标散点图' }
+          }
+        ]
+      },
+      {
         path: 'gaugeIndex',
         name: 'gaugeIndex',
         component: () => import('@/views/echarts/index'), // Parent
@@ -264,8 +262,14 @@ export const constantRouterMap = [
         path: 'eventRiverIndex',
         name: 'eventRiverIndex',
         component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '事件河流图', icon: 'chart' },
+        meta: { title: '河流图', icon: 'chart' },
         children: [
+          {
+            path: 'themeRiver',
+            component: () => import('@/views/echarts/themeRiver'),
+            name: 'themeRiver',
+            meta: { title: '主题河流图' }
+          },
           {
             path: 'eventRiver1',
             component: () => import('@/views/echarts/eventRiver'),
@@ -278,20 +282,7 @@ export const constantRouterMap = [
             name: 'eventRiver2',
             meta: { title: '事件河流图2' }
           }
-        ]
-      },
-      {
-        path: 'line',
-        name: 'line',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '折线图', icon: 'chart' },
-        children: [
-          {
-            path: 'index',
-            component: () => import('@/views/echarts/line'),
-            name: 'line',
-            meta: { title: '折线图' }
-          }
+
         ]
       },
       {
@@ -309,22 +300,16 @@ export const constantRouterMap = [
         ]
       },
       {
-        path: 'scatterIndex',
-        name: 'scatterIndex',
+        path: 'line',
+        name: 'line',
         component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '散点图', icon: 'chart' },
+        meta: { title: '折线图', icon: 'chart' },
         children: [
           {
-            path: 'scatter',
-            component: () => import('@/views/echarts/scatter/scatter'),
-            name: 'scatter',
-            meta: { title: '标准散点图' }
-          },
-          {
-            path: 'scatter-process',
-            component: () => import('@/views/echarts/scatter/scatter-process'),
-            name: 'scatter-process',
-            meta: { title: '坐标散点图' }
+            path: 'index',
+            component: () => import('@/views/echarts/line'),
+            name: 'line',
+            meta: { title: '折线图' }
           }
         ]
       },
@@ -355,78 +340,6 @@ export const constantRouterMap = [
             meta: { title: '合须图' }
           }
         ]
-      },
-      {
-        path: 'themeRiverIndex',
-        name: 'themeRiverIndex',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '主题河流图', icon: 'chart' },
-        children: [
-          {
-            path: 'themeRiver',
-            component: () => import('@/views/echarts/themeRiver'),
-            name: 'themeRiver',
-            meta: { title: '主题河流图' }
-          }
-        ]
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'nested',
-    meta: {
-      title: 'nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'menu1',
-        meta: { title: 'menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'menu1-1',
-            meta: { title: 'menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'menu1-2',
-            meta: { title: 'menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'menu1-2-1',
-                meta: { title: 'menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'menu1-2-2',
-                meta: { title: 'menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'menu1-3',
-            meta: { title: 'menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
       }
     ]
   },
