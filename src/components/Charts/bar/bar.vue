@@ -95,6 +95,7 @@ export default {
   methods: {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
+      console.log(this.chartsData)
       this.chart.setOption(this.chartsData)
     }
   }

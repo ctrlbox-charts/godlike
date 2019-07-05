@@ -65,6 +65,7 @@ const legend = [{
   // itemWidth: 14,
   // itemHeight: 5,
   // itemGap: 13,
+  x: 25,
   data: ['邮件营销', '联盟广告', '视频广告']
   // right: '4%',
   // textStyle: {

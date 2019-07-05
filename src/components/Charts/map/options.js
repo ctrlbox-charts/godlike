@@ -15,7 +15,8 @@ const options = {
       dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
-    }
+    },
+    x: 'right'
   },
   // 左侧小导航图标
   visualMap: {

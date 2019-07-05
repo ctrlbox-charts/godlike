@@ -39,7 +39,8 @@ const options = {
     }
   },
   legend: [{
-    top: 20,
+    // top: 20,
+    x: 25,
     // icon: 'rect',
     // itemWidth: 14,
     // itemHeight: 5,

@@ -53,6 +53,7 @@ const legend = [{
   // orient: 'vertical',
   // x: 'right',
   // y: 'bottom',
+  x: 25,
   data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
 }]
 const polar = [

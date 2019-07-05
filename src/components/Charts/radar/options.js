@@ -10,6 +10,7 @@ const options = {
     // orient: 'vertical',
     // x: 'right',
     // y: 'bottom',
+    x: 25,
     data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）', 's收入']
   }],
   toolbox: {
@@ -19,7 +20,8 @@ const options = {
       dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
-    }
+    },
+    x: 'right'
   },
   polar: [
     {
