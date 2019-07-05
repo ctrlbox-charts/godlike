@@ -10,16 +10,28 @@
       class="echarts"
       >
       </radar>
-      <div class="dataTable">
-        <h2>数据视图</h2>
+      <div class="dataTable" v-for='(item, index) in data_list' :key='index'>
         <div>
-          <el-table :data="data_list">
-            <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                  <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
-                  </template>
+          <h2>{{item.name}}</h2>
+          <div>
+            <el-table :data="item.dataList">
+              <el-table-column 
+              label="#"
+              prop='name'
+              >
               </el-table-column>
-          </el-table>
+              <el-table-column 
+              label="值" 
+              prop='value'
+              :key="index">
+                <template slot-scope="scope">
+                  <span>
+                    <span style='margin-right: 10px;' v-for='(item,index) in scope.row.value' :key='index'>{{item}}</span>
+                  </span>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +91,7 @@ export default {
       } else {
         this.chartsDataObj = options
       }
-      // this.handleData()
+      this.handleData()
       this.updateCharts()
     },
     routerName(val) {
@@ -120,12 +132,22 @@ export default {
 
     // 动态渲染数据
     handleData() {
-      let arr = []
-      this.header = this.chartsData.series.map(x => x.name)
-      this.header.unshift('#')
-      arr = this.chartsData.series.map(x => x.data)
-      arr.unshift(this.chartsData.xData)
-      this.data_list = this.merge(arr)
+      // let arr = []
+      // this.header = this.chartsData.series.map(x => x.name)
+      // this.header.unshift('#')
+      // arr = this.chartsData.series.map(x => x.data)
+      // arr.unshift(this.chartsData.xData)
+      // this.data_list = this.merge(arr)
+      console.log(this.chartsData)
+      this.data_list = []
+      this.chartsData.series.forEach(el => {
+        const obj = {}
+        obj.name = el.name
+
+        obj.dataList = el.data
+        this.data_list.push(obj)
+      })
+      console.log(this.data_list)
     },
     // 数组处理
     merge(arrs) {

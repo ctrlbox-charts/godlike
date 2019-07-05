@@ -255,6 +255,26 @@ export const constantRouterMap = [
         ]
       },
       {
+        path: 'eventRiverIndex',
+        name: 'eventRiverIndex',
+        component: () => import('@/views/echarts/index'), // Parent
+        meta: { title: '事件河流图', icon: 'chart' },
+        children: [
+          {
+            path: 'eventRiver1',
+            component: () => import('@/views/echarts/eventRiver'),
+            name: 'eventRiver1',
+            meta: { title: '事件河流图1' }
+          },
+          {
+            path: 'eventRiver2',
+            component: () => import('@/views/echarts/eventRiver'),
+            name: 'eventRiver2',
+            meta: { title: '事件河流图2' }
+          }
+        ]
+      },
+      {
         path: 'line',
         name: 'line',
         component: () => import('@/views/echarts/index'), // Parent
@@ -335,20 +355,6 @@ export const constantRouterMap = [
             component: () => import('@/views/echarts/themeRiver'),
             name: 'themeRiver',
             meta: { title: '主题河流图' }
-          }
-        ]
-      },
-      {
-        path: 'eventRiverIndex',
-        name: 'eventRiverIndex',
-        component: () => import('@/views/echarts/index'), // Parent
-        meta: { title: '事件河流图', icon: 'chart' },
-        children: [
-          {
-            path: 'eventRiver',
-            component: () => import('@/views/echarts/eventRiver'),
-            name: 'eventRiver',
-            meta: { title: '事件河流图' }
           }
         ]
       }
