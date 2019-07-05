@@ -74,15 +74,30 @@ export default {
     }
   },
   methods: {
+    // 初始化
     initChart() {
       const self = this
       this.chart = this.$echarts.init(document.getElementById(this.id), this.themeType)
       this.chart.setOption(this.chartsData)
-      setTimeout(function() {
-        self.chartsData.series = self.getPieSeries(self.chartsData.scatterData, self.chart)
-        self.chart.setOption(self.chartsData)
-      }, 10)
+      // 日历饼图渲染
+      if (self.chartsData && self.chartsData.scatterData) {
+        var app = window
+        var pieInitialized
+        setTimeout(function() {
+          pieInitialized = true
+          self.chart.setOption({ series: self.getPieSeries(self.chartsData.scatterData, self.chart) })
+        }, 10)
+
+        app.onresize = function() {
+          if (pieInitialized) {
+            self.chart.setOption({
+              series: self.getPieSeriesUpdate(self.chartsData.scatterData, self.chart)
+            })
+          }
+        }
+      }
     },
+    // 获取饼图数据
     getPieSeries(scatterData, chart) {
       return echarts.util.map(scatterData, function(item, index) {
         var center = chart.convertToPixel('calendar', item)
@@ -102,6 +117,17 @@ export default {
             { name: '娱乐', value: Math.round(Math.random() * 24) },
             { name: '睡觉', value: Math.round(Math.random() * 24) }
           ]
+        }
+      })
+    },
+
+    // 更新饼图数据
+    getPieSeriesUpdate(scatterData, chart) {
+      return echarts.util.map(scatterData, function(item, index) {
+        var center = chart.convertToPixel('calendar', item)
+        return {
+          id: index + 'pie',
+          center: center
         }
       })
     }
