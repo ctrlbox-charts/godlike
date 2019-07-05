@@ -2,15 +2,15 @@
   <div class="root">
     <div class="page-echarts-box">
       <radar 
-      title="折线图标题" 
       :id="id" 
       :options='chartsDataObj'
       :reload='reload'
       :themeType="themeType"
       class="echarts"
+      :class="{'flex-100':!isShowDataView}"
       >
       </radar>
-      <div class="dataTable" v-for='(item, index) in data_list' :key='index'>
+      <div class="dataTable" :class="{'none':!isShowDataView}" v-for='(item, index) in data_list' :key='index'>
         <div>
           <h2>{{item.name}}</h2>
           <div>
@@ -57,6 +57,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 重新加载数据视图
+    reloadDataView: {
+      type: Boolean,
+      default: false
+    },
     // 组件唯一id
     id: {
       type: String,
@@ -71,6 +76,7 @@ export default {
     return {
       header: [], // 头部
       data_list: [], // 数据
+      isShowDataView: true, // 是否显示数据视图
       itemStyle: {
         normal: {
           areaStyle: {
@@ -101,6 +107,9 @@ export default {
         this.chartsDataObj = options
       }
       this.updateCharts()
+    },
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
     }
   },
   beforeDestroy() {
@@ -129,15 +138,8 @@ export default {
         })
       }
     },
-
     // 动态渲染数据
     handleData() {
-      // let arr = []
-      // this.header = this.chartsData.series.map(x => x.name)
-      // this.header.unshift('#')
-      // arr = this.chartsData.series.map(x => x.data)
-      // arr.unshift(this.chartsData.xData)
-      // this.data_list = this.merge(arr)
       this.data_list = []
       this.chartsData.series.forEach(el => {
         const obj = {}
@@ -146,44 +148,26 @@ export default {
         obj.dataList = el.data
         this.data_list.push(obj)
       })
-      console.log(this.data_list)
-    },
-    // 数组处理
-    merge(arrs) {
-      var maxLen = Math.max(...arrs.map(x => x.length))
-      var result = []
-      for (let i = 0; i < maxLen; i++) {
-        result.push(arrs.filter(x => x.length > i).map(x => x[i]))
-      }
-      return result
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-//   .root{
-//     position: relative;
-//     width: 100%;
-//     height: calc(100vh - 150px);
-//   }
-//  .echarts-table{
-//     position: absolute;
-//     right: 0;
-//     top: 60px;
-//     border: 1px solid #ccc;
-//     width: 39%;
-//     height: calc(100vh - 150px);
-//     overflow-y: scroll;
-//   }
+.none{
+  display: none;
+}
+.flex-100{
+  flex-basis: 100%!important;
+}
 .root{
-  margin-top: 100px;
+  margin-top: 50px;
   position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 230px);
    .page-echarts-box{
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px);
+      height: 100%;
       display: flex;
       .echarts{
         flex-basis: 60%;
@@ -194,7 +178,7 @@ export default {
         top: 0px;
         border: 1px solid #ccc;
         width: 39%;
-        height: calc(100vh - 150px);
+        height: 100%;
         overflow-y: auto;
      }
    }

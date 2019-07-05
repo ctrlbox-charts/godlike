@@ -3,6 +3,7 @@
     <echarts-filter 
     @themeChange = 'themeChange'  
     @chartsChange="chartsChange" 
+    @dataView = 'dataView'
     @xyChange = 'xyChange' 
     @clickScreen = 'clickScreen'
     @clickScreenAll = 'clickScreenAll'
@@ -12,6 +13,7 @@
     :chartsData="chartsData" 
     :reload="reload"
     :id="id"
+    :reloadDataView='reloadDataView'
     :themeType = 'themeType'
     ></e-line>
   </div> 
@@ -63,6 +65,7 @@ const legend = [{
   // itemWidth: 14,
   // itemHeight: 5,
   // itemGap: 13,
+  x: 25,
   data: ['邮件营销', '联盟广告', '视频广告']
   // right: '4%',
   // textStyle: {
@@ -111,6 +114,7 @@ export default {
       themeType: 'macarons',
       chartsData: null,
       reload: false,
+      reloadDataView: true,
       id: 'line'
     }
   },
@@ -118,9 +122,14 @@ export default {
     this.init()
   },
   methods: {
+    // 数据视图
+    dataView() {
+      this.reloadDataView = !this.reloadDataView
+      this.reload = !this.reload
+    },
     // 全屏 by wwh
     clickScreen() {
-      var full = document.getElementById('bar')
+      var full = document.getElementById(this.id)
       launchIntoFullscreen(full)
     },
     // 一屏多图 by wwh

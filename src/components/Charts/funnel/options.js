@@ -11,12 +11,13 @@ const options = {
     show: true,
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
     }
   },
   legend: {
+    x: 25,
     data: ['展现', '点击', '访问', '咨询', '订单']
   },
   calculable: true,
@@ -99,14 +100,16 @@ const moreOptions = {
     // y: 'center',
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
-    }
+    },
+    x: 'right'
   },
   legend: {
     // orient: 'vertical',
     // x: 'left',
+    x: 25,
     data: ['展现', '点击', '访问', '咨询', '订单']
   },
   calculable: true,
@@ -115,9 +118,9 @@ const moreOptions = {
       name: '漏斗图',
       type: 'funnel',
       width: '40%',
-      height: '45%',
+      height: '40%',
       x: '5%',
-      y: '50%',
+      y: '60%',
       data: [
         { value: 60, name: '访问' },
         { value: 30, name: '咨询' },
@@ -130,9 +133,9 @@ const moreOptions = {
       name: '金字塔',
       type: 'funnel',
       width: '40%',
-      height: '45%',
+      height: '40%',
       x: '5%',
-      y: '5%',
+      y: '15%',
       sort: 'ascending',
       data: [
         { value: 60, name: '访问' },
@@ -146,9 +149,9 @@ const moreOptions = {
       name: '漏斗图',
       type: 'funnel',
       width: '40%',
-      height: '45%',
+      height: '40%',
       x: '55%',
-      y: '5%',
+      y: '15%',
       itemStyle: {
         normal: {
           // color: 各异,
@@ -169,9 +172,9 @@ const moreOptions = {
       name: '金字塔',
       type: 'funnel',
       width: '40%',
-      height: '45%',
+      height: '40%',
       x: '55%',
-      y: '50%',
+      y: '60%',
       sort: 'ascending',
       itemStyle: {
         normal: {

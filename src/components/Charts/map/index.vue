@@ -8,9 +8,10 @@
       :reload='reload'
       :themeType="themeType"
       class="echarts"
+      :class="{'flex-100':!isShowDataView}"
       >
       </e-map>
-      <div class="dataTable">
+      <div class="dataTable" :class="{'none':!isShowDataView}">
         <h2>数据视图</h2>
         <div>
           <el-table :data="data_list">
@@ -53,6 +54,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 是否重新加载
+    reloadDataView: {
+      type: Boolean,
+      default: false
+    },
     // 组件唯一id
     id: {
       type: String,
@@ -62,6 +68,7 @@ export default {
   data() {
     return {
       data_list: [], // 数据
+      isShowDataView: true,
       itemStyle: {
         normal: {
           areaStyle: {
@@ -80,8 +87,12 @@ export default {
       this.chartsDataObj = options
       this.handleData()
       this.updateCharts()
+    },
+    reloadDataView() {
+      this.isShowDataView = !this.isShowDataView
     }
   },
+
   beforeDestroy() {
     // if (!this.chart) {
     //   return
@@ -106,29 +117,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-//   .root{
-//     position: relative;
-//     width: 100%;
-//     height: calc(100vh - 150px);
-//   }
-//  .echarts-table{
-//     position: absolute;
-//     right: 0;
-//     top: 60px;
-//     border: 1px solid #ccc;
-//     width: 39%;
-//     height: calc(100vh - 150px);
-//     overflow-y: scroll;
-//   }
+.none{
+  display: none;
+}
+.flex-100{
+  flex-basis: 100%!important;
+}
 .root{
-  margin-top: 100px;
+  margin-top: 50px;
   position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 230px);
    .page-echarts-box{
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px);
+      height: 100%;
       display: flex;
       .echarts{
         flex-basis: 60%;
@@ -139,7 +142,7 @@ export default {
         top: 0px;
         border: 1px solid #ccc;
         width: 39%;
-        height: calc(100vh - 150px);
+        height: 100%;
         overflow-y: auto;
      }
    }

@@ -1,13 +1,16 @@
 <template>
   <div class="chart-container-gague" >
-    <gague height="100%" :width="dataViewVisible?width:'100%'" 
+    <gague  
     className="gagueCharts"
     :themeType="themeType"
     :chartsData="chartsData"
     :options = 'chartsDataObj'
     :id="id"
-    :reload="reload"/>
-    <div class="dataTable" v-if="dataViewVisible">
+    class='echarts'
+    :reload="reload"
+    :class="{'width-100':!dataViewVisible}"
+    />
+    <div class="dataTable" :class="{'none':!dataViewVisible}">
       <h2>数据视图</h2>
       <div>
         <el-table :data="data_list">
@@ -48,11 +51,11 @@ export default {
       type: String,
       default: 'macarons'
     },
-    dataViewVisible:{
+    dataViewVisible: {
       type: Boolean,
       default: 'true'
     },
-    width:{
+    width: {
       type: String,
       default: '60%'
     },
@@ -120,6 +123,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.none{
+  display: none;
+}
+.width-100{
+  width: 100%!important;
+}
 .chart-container-gague{
   position: relative;
   width: 100%;
@@ -136,8 +145,12 @@ export default {
     top: 60px;
     border: 1px solid #ccc;
     width: 39%;
-    height: calc(100vh - 185px);
+    height: 100%;
     overflow-y: scroll;
+}
+.echarts{
+  width: 60%;
+  height: 100%;
 }
   /*滚动条样式*/
   .dataTable::-webkit-scrollbar {

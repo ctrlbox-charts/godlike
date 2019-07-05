@@ -12,10 +12,11 @@ const options = {
     show: true,
     feature: {
       mark: { show: true },
-      dataView: { show: true, readOnly: false },
+      dataView: { show: false, readOnly: false },
       restore: { show: true },
       saveAsImage: { show: true }
-    }
+    },
+    x: 'right'
   },
   // 左侧小导航图标
   visualMap: {
