@@ -1,22 +1,24 @@
 <template>
-  <div class="chart-container-scatter" >
-    <synergy
-    className="barCharts"
-    :themeType="themeType"
-    :id="id"
-    class="echarts"
-    @dataViewOptions = 'dataViewOptions'
-    :class="{'width-100':!isShowDataView}"
-    :reload="reload"/>
-    <div class="dataTable" :class="{'none':!isShowDataView}">
+  <div class="chart-container-scatter">
+    <synergy className="barCharts"
+             :themeType="themeType"
+             :id="id"
+             class="echarts"
+             @dataViewOptions='dataViewOptions'
+             :class="{'width-100':!isShowDataView}"
+             :reload="reload" />
+    <div class="dataTable"
+         :class="{'none':!isShowDataView}">
       <h2>数据视图</h2>
       <div>
         <el-table :data="data_list">
-          <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                <template slot-scope="scope">
-                    {{data_list[scope.$index][index]}}
-                </template>
-            </el-table-column>
+          <el-table-column :label="date"
+                           v-for="(date, index) in header"
+                           :key="index">
+            <template slot-scope="scope">
+              {{data_list[scope.$index][index]}}
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
@@ -57,7 +59,7 @@ export default {
       default: '60%'
     }
   },
-  data() {
+  data () {
     return {
       chartsData: {},
       header: [], // 头部
@@ -66,17 +68,17 @@ export default {
     }
   },
   watch: {
-    reloadDataView() {
+    reloadDataView () {
       this.isShowDataView = !this.isShowDataView
     }
   },
   methods: {
-    dataViewOptions(data) {
+    dataViewOptions (data) {
       this.chartsData = data
       this.handleData()
     },
     // // 动态渲染数据
-    handleData() {
+    handleData () {
       let arr = []
       if (this.chartsData && this.chartsData.series && this.chartsData.series.length) {
         this.header = this.chartsData.series.map(x => x.name)
@@ -85,7 +87,7 @@ export default {
       }
     },
     // 数组处理merge
-    merge(arrs) {
+    merge (arrs) {
       var maxLen = Math.max(...arrs.map(x => x.length))
       var result = []
       for (let i = 0; i < maxLen; i++) {
@@ -98,13 +100,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.none{
+.none {
   display: none;
 }
-.width-100{
-  width: 100%!important;
+.width-100 {
+  width: 100% !important;
 }
-.chart-container-scatter{
+.chart-container-scatter {
   position: relative;
   width: 100%;
   height: calc(100vh - 120px);
@@ -114,33 +116,46 @@ export default {
     min-width: 30px;
   }
 }
-.echarts{
+.echarts {
   width: 60%;
 }
 .dataTable {
-    position: absolute;
-    right: 0;
-    top: 60px;
-    border: 1px solid #ccc;
-    width: 39%;
-    height: calc(100vh - 185px);
-    overflow-y: scroll;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  border: 1px solid #ccc;
+  width: 39%;
+  height: calc(100vh - 185px);
+  overflow-y: scroll;
 }
-  /*滚动条样式*/
-  .dataTable::-webkit-scrollbar {
-      width: 7px;    
-  }
-  .dataTable::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
-      background: rgba(11, 123, 228, 0.6);
-  }
-  .dataTable::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      border-radius: 0;
-      background: rgba(0,0,0,0.1);
+/*滚动条样式*/
+.dataTable::-webkit-scrollbar {
+  width: 7px;
+}
+.dataTable::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
+  background: rgba(11, 123, 228, 0.6);
+}
+.dataTable::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+</style>
 
+
+<style lang='scss'>
+@media screen and (max-width: 960px) {
+  .chart-container-scatter {
+    .echarts {
+      flex-basis: 100% !important;
+    }
+    .dataTable {
+      display: none !important;
+    }
   }
+}
 </style>
 
 
