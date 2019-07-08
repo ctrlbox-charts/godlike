@@ -44,6 +44,7 @@ export default {
   },
   data () {
     return {
+      aaa: '111',
       themeName: 'light',
       isSmooth: true,
       value: '',
