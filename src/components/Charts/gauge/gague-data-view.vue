@@ -1,24 +1,25 @@
 <template>
-  <div class="chart-container-gague" >
-    <gague  
-    className="gagueCharts"
-    :themeType="themeType"
-    :chartsData="chartsData"
-    :options = 'chartsDataObj'
-    :id="id"
-    class='echarts'
-    :reload="reload"
-    :class="{'width-100':!dataViewVisible}"
-    />
-    <div class="dataTable" :class="{'none':!dataViewVisible}">
+  <div class="chart-container-gague">
+    <gague className="gagueCharts"
+           :themeType="themeType"
+           :chartsData="chartsData"
+           :options='chartsDataObj'
+           :id="id"
+           class='echarts'
+           :reload="reload"
+           :class="{'width-100':!dataViewVisible}" />
+    <div class="dataTable"
+         :class="{'none':!dataViewVisible}">
       <h2>数据视图</h2>
       <div>
         <el-table :data="data_list">
-          <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                <template slot-scope="scope">
-                    {{data_list[scope.$index][index].name + ":"+data_list[scope.$index][index].value}}
-                </template>
-            </el-table-column>
+          <el-table-column :label="date"
+                           v-for="(date, index) in header"
+                           :key="index">
+            <template slot-scope="scope">
+              {{data_list[scope.$index][index].name + ":"+data_list[scope.$index][index].value}}
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
@@ -26,7 +27,7 @@
 </template>
 <script>
 import Gague from './index'
-import { options,moreOptions } from './option'
+import { options, moreOptions } from './option'
 export default {
   name: 'gagueCharts',
   components: { Gague },
@@ -34,7 +35,7 @@ export default {
     // 插件数据
     chartsData: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     // 是否重新加载
     reload: {
@@ -59,12 +60,12 @@ export default {
       type: String,
       default: '60%'
     },
-    routerName:{
+    routerName: {
       type: String,
       default: 'single-gague'
     }
   },
-  data() {
+  data () {
     return {
       header: [], // 头部
       data_list: [], // 数据
@@ -72,20 +73,20 @@ export default {
     }
   },
   watch: {
-    '$route':{
+    '$route': {
       // 深度监听 属性的变化
-      deep:true,
+      deep: true,
       // 立即处理 进入页面就触发
-      immediate: true,  
+      immediate: true,
       // 数据发生变化就会调用这个函数  
-      handler( val ) {
+      handler (val) {
         this.routerName = val.name
         if (this.routerName == 'multiple-gauge') {
-        this.chartsDataObj = moreOptions
-      } else {
-        this.chartsDataObj = options
-      }
-      this.handleData()
+          this.chartsDataObj = moreOptions
+        } else {
+          this.chartsDataObj = options
+        }
+        this.handleData()
       }
     },
     // routerName(val) {
@@ -99,7 +100,7 @@ export default {
   },
   methods: {
     // 动态渲染数据
-    handleData() {
+    handleData () {
       let arr = []
       if (this.chartsDataObj && this.chartsDataObj.series && this.chartsDataObj.series.length) {
         this.header = this.chartsDataObj.series.map(x => x.name)
@@ -110,7 +111,7 @@ export default {
       }
     },
     // 数组处理merge
-    merge(arrs) {
+    merge (arrs) {
       var maxLen = Math.max(...arrs.map(x => x.length))
       var result = []
       for (let i = 0; i < maxLen; i++) {
@@ -123,13 +124,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.none{
+.none {
   display: none;
 }
-.width-100{
-  width: 100%!important;
+.width-100 {
+  width: 100% !important;
 }
-.chart-container-gague{
+.chart-container-gague {
   position: relative;
   width: 100%;
   height: calc(100vh - 120px);
@@ -140,33 +141,45 @@ export default {
   }
 }
 .dataTable {
-    position: absolute;
-    right: 0;
-    top: 60px;
-    border: 1px solid #ccc;
-    width: 39%;
-    height: 100%;
-    overflow-y: scroll;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  border: 1px solid #ccc;
+  width: 39%;
+  height: 100%;
+  overflow-y: scroll;
 }
-.echarts{
+.echarts {
   width: 60%;
   height: 100%;
 }
-  /*滚动条样式*/
-  .dataTable::-webkit-scrollbar {
-      width: 7px;    
-  }
-  .dataTable::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
-      background: rgba(11, 123, 228, 0.6);
-  }
-  .dataTable::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      border-radius: 0;
-      background: rgba(0,0,0,0.1);
+/*滚动条样式*/
+.dataTable::-webkit-scrollbar {
+  width: 7px;
+}
+.dataTable::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
+  background: rgba(11, 123, 228, 0.6);
+}
+.dataTable::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+</style>
 
+<style lang='scss'>
+@media screen and (max-width: 960px) {
+  .chart-container-gague {
+    .echarts {
+      flex-basis: 100% !important;
+    }
+    .dataTable {
+      display: none !important;
+    }
   }
+}
 </style>
 
 

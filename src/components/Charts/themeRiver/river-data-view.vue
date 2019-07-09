@@ -1,28 +1,28 @@
 <template>
   <div class="root">
     <div class="page-echarts-box">
-      <theme-river 
-      title="主题河流图标题" 
-      :id="id" 
-      :options='chartsData'
-      :reload='reload'
-      :themeName="themeName"
-      :series='series'
-      :yAxis='yAxis'
-      :xAxis='xAxis'
-      :legend='legend'
-      class="echarts"
-      >
-      </theme-river >
+      <theme-river title="主题河流图标题"
+                   :id="id"
+                   :options='chartsData'
+                   :reload='reload'
+                   :themeName="themeName"
+                   :series='series'
+                   :yAxis='yAxis'
+                   :xAxis='xAxis'
+                   :legend='legend'
+                   class="echarts">
+      </theme-river>
       <div class="echarts-table">
         <h2>数据视图</h2>
         <div>
           <el-table :data="data_list">
-            <el-table-column  :label="date" v-for="(date, index) in header" :key="index">
-                  <template slot-scope="scope">
-                    {{data_list[scope.$index][0][index]}}
-                  </template>
-              </el-table-column>
+            <el-table-column :label="date"
+                             v-for="(date, index) in header"
+                             :key="index">
+              <template slot-scope="scope">
+                {{data_list[scope.$index][0][index]}}
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </div>
@@ -36,14 +36,14 @@ export default {
   props: {
     chartsData: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     id: {
       type: String,
       default: () => 'themeRiver'
     }
   },
-  data() {
+  data () {
     return {
       id: new Date().toString(),
       themeName: 'light',
@@ -173,22 +173,22 @@ export default {
     ThemeRiver
   },
   watch: {
-    chartsData() {
+    chartsData () {
       this.handleData()
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
   },
   methods: {
     // 动态渲染数据
-    handleData() {
+    handleData () {
       let arr = []
-      this.header = ["日期","数量","类型"]
+      this.header = ["日期", "数量", "类型"]
       arr = this.chartsData.series.map(x => x.data)
       this.data_list = this.merge(arr)
     },
     // 数组处理
-    merge(arrs) {
+    merge (arrs) {
       var maxLen = Math.max(...arrs.map(x => x.length))
       var result = []
       for (let i = 0; i < maxLen; i++) {
@@ -197,7 +197,7 @@ export default {
       return result
     },
     // 坐标轴切换
-    xyChange() {
+    xyChange () {
       var temp = this.xAxis
       this.xAxis = this.yAxis
       this.yAxis = temp
@@ -207,57 +207,69 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.root{
+.root {
   margin-top: 100px;
   position: relative;
   width: 100%;
   height: calc(100vh - 150px);
-  .page-title{
-     border-left: solid 5px #55A4D8;
-     padding-left: 8px;
-     margin-bottom: 8px;
-     text-align: left;
-     font-weight: 700;
-     font-style: normal;
-     font-size: 16px;
-   }
-   .page-tool{
-     text-align: left;
-     padding: 8px;
-   }
-   .page-echarts-box{
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 150px);
-      display: flex;
-      .echarts{
-        flex-basis: 60%;
-      }
-     .echarts-table {
-    position: absolute;
-    right: 0;
-    top: 60px;
-    border: 1px solid #ccc;
-    width: 39%;
-    height: calc(100vh - 185px);
-    overflow-y: scroll;
-}
-  /*滚动条样式*/
-  .echarts-table::-webkit-scrollbar {
-      width: 7px;    
+  .page-title {
+    border-left: solid 5px #55a4d8;
+    padding-left: 8px;
+    margin-bottom: 8px;
+    text-align: left;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
   }
-  .echarts-table::-webkit-scrollbar-thumb {
+  .page-tool {
+    text-align: left;
+    padding: 8px;
+  }
+  .page-echarts-box {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 150px);
+    display: flex;
+    .echarts {
+      flex-basis: 60%;
+    }
+    .echarts-table {
+      position: absolute;
+      right: 0;
+      top: 60px;
+      border: 1px solid #ccc;
+      width: 39%;
+      height: calc(100vh - 185px);
+      overflow-y: scroll;
+    }
+    /*滚动条样式*/
+    .echarts-table::-webkit-scrollbar {
+      width: 7px;
+    }
+    .echarts-table::-webkit-scrollbar-thumb {
       border-radius: 10px;
       -webkit-box-shadow: inset 0 0 5px rgba(11, 123, 228, 0.6);
       background: rgba(11, 123, 228, 0.6);
-  }
-  .echarts-table::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+    .echarts-table::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
       border-radius: 0;
-      background: rgba(0,0,0,0.1);
-
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
-   }
+}
+</style>
+
+<style lang='scss'>
+@media screen and (max-width: 960px) {
+  .page-echarts-box {
+    .echarts {
+      flex-basis: 100% !important;
+    }
+    .echarts-table {
+      display: none !important;
+    }
+  }
 }
 </style>
 
